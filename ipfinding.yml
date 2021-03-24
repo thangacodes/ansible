@@ -1,0 +1,12 @@
+### This is the page, where i have written ansible playbook to find out a bunch of linux boxes ip address.
+
+---
+ -  name: Finding IP Address
+    hosts: localhost
+    become: yes
+    become_user: root
+    tasks:
+      - name: IP Finding
+        shell: ip a
+        register: response
+      - debug: msg="{{ response.stdout }}"
