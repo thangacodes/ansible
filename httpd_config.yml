@@ -1,0 +1,17 @@
+## My Ansible automation script on installing httpd "open-source cross-platform web server software".
+
+---
+ -  name: Installing httpd
+    hosts: localhost
+    become: yes
+    become_user: root
+    tasks:
+      - name: httpd install task
+        yum:
+          name: httpd
+          state: present
+      - name: ensure apache is running
+        service:
+          name: httpd
+          state: started
+
