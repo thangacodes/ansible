@@ -1,0 +1,700 @@
+Ansible:-
+
+Once Ansible installed on Controlled ansible machine use the below commands
+
+ansible --version
+sudo su - ansadmin
+mkdir /etc/ansible
+cd /etc/ansible
+vim ansible.cfg
+copy paste the configuration file of ansible from ansible documentation
+ls
+vim hosts
+add the managed host machine where we gonna check if all execution task has been completed
+
+we have placed the default directory of ansible.cfg in /etc/ansible/ansible.cfg. you can check check the same using ansible --version
+==============================================================================================
+
+Now lets assume we want to group our managed machine and have to keep separate host file , we can create a new directory and create new host file.
+then whenever you are running ansible command , you have to specify -i . below is the example
+
+sudo su - ansadmin
+mkdir /opt/ansible
+ls
+vim hosts
+group and add the host like the below example
+[webserver]
+172.255.15.26
+[appserver]
+172.255.17.52
+:wq
+
+ansible all -m ping -i hosts
+
+===========================================================================================================
+PING
+ansible all -m ping
+
+COMMAND
+ansible all -m command -a "uptime"
+ansible all -m command -a "date"
+ansible all -m command -a "who"
+
+-a --> attribute
+
+STAT
+ansible all -m stat -a "path=/etc/host"
+
+YUM
+ansible all -m yum -a "name=git"
+ansible all -m yum -a "name=git" -b
+
+USER
+ansible all -m user -a "name=john" -b
+
+SETUP
+ansible all -m setup
+
+What is inventory?
+Inventory file is a collection of hosts(nodes) which are managed 
+by ansible control node
+
+Default location: /etc/ansible/hosts
+use -i option : ansible -i my_hosts
+Defined in ansible.cfg file
+=========================================================================
+
+Ansible Playbook
+Simple Playbook to create user:
+
+vim create_user
+---
+- hosts: all
+  become: true
+  tasks:
+  - user: name=sandy
+
+ansible-playbook create_user
+
+vim create_user
+---
+- name: Creating user for playbox
+  hosts: all
+  become: true
+  tasks:
+   - name: Creating users in node
+     user:
+       name: sandy
+
+ansible-playbook -i hosts create_user.yml
+
+You can use both the playbook in same way , however we are proving the name for the task 
+also instead of creating user "name=sandy" we can also specify "name: sandy" both serve the same purpose
+
+Simple Playbook to install packages:
+
+vim install_package.yml
+
+---
+- name: Install packages
+  hosts: webserver
+  become: true
+  tasks:
+   - name: Install latest packages
+     yum:
+      name: git
+
+ansible-playbook -i hosts install_package.yml
+========================================================================
+another below example , if we are going to # out in yaml file, it wont run.
+instead we can give in command line itself using -b as per the below command
+
+ansible-playbook -i hosts install_packages.yml -b
+
+---
+- name: Install packages
+  hosts: webserver
+  # become: true
+  tasks:
+   - name: Install latest packages
+     yum:
+      name: tree
+
+====================================================================================
+
+ansible all -i hosts --list-hosts
+This command list out all host IPs which we are trying to execute
+
+vim create_file.yml
+---
+- name: Create a file
+  hosts: all
+  become: true
+  tasks:
+   - name: Create a touch file
+     file:
+      path: /home/ansadmin/hellodummy
+      state: touch
+===========================================
+Create a directory without root user
+
+---
+- name: Creating a playbook directory
+  hosts: all
+  # become: true
+  tasks:
+    - name: Creating a dir to sample out
+      file:
+      path: /home/ansadmin/hello1dir
+      state: directory
+
+===========================================
+
+removing a directory or file , you just need to mentioned absent
+
+
+---
+- name: Creating a playbook directory
+  hosts: all
+  # become: true
+  tasks:
+    - name: Creating a dir to sample out
+      file:
+      path: /home/ansadmin/hello1dir
+      state: absent
+
+ansible-playbook -i hosts create_file.yml --check       (This command is to check if there is any error in ansible playbook file)
+ansible-playbook -i hosts create_file.yml --syntax-check  (This command is to check if there is any syntax error in ansible playbook)
+
+======================================================== 
+
+Ansible playbook to copy a file
+
+create a file in current destination in our case its /opt/ansible
+
+vim index.html
+<h1> Ansible playbook to copy a file </h1>
+
+vim copyfile.yml
+
+---
+- name: Ansible playbook to copy a file
+  hosts: all
+  become: true
+  tasks:
+   - name: Copy a dummy file
+     copy:
+      src: /opt/ansible/index.html
+      dest: /home/ansadmin
+      mode: 0600
+      owner: sandy
+
+ansible-playbook -i hosts copyfile.yml
+==========================================================
+
+Playbook to install apache on RHEL from control node servers with starting services
+
+vim install_httpd.yml
+---
+- name: Playbbok for httpd service
+  hosts: webserver
+  become: true
+  tasks:
+   - name: Install httpd service
+     yum:
+      name: httpd
+
+   - name: Start httpd service
+     service:
+       name: httpd
+       state: started
+
+ansible-playbook -i hosts install_httpd.yml --check
+ansible-playbook -i hosts install_httpd.yml 
+
+go to managed machine and check for below commands to confirm if package has been installed and service started
+
+ps -ef | grep httpd
+rpm -qa | grep httpd
+
+Playbook to uninstall apache on RHEL from control node servers with starting services
+
+vim uninstall_httpd.yml
+---
+- name: Playbbok for uninstall httpd service
+  hosts: webserver
+  become: true
+  tasks:
+   - name: Stop httpd service
+     service:
+       name: httpd
+       state: stopped
+
+   - name: uninstall httpd service
+     yum:
+      name: httpd
+      state: removed
+
+ansible-playbook -i hosts uninstall_httpd.yml --check
+ansible-playbook -i hosts uninstall_httpd.yml
+
+go to managed machine and check for below commands to confirm if package has been installed and service started
+
+ps -ef | grep httpd
+rpm -qa | grep httpd
+==========================================================================================
+
+NOTIFY and HANDLERS:
+
+Notify and handlers plays a important subject in ansible , lets say for ex: if the httpd package already been installed on managed machine
+then in that case we specify in notify , once we specify in notify , handlers comes and manage the situation not to start the service becos 
+httpd package is already up and running. notify subject should be same as handlers name subject , look at the below yaml file ex: "notify: Start httpd service"
+
+ notify: Start httpd service
+
+ handlers:
+   - name: Start httpd service
+
+============================
+vim install_httpd.yml
+---
+- name: Playbbok for httpd service
+  hosts: webserver
+  become: true
+  tasks:
+   - name: Install httpd service
+     yum:
+      name: httpd
+     notify: Start httpd service
+
+  handlers:
+   - name: Start httpd service
+     service:
+       name: httpd
+       state: started
+
+
+ansible-playbook -i hosts install_httpd.yml   (this command it will install package as well as service and notify handlers , since new package installation)
+ansible-playbook -i hosts install_httpd.yml   (In this command , you wont find handlers and becos it will be already notified that package already been installed
+                                                                              and not to start the service)
+
+=============================================================================================================
+
+WHEN condition:
+Its used when you are specifying that the package & services should get installed if its Redhat server and if its Debian server acoordingly
+
+vim httpd_apache2.yml
+---
+- name: Playbook for httpd service
+  hosts: all
+  become: true
+  tasks:
+   - name: Install httpd service
+     yum:
+      name: httpd
+      state: installed
+     when: ansible_os_family == "RedHat"
+
+   - name: Start httpd service
+     service:
+       name: httpd
+       state: started
+     when: ansible_os_family == "RedHat"
+
+   - name: Install apache2
+     apt:
+      name: apache2
+      state: present
+     when: ansible_os_family == "Debian"
+
+   - name: Start httpd service
+     service:
+       name: apache2
+       state: started
+     when: ansible_os_family == "Debian"
+
+==================================================================================
+Copying the index file and installtion on httpd_apache2 server:
+
+---
+- name: Playbbok for httpd service
+  hosts: all
+  become: true
+  tasks:
+   - name: Install httpd service
+     yum:
+      name: httpd
+      state: installed
+     when: ansible_os_family == "RedHat"
+
+   - name: Start httpd service
+     service:
+       name: httpd
+       state: started
+     when: ansible_os_family == "RedHat"
+
+
+   - name: Install apache2
+     apt:
+      name: apache2
+      state: present
+     when: ansible_os_family == "Debian"
+
+   - name: Start httpd service
+     service:
+       name: apache2
+       state: started
+     when: ansible_os_family == "Debian"
+
+   - name: Copy index.html file
+     copy:
+      src: /opt/ansible/index.html
+      dest: /var/www/html
+      mode: 0666
+
+Go to your EC2 instance , take your public IP and paste in browser , it should display the content whatever we have kept in index.html.
+in our case  index.html content is      <h1> Ansible playbook to copy a file </h1>
+=================================================================================================
+
+ANSIBLE VARIABLE:
+
+Define with in the playbook
+Passing from external files
+Passing from host inventory
+Passing with running playbook
+Using group_vars or host_vars
+
+Env variable in ansible is specfied in this way {{variable_name}} , below is the example
+
+Creating variable for user:
+===========================================
+vim create_user.yml
+---
+- name: Creating user for playbook
+  hosts: all
+  become: true
+  vars:
+   user: ashok
+  tasks:
+   - name: Creating users in managed node
+     user:
+       name: "{{user}}"
+
+ansible-playbook -i hosts create_user.yml
+
+========================================================================================
+
+You can all env variable from diff file also , below is the example
+we are creating file called user.yml and providing the data as user:ranga in yml file
+and we are injecting the user.yml file into main playbook and specifying user vars_files  
+                                                                                                                                        - user.yml
+
+vi user.yml
+user: ranga
+:wq
+
+vim env_create_user.yml
+---
+- name: Creating user for playbook
+  hosts: all
+  become: true
+  vars_files:
+   - user.yml
+  tasks:
+   - name: Creating users in managed node
+     user:
+       name: "{{user}}"
+
+ansible-playbook -i hosts env_create_user.yml
+
+-----Now there is another scenario where can specify environment variable in command line itself----
+
+e --> environment variable
+"user=subhash"    --> defining value
+extra-vars --> extra-vars
+
+ansible-playbook -i hosts env_create_user.yml -e "user=subhash"
+ansible-playbook -i hosts env_create_user.yml --extra-vars "user=chunky"
+
+===============================================================================================
+
+CONVERT SHELL COMMANDS INTO A ANSIBLE PLAYBOOK:
+Ansible documentation:
+
+Download packages url:
+get_url ansible module   --> https://docs.ansible.com/ansible/latest/modules/get_url_module.html
+
+untar or unzip ansible module :
+unarchive --> https://docs.ansible.com/ansible/2.5/modules/unarchive_module.html
+
+File module for execution permission:
+https://docs.ansible.com/ansible/latest/modules/file_module.html
+
+shell execute ansible
+https://docs.ansible.com/ansible/latest/modules/shell_module.html
+
+
+
+vim tomcat_installation.yml
+
+---
+
+- name: Playbook to install Tomcat application
+  hosts: all
+  become: true
+  tasks:
+   - name: Install Java on redhat servers
+     yum:
+       name: java
+       state: installed
+     when: ansible_os_family == "RedHat"
+
+   - name: Install java on ubunu servers
+     apt:
+       name: default-jdk
+       state: present
+     when: ansible_os_family == "Debian"
+
+
+   - name: Download URL for tomcat
+     get_url:
+        url: https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.50/bin/apache-tomcat-8.5.50.tar.gz
+        dest: /opt
+        mode: 0777
+
+   - name: Untar the tomcat application
+     unarchive:
+       src: /opt/apache-tomcat-8.5.50.tar.gz
+       dest: /opt
+       remote_src: yes
+
+   - name: add execution permission for downloaded packages
+     file:
+        path: /opt/apache-tomcat-8.5.50/bin/startup.sh
+        mode: 0777
+
+   - name: start tomcat services in shell
+     shell: nohup ./startup.sh
+     args:
+       chdir: /opt/apache-tomcat-8.5.50/bin
+
+ansible-playbook -i hosts tomcat_installation.yml --check
+ansible-playbook -i hosts tomcat_installation.yml
+
+===============================================================================================
+
+TAGS: 
+This is to restrict only to run specific task at that time , for ex : if i have given TAG to just start the servcie you can mention in 
+command line itself
+
+vim tag_install_httpd_apache.yml
+---
+- name: Playbbok for httpd service
+  hosts: all
+  become: true
+  tasks:
+   - name: Install httpd service
+     yum:
+      name: httpd
+      state: installed
+     when: ansible_os_family == "RedHat"
+     tags: install_apache
+   - name: Start httpd service
+     service:
+       name: httpd
+       state: started
+     when: ansible_os_family == "RedHat"
+     tags: start_apache
+
+   - name: Install apache2
+     apt:
+      name: apache2
+      state: present
+     when: ansible_os_family == "Debian"
+     tags: install_apache
+   - name: Start httpd service
+     service:
+       name: apache2
+       state: started
+     when: ansible_os_family == "Debian"
+     tags: start_apache
+
+   - name: Copy index.html file
+     copy:
+      src: /opt/ansible/index.html
+      dest: /var/www/html
+      mode: 0666
+
+above yml file is gonna run the same way as its. However if we wanna specify the specific task to run , we can metioned TAG in command line. 
+
+ansible-playbook -i hosts tag_install_httpd_apache.yml --tags "install_apache"
+ansible-playbook -i hosts tag_install_httpd_apache.yml --tags "start_apache"
+
+========================================================================================================
+IGNORE ERROR:
+
+This is used in playbook file when we want to skip any flow , assume we have error in starting services httpd , but we cant hold back other application 
+of ubuntu servers. hence we give syntax called "ignore_error: yes" in httpd services and keep run other parts of application in yml file.
+
+ignore_error: yes
+
+=======================================================================================================
+
+ANSIBLE VAULTS:
+
+Ansible vault is a feature of ansible that allows you to keep sensitive data such as passwords or keys in encrypted files, rather than as plaintext
+in playbooks or roles.
+
+create --> to create ansible vault file in the encrypted format
+view --> to view data of encrypted file
+edit --> to edit encrypted file
+encrypt --> to encrypt an unencrypted file
+decrypt --> to decrypt an encrypted file
+--ask-vault-pass: to provide password while running playbook
+--vault-password-file: to pass a vault password through a file
+
+ansible-vault create vault-pass.yml
+provide the password and you should remember that passoword everytime
+this is a encrypted file
+:wq
+
+cat vault-pass.yml
+
+ansible-vault view vault-pass.yml
+
+ansible-vault edit vault-pass.yml
+this is a encrypted file
+:wq
+
+cat vault-pass.yml
+
+Now we have decrypting the vault password and doing the modification and making the encryption again:
+
+ansible-vault decrypt vault-pass.yml
+cat vault-pass.yml
+vi vault-pass.yml                             ---> editing a new change of file
+password: ansible123
+:wq
+ansible-vault encrypt vault-pass.yml      --> This command is to do encrypt the file
+cat vault-pass.yml
+=================================================================================================
+GIT HIB account:
+username: Victor08-git
+password: Ansible123
+============================================================================================
+
+Command to clone the git hub url in ansible giving username & password
+username is Victor08
+password is Ansible123
+
+git clone https://Victor08-git:Ansible123@github.com/Victor08-git/vault.git
+ls
+git pull
+==============================
+
+ansible module link to check for repo
+https://docs.ansible.com/ansible/latest/modules/git_module.html
+=================================================
+
+vi ansible-vault.yml
+
+
+---
+- name: Ansible playbook to clone github module
+  hosts: all
+  become: true
+  tasks:
+   - name: Git module
+     git:
+      repo: https://Victor08-git:Ansible123@github.com/Victor08-git/vault.git
+      dest: /opt/ansadmin/test-vault
+
+
+We are going with the below yaml file to protect the password playbook file, since we are not suppose to show the password which is listed in playbook
+so we would be passing env variable . before processing the below yaml file , delete the file which you have pushed to managed node using rm -rf test-vault
+
+ansible-vault view vault-pass.yml
+cat vault-pass.yml
+
+vi ansible-vault.yml
+
+---
+- name: Ansible playbook to clone github module
+  hosts: all
+  become: true
+  vars_files:
+   - vault-pass.yml
+  tasks:
+   - name: Git module
+     git:
+      repo: https://Victor08-git:{{ password }}@github.com/Victor08-git/vault.git
+      dest: /opt/ansadmin/test-vault
+====================================================================================================
+Below command with this syntax " --ask-vault-pass "is to give which prompt for password which we have kept while creating vault:
+ansible-playbook -i hosts ansible1.vault --ask-vault-pass
+
+To run the below command , we are running the playbook file so that it shouldnt ask for password. Ensure you give the passoword creating in separate file
+and then call that file while running the command. 
+
+vim pass.yml
+abc123
+:wq
+
+ls
+
+ansible-playbook -i hosts ansible1.vault --vault-password-file pass.yml
+
+got to managed machine and check using the below command
+cd /opt/ansadmin
+ls
+test-vault
+cat test-vault
+index.html
+
+=============================================================================================
+
+ROLES
+
+ansible-galaxy init setup-apache
+
+
+
+
+
+
+
+
+      
+        
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
