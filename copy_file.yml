@@ -1,0 +1,27 @@
+## This page is show you, how to create a directory using 'command' module and copy a file from source to destination using 'copy' module.
+
+---
+ - hosts: localhost
+   tasks:
+   - copy: src=/home/ansadmin/india.html dest=/tmp/
+   - command: mkdir /tmp/demo_dir
+
+ - hosts: localhost
+   tasks:
+   - command: touch /tmp/demo_dir/test.txt
+
+   tasks:
+   - command: mkdir /tmp/another_dir
+   - command: echo 'Hey you have successfully written a playbook'
+
+
+
+# This playbook contains multiple plays to perform the action on localhost,
+
+# --> host is a localhost (where the ansible has installed and we call it as a master server for the ansible)
+
+# --> Using 'copy' module, we are copying a file (india.html) from source to destination.
+
+# --> Using 'command' module, we are creating a empty directory under /tmp called it as "demo_directory"
+
+
