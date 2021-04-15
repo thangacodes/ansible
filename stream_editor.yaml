@@ -1,0 +1,30 @@
+### This page is shows you how to use SED command in linux Production. This is very much import playbook steps,
+
+---
+ - name: replacing a word  
+   hosts: localhost
+   become: yes
+   become_user: root
+   tasks:
+     - name: replacing a sed file
+       shell: sed -i 's/Python/Perl/g2' /root/sed.txt
+
+
+## Note: Here following things to be notedown,
+# /root/sed.txt --> there is a file name called sex.txt locating under root home directory /root/
+# shell module is designed to execute shell commands..
+# 's/Python/Perl/g2' /root/sed.txt --> s for search specific word called 'Python' and replace it as Perl in sed.txt file 
+# g2 --re-ocurrence of the word Python.
+
+#########################################################Example -2 ###############################
+
+---
+ - name: replacing a word  
+   hosts: localhost
+   become: yes
+   become_user: root
+   tasks:
+     - name: replacing a sed file
+       shell: sed -i '1, 2 s/Python/interpreter/g' /root/sed.txt
+
+
