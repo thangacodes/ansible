@@ -44,6 +44,35 @@ Note" Yum, service, copy, command, ping, reboot are ansible modules.
 
 $ ansible all -b -a 'uptime' -o  (note: wihtout using command module also, we'll be able to get the o/p)
 
+$ ansible localhost -m command -a "free -m"
+
+$ ansible localhost -m shell -a "cat /etc/passwd"
+
+$ ansible localhost -m shell -a "cat /proc/meminfo | head -2"
+
+$ ansible localhost -m shell -a "cat /etc/passwd | grep -i student" -b -K  
+
+### Note: '-b' is the option for become and by default it will become root user
+           '–K ' is to tell ansible to ask for SUDO password ( K -is upper case)
+
+$ ansible localhost -m file -a "path=/home/centos/oracle/binaries state=directory mode=0755" -b --become-user=root
+
+$ ansible localhost -m group -a "name=weblogic state=present"
+
+## note: we are creating a user name group named weblogic using the ansible group module.
+
+$ ansible localhost  -m group -a "name=weblogic state=absent"
+
+## note: Deleting the group if you change the 'state to absent'
+
+$ ansible localhost -m user -a "name=weblogic group=weblogic createhome=yes" -b  
+
+## Note: it will create an user name called "weblogic" and it's adding that user to "weblogic" group (which is already exist) and creating home directory for the user.
+
+
+
+
+
 
 
 
