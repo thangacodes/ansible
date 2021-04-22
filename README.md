@@ -28,6 +28,8 @@ $ ansible all -a 'uptime'
 
 $ ansible all -a 'uptime' -o
 
+$ ansible localhost -m command -a uptime  (we are using 'command' module)
+
 $ ansible all -b -a 'whoami'    # b- become as 'root' user.
 
 $ ansible all -b -m yum -a "name=httpd state=latest"
