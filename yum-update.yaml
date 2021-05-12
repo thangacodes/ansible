@@ -1,0 +1,12 @@
+## How to update all packages installed on ec2 instance?
+
+- name: Updating yum packages on amazon ec2 instances
+  hosts: localhost
+  become: yes
+  tasks:
+  - name: yum updation
+    command: yum update
+    args:
+      warn: no
+
+## Note: command module and arguments we are using .
