@@ -1,4 +1,4 @@
-## How to update all packages installed on ec2 instance?
+## How to update all packages installed on ec2 instance using command module?
 
 - name: Updating yum packages on amazon ec2 instances
   hosts: localhost
@@ -9,4 +9,20 @@
     args:
       warn: no
 
-## Note: command module and arguments we are using .
+## Note: command module and arguments we are using.
+
+#########################################################################################################################################
+
+### How to a particular package using command module?
+
+- name: Installing bind-utils to perform nslookup
+  hosts: localhost
+  become: yes
+  tasks: 
+  - name: to nslookup any IP or hostname, we are using bind-utils
+    command: yum install bind-utils
+    args:
+      warn: no
+
+## Note: bind-utils package is to help us to use 'nslookup' in centos and RHEL as well.
+
