@@ -14,6 +14,8 @@ ansible-playbook /opt/playbooks/httpd_config.yml
 
 # Also, Ansible is providing us a 'command' module to execute a single line commands in ansible. Example below,
 
+$ ansible-playbook -i inventory /home/ec2-user/dev.yml app-deployer.yml   (if you wanna call multi playbook in adhoc)
+
 $ ansible localhost -m command -a "cat /etc/passwd"
 
 $ ansible localhost -m command -a "cat /etc/rsyslog.conf"
