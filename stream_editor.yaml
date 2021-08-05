@@ -11,7 +11,7 @@
 
 
 ## Note: Here following things to be notedown,
-# /root/sed.txt --> there is a file name called sex.txt locating under root home directory /root/
+# /root/sed.txt --> there is a file name called sed.txt locating under root home directory /root/
 # shell module is designed to execute shell commands..
 # 's/Python/Perl/g2' /root/sed.txt --> s for search specific word called 'Python' and replace it as Perl in sed.txt file 
 # g2 --re-ocurrence of the word Python.
