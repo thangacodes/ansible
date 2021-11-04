@@ -1,0 +1,20 @@
+## Ansible vault commands with the explanations
+
+Typically Ansible vault comes with, when we install Ansible to the linux or windows OS.
+
+Example, I have a palybook name called users.yaml. It will be creating an user account with his/her home directory in Linux OS. It contains syntax called, user: bheema, password:123
+Now, i wanted to have them encrypted way. How would i do it? This is where, ansible vault comes in picture.
+
+Filename: users.yaml
+How to encrypt users.yaml using ansible-vault?
+ansible-vault encrypt users.yaml
+How to decrypt users.yaml using ansible-vault?
+ansible-vault decrypt users.yaml
+How to edit encrypted yaml file?
+ansible-vaule edit users.yaml
+How to view contents of an yaml file?
+ansible-vault view users.yaml
+How to execute ansible-playbook which is password protected?
+ansible-playbook users.yaml --ask-vault-pass
+How to execute ansible-playbook which is password protected? Calling vault password file?
+ansible-playbook users.yaml --vault-password-file /home/centos/cmx/vault-password
