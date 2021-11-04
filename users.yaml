@@ -1,0 +1,20 @@
+## This playbook is to create an User account with /home directory
+---
+- hosts: localhost
+  become: yes
+  become_method: sudo
+  tasks:
+  - name: "Adding Users"
+    user: 
+     name: bheema
+     password: bheema@123
+     comment: "Bheema bhai"
+     shell: /bin/bash
+     group: apache
+     createhome: yes
+     home: /home/bheema
+  - name: Copying Confidential information
+    copy:
+     content: "it's a confidential agreement betwen customer and the service provider"
+     dest: /home/bheema/Agreement
+
