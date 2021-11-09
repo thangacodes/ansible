@@ -1,0 +1,8 @@
+---
+- name: Listing the packages installed on the machines
+  hosts: localhost
+  tasks:
+  - name: To finding the yum package lists in RHEL and CentOS
+    command: yum list installed
+    register: command_output
+  - debug: msg="{{ command_output }}"

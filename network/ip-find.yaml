@@ -1,0 +1,8 @@
+---
+- name: Finding IP Address to the remote machines
+  hosts: localhost
+  tasks:
+  - name: To find IP Address using command module
+    command: ip a
+    register: command_output
+  - debug: msg="{{ command_output }}"
