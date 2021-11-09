@@ -1,3 +1,5 @@
+* This playbook use to creat similar directories in /tmp folder
+
 ---
 - name: "Creating Directories in Linux boxes using loop"
   hosts: localhost
