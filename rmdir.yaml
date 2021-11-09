@@ -1,0 +1,12 @@
+* This playbook used to delete the directories in /tmp folder
+---
+- hosts: localhost
+  become: yes
+  become_user: root
+  tasks:
+  - name: Using ansible loop
+    command: rm -rf /tmp/"{{ item }}"
+    with_items:
+    - test_dir1
+    - test_dir2
+    - test_dir3
