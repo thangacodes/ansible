@@ -7,4 +7,4 @@
     with_items:
     - test_dir1
     - test_dir2
-    - test-dir3
+    - test_dir3
