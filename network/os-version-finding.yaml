@@ -1,0 +1,8 @@
+---
+- name: Finding the OS version on remote machines
+  hosts: localhost
+  tasks:
+  - name: Using command module, we can achive this!
+    command: cat /etc/os-release
+    register: command_output
+  - debug: msg="{{ command_output }}"
