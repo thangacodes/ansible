@@ -1,0 +1,10 @@
+---
+- name: "Creating Directories in Linux boxes using loop"
+  hosts: localhost
+  tasks:
+  - name: "Using ansible loop"
+    command: mkdir /tmp/"{{ item }}"
+    with_items:
+    - test_dir1
+    - test_dir2
+    - test-dir3
