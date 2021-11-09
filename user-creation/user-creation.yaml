@@ -1,0 +1,17 @@
+---
+-  name: Creating Users in Linux Box using Ansible Playbook
+   hosts: localhost
+   connection: local
+   become: yes
+   tasks:
+   - name: Creating a list of users
+     user:
+       name: "{{ item.name }}"
+       uid: "{{ item.uid}}"
+       shell: /bin/bash
+       comment: "User {{ item.name }}"
+       state: present
+     loop:
+     - { name: user1, uid: 2001 }
+     - { name: user2, uid: 2002 }
+     - { name: user3, uid: 2003 }
