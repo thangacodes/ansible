@@ -3,8 +3,10 @@ This is the page, where you will get to know about the ansible config and playbo
 Ansible playbook syntax check command
 ansible-playbook rds_prod.yml  --syntax-check
 To execute any playbook
+
 ansible-playbook << playbook >>
 Ex: ansible-playbook test.yaml
+
 Will be able to execute playbooks in any places in Unix based OS,
 ansible-playbook /opt/playbooks/httpd_config.yml
 
