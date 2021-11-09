@@ -1,0 +1,12 @@
+---
+- name: CPU and Memory checking on Remote Machines
+  hosts: localhost
+  tasks:
+  - name: First finding CPU assigned on remote machines
+    command: lscpu
+    register: command_output
+  - debug: msg="{{ command_output }}"
+  - name: Second finding memory allocated on remote machines
+    command: free -h
+    register: command_output
+  - debug: msg="{{ command_output }}"
