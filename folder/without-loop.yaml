@@ -1,0 +1,10 @@
+---
+- name: Creating folder in unix boxes
+  hosts: localhost
+  tasks:
+  - name: Creating first folder under temp dir
+    command: mkdir /tmp/test_dir1
+  - name: Creating second folder under temp dir
+    command: mkdir /tmp/test_dir2
+  - name: Creating third folder under temp dir
+    command: mkdir /tmp/test_dir3
