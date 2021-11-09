@@ -1,0 +1,8 @@
+---
+- name: List out the files and folders in a path of UNIX based OS
+  hosts: localhost
+  tasks:
+  - name: command module will be used
+    command: ls -l /tmp/
+    register: command_output
+  - debug: msg="{{ command_output }}"
