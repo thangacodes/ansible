@@ -1,0 +1,16 @@
+---
+- name: Installing Multiple packages using Ansible Modules
+  hosts: localhost
+  become: yes
+  become_user: root
+  tasks:
+  - name: yum packages for CentOS and RHEL
+    yum:
+      name: "{{ item }}"
+      state: present
+    with_items:
+    - epel-release
+    - git
+    - httpd
+    - mariadb
+    - bind-utils
