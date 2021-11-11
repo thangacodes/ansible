@@ -1,0 +1,11 @@
+---
+- name: Updating YUM Packages on REMOTE machines
+  hosts: web
+  become: yes
+  become_user: root
+  connection: local
+  tasks:
+  - name: To update the RHEL and CentOS, using yum module
+    command: yum install -y epel-release
+    register: command_output
+  - debug: msg="{{ command_output }}"
