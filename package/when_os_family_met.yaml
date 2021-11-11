@@ -1,0 +1,17 @@
+---
+- name: Installing Packages based on the OS like RHEL or Ubuntu distributions
+  hosts: web
+  become: yes
+  become_user: root
+  tasks:
+  - yum:
+      name: git
+      state: present
+      update_cache: true
+    when: ansible_os_family == 'RedHat'
+  - name: Installing redis on Ubuntu and Debian based distributions
+    apt:
+      name: redis-server
+      state: present
+      update_cache: true
+    when: ansible_os_family == 'Ubuntu'
