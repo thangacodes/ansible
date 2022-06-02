@@ -1,0 +1,22 @@
+---
+- name: "apache binary installation on remote machines"
+  hosts: ansible
+  become: yes
+  become_user: root
+  tasks:
+    - name: "apache installation"
+      yum:
+        name: httpd
+        state: latest
+    - name: "ensure apache is running"
+      service:
+        name: httpd
+        state: started
+    - name: "copying index.html file"
+      copy:
+        src: /home/victor/apps/cmx/index.html
+        dest: /var/www/html/index.html
+    - name: "ensure apache service gets restarted"
+      service:
+        name: httpd
+        state: restarted
