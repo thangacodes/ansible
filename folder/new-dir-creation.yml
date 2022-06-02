@@ -1,0 +1,12 @@
+---
+- name: "folder with file creation on remote machines"
+  hosts: ansible
+  become: yes
+  become_user: root
+  tasks:
+    - name: folder creation
+      file:
+        path: /home/victor/testing
+        state: directory
+        mode: "u=rw,g=wx,o=rwx"
+...
