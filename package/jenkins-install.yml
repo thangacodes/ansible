@@ -1,0 +1,31 @@
+---
+- hosts: localhost
+  become: yes
+  become_user: root
+  tasks:
+    - name: installing wget 
+      apt:
+        name: wget
+        state: present 
+    - name: download Jenkins
+      get_url:
+        url: https://updates.jenkins-ci.org/download/war/2.248/jenkins.war
+        dest: /home/victor/apps/cmx
+    
+- hosts: ansible
+  become: yes
+  become_user: root
+  tasks:
+    - name: copy jenkins war to host machines
+      copy:
+        src: /home/victor/apps/cmx/jenkins.war
+        dest: /home/victor/jenkins.war
+    - name: creating folder structure and running jenkins in the background 
+      shell: |
+        mkdir -p /home/victor/jenkins
+        mv /home/victor/jenkins.war /home/victor/jenkins
+        nohup /home/victor/jdk-18.0.1.1/bin -jar /home/victor/jenkins/jenkins.war &
+       
+       
+ ### Downloading jenkins.war file on Ansible control machine and then copying it to the remote machines using Ansible.
+ ## Then starting it
