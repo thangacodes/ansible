@@ -5,13 +5,30 @@
   tasks:
    - name: "Updating yum repo"
      shell: yum install -y httpd
+     register: yum_install
+   - debug: msg="{{ yum_install }}"
+
    - name: "Starting the httpd serive"
      shell: systemctl start httpd
+     register: httpd_status
+   - debug: msg="{{ httpd_status }}"
+
    - name: "Configured to start at boot the httpd service"
      shell: systemctl enable httpd
+     register: boot_on
+   - debug: msg="{{ boot_on }}"
+
    - name: "Copying index.html file"
      copy:
        src: /home/victor/apps/cmx/index.html
        dest: /var/www/html/index.html
+     register: html_copy
+   - debug: msg="{{ html_copy }}"
+
    - name: "Restarting httpd service"
      shell: systemctl restart httpd
+     register: httpd_ser
+   - debug: msg="{{ httpd_ser }}"
+
+### Please note: register is "a way to capture the output from task execution and store it in a variable"
+### Please note: debug is "a debug module option that makes the tasks more manageable"
