@@ -1,22 +1,17 @@
 ---
-- name: "apache binary installation on remote machines"
-  hosts: ansible
+- hosts: web
   become: yes
   become_user: root
   tasks:
-    - name: "apache installation"
-      yum:
-        name: httpd
-        state: latest
-    - name: "ensure apache is running"
-      service:
-        name: httpd
-        state: started
-    - name: "copying index.html file"
-      copy:
-        src: /home/victor/apps/cmx/index.html
-        dest: /var/www/html/index.html
-    - name: "ensure apache service gets restarted"
-      service:
-        name: httpd
-        state: restarted
+   - name: "Updating yum repo"
+     shell: yum install -y httpd
+   - name: "Starting the httpd serive"
+     shell: systemctl start httpd
+   - name: "Configured to start at boot the httpd service"
+     shell: systemctl enable httpd
+   - name: "Copying index.html file"
+     copy:
+       src: /home/victor/apps/cmx/index.html
+       dest: /var/www/html/index.html
+   - name: "Restarting httpd service"
+     shell: systemctl restart httpd
