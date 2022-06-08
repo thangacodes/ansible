@@ -3,20 +3,26 @@
   become: yes
   become_user: root
   tasks:
-   - name: "Updating yum repo"
+
+   - name: "Creating HTML folder inside var/www/"
+     command: mkdir /var/www/html
+     register: html_folder
+   - debug: msg="{{ html_folder }}"
+
+   - name: "Installing httpd binary in Amazon Linux 2 OS"
      shell: yum install -y httpd
-     register: yum_install
-   - debug: msg="{{ yum_install }}"
+     register: httpd_install
+   - debug: msg="{{ httpd_install }}"
 
    - name: "Starting the httpd serive"
-     shell: systemctl start httpd
-     register: httpd_status
-   - debug: msg="{{ httpd_status }}"
+     shell: systemctl start httpd.service
+     register: httpd_start
+   - debug: msg="{{ httpd_start }}"
 
    - name: "Configured to start at boot the httpd service"
-     shell: systemctl enable httpd
-     register: boot_on
-   - debug: msg="{{ boot_on }}"
+     shell: systemctl enable httpd.service
+     register: service_enable
+   - debug: msg="{{ service_enable }}"
 
    - name: "Copying index.html file"
      copy:
@@ -30,5 +36,8 @@
      register: httpd_ser
    - debug: msg="{{ httpd_ser }}"
 
+
+
+### Please note: First creating Document Root directory /var/www/html in Linux OS
 ### Please note: register is "a way to capture the output from task execution and store it in a variable"
 ### Please note: debug is "a debug module option that makes the tasks more manageable"
