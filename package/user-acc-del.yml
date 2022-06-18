@@ -1,0 +1,14 @@
+---
+- hosts: web
+  become: yes
+  become_user: root
+  tasks:
+    - name: "Creating an User account in Linux Machines"
+      shell: userdel mano
+      register: userdel_out
+    - debug: msg="{{ userdel_out }}"
+
+    - name: "Checking the user accounts is created or not"
+      shell: cat /etc/passwd
+      register: checking_userout
+    - debug: msg="{{ checking_userout }}"
