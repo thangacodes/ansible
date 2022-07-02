@@ -1,1 +1,2 @@
-This page tells us Ansible commands with the important notes
+This page tells us Ansible study notes along with the playbooks!!
+
