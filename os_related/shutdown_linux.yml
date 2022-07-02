@@ -1,0 +1,15 @@
+---
+- hosts: web
+  become: yes
+  become_user: root
+  tasks:
+    - name: remotely shutting down the machine
+      shell: shutdown -h now
+      register: os_out
+    - debug: msg="{{ os_out }}"
+
+    - name: checking ping connectivity to the remote machines
+      ping:
+      register: ping_out
+    - debug: msg="{{ ping_out }}"
+
