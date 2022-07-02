@@ -1,0 +1,20 @@
+---
+- hosts: web
+  become: yes
+  become_user: root
+  tasks:
+    - name: "Stopping Tomcat services on remote machines"
+      shell: sh /opt/tomcat9/apache-tomcat-9.0.64/bin/shutdown.sh -force
+      register: stop_out
+    - debug: msg="{{ stop_out }}"
+
+    - name: "Removing SampleWebApp.war file on Remote machines"
+      shell: rm -rf /opt/tomcat9/apache-tomcat-9.0.64/webapps/*
+      register: remove_out
+    - debug: msg="{{ remove_out }}"
+
+    - name: "Tailing the catalina.out log file contents from the log folder"
+      command: cat /opt/tomcat9/apache-tomcat-9.0.64/logs/catalina.out
+      register: show_out
+    - debug: msg="{{ show_out }}"
+

@@ -1,0 +1,25 @@
+---
+- hosts: web
+  become: yes
+  become_user: root
+  tasks:
+    - name: "Copying SampleApp.war file to the apache tomcat servers"
+      copy:
+        src: /home/victor/apps/cmx/SampleWebApp.war
+        dest: /opt/tomcat9/apache-tomcat-9.0.64/webapps
+      register: copy_out
+    - debug: msg="{{ copy_out }}"
+
+    - name: "Starting tomcat services on remote machines"
+      command: sh /opt/tomcat9/apache-tomcat-9.0.64/bin/startup.sh -force
+      register: service_out
+    - debug: msg="{{ service_out }}"
+
+    - name: "Small break"
+      command: sleep 5
+
+    - name: "Tailing the catalina.out log file"
+      command: cat /opt/tomcat9/apache-tomcat-9.0.64/logs/catalina.out | grep -i 'startup'
+      register: log_out
+    - debug: msg="{{ log_out }}"
+
