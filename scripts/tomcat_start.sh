@@ -1,6 +1,7 @@
 #!/bin/bash
-set -x  >> /tmp/debug.txt
+set -x  > /tmp/debug.txt
 echo -e "\e[1;32m ***** Going to install Apache Tomcat9 on Remote Servers *****" $(date '+%Y-%m-%d %H:%M:%S')
+#Switch user to the root account
 sudo su 
 cat <<"EOF"
  ___           _        _ _ _                               _ 
@@ -48,16 +49,17 @@ ls -l /opt/tomcat9/apache-tomcat-9.0.64/webapps > /tmp/webapps_files.txt
 cat /opt/tomcat9/apache-tomcat-9.0.64/logs/catalina.out > /tmp/tomcat_log.txt
 sh /opt/tomcat9/apache-tomcat-9.0.64/bin/shutdown.sh
 cd /opt/tomcat9/apache-tomcat-9.0.64/webapps/SampleWebApp
-echo 
-"<html>
+cat << 'END_HTML' >index.html
+<html>
 <body>
-   <h1 style="color: green; font-size: 40px;" align="center"> This is Azure DevOps Deployment </h1>
+   <h1 style="color: red; font-size: 40px;" align="center"> This is Azure DevOps Deployment </h1>
    <h2 style="color: green; font-size: 20px;" align="center"> Sample Web archive deployed in Apache Tomcat Web Server </h2>
    </body>
-   </html>" | tee '/opt/tomcat9/apache-tomcat-9.0.64/webapps/SampleWebApp/index.html'
-sleep 4
-cat /opt/tomcat9/apache-tomcat-9.0.64/webapps/SampleWebApp/index.html >> /tmp/index.html
+   </html>
+END_HTML
+sleep 5
+cat /opt/tomcat9/apache-tomcat-9.0.64/webapps/SampleWebApp/index.html > /tmp/index.html
 sh /opt/tomcat9/apache-tomcat-9.0.64/bin/startup.sh
 sleep 10
-cat /opt/tomcat9/apache-tomcat-9.0.64/logs/catalina.out >> /tmp/re_start_log.txt
+cat /opt/tomcat9/apache-tomcat-9.0.64/logs/catalina.out > /tmp/re_start_log.txt
 exit
