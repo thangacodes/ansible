@@ -68,7 +68,9 @@ cat << 'END_HTML' >index.html
    <li> Plan and track work </li>
    <li> Cloud-hosted services based on usage </li>
    </ol>
-   <h2>Check out <a href="https://azure.microsoft.com/en-us/services/devops/#overview" target="_blank" rel="noopener noreferrer">Azure DevOps</a>.</h2>
+   <h3>Check out <a href="https://azure.microsoft.com/en-us/services/devops/#overview" target="_blank" rel="noopener noreferrer">Azure DevOps</a></h3>
+   <h3>CICD <a href="https://devblogs.microsoft.com/devops/copy-files-over-ssh-during-continuous-integration-and-deployment/" target="_blank"> SSH over</a></h3>
+   <button onclick="window.location.href='https://www.youtube.com/watch?v=Rzqaxi4xMvM';">Azure CICD Demonstration</button>
    <footer>
 	<p style="color:red;">© Copyright Career Karma 2022</p>
 </footer>
