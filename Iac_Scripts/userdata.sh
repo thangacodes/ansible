@@ -52,11 +52,10 @@ cat << 'END_HTML' >index.html
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> Azure DevOps Introduction </title>
+  <title>Azure DevOps Introduction</title>
   </head>
 <body>
-   <h1 style="color: green; font-size: 30px;" align="left"> Azure DevOps </h2>
-   <br>
+   <h1 style="color: green; font-size: 30px;" align="left"><u> Azure DevOps:- </u></h2>
    <p>What is Azure DevOps? Plan smarter, collaborate better, and ship faster with a set of modern dev services.</p>
    <h3 style="color: blue; font-size: 20px;" align="left">Features of Azure DevOps:-</h3>
    <ol>
@@ -69,8 +68,10 @@ cat << 'END_HTML' >index.html
    <li> Plan and track work </li>
    <li> Cloud-hosted services based on usage </li>
    </ol>
-   <h3 style="color: red; font-size: 20 px;" align-"left"> To read more details about Azure DevOps:- </h3>
-   <a href="https://azure.microsoft.com/en-us/services/devops/#overview" target="_blank">Click here</a>
+   <h2>Check out <a href="https://azure.microsoft.com/en-us/services/devops/#overview" target="_blank" rel="noopener noreferrer">Azure DevOps</a>.</h2>
+   <footer>
+	<p style="color:red;">© Copyright Career Karma 2022</p>
+</footer>
 </body>
 </html>
 END_HTML
