@@ -56,12 +56,12 @@ pipeline {
             steps {
                 echo"Going to validate the code written in HCL"
                 sh '''
-		   pwd
-		   cd Iac_Scripts
-		   sleep 3
-		   echo "Going to validate the terraform scripts"
-		   terraform validate
-		'''
+		           pwd
+		           cd Iac_Scripts
+		           sleep 3
+		           echo "Going to validate the terraform scripts"
+		           terraform validate
+		    '''
             }
         }
 
@@ -69,15 +69,21 @@ pipeline {
             steps {
                 echo "Going to show us, what is going to be spin up"
                 sh '''
-		   pwd
-		   cd Iac_Scripts
-		   sleep 3
-		   echo "Going to perform dry-run"
-		   terraform plan
-		'''
+		           pwd
+		           cd Iac_Scripts
+		           echo "Going to perform dry-run"
+		           terraform plan
+		    '''
             }
         }
-	stage("terraform output"){
+		stage("terraform apply"){
+		    steps {
+			    echo "Going to execute apply now"
+				sh '''
+				   cd Iac_Scripts
+				   ls -lrth
+				   terraform apply --auto-approve
+	    stage("terraform output"){
             steps {
                 sh '''
                    cd Iac_Scripts
@@ -86,13 +92,13 @@ pipeline {
                    sleep 3
                    echo "Going to show us the terraform output"
                    terraform output
-                   sleep 3
+                   sleep 2
                    terraform output > /tmp/terraform_output.txt
 				   terraform output > /var/lib/jenkins/workspace/Infra_CICD_Terraform/Iac_Scripts
                 '''
             }
         }
-	stage("Upload file"){
+	    stage("Upload file"){
             steps {
                 slackUploadFile channel: 'demo_jenkins_slack', credentialId: 'b9411ed2-2dae-4273-be8a-b3a0eb76fdab', filePath: '/Iac_Scripts/terraform_output.txt', initialComment: 'Terraform output'
             }
