@@ -1,0 +1,121 @@
+pipeline {
+    agent any
+
+    environment {
+        AWS_ACCESS_KEY_ID = credentials('jenkins-aws-access-key-id')
+        AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key-id')
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+            git branch: 'main', url: 'https://github.com/send2durai/ansible-notes.git'
+
+          }
+        }
+	
+	stage ("Changing to the directory, where the config file exist"){
+	    steps {
+	        echo "change directory"
+		sh '''
+		   ls -lrth
+		   cd Iac_Scripts
+		   ls -lrth
+		   pwd
+		 '''
+		}
+	     }
+
+        stage ("terraform init") {
+            steps {
+                echo "Going to initialise the terraform module and download the plugin"
+                sh '''
+		   pwd
+		   cd Iac_Scripts
+		   sleep 3
+		   echo "Going to initialize the terraform init command"
+		   terraform init
+		'''
+            }
+        }
+		
+		stage ("terraform fmt") {
+            steps {
+                echo "It checks and arranging the terraform code proper format"
+                sh '''
+		   pwd
+		   cd Iac_Scripts
+		   sleep 3
+		   echo "Going to format the terraform scripts"
+		   terraform fmt
+		'''
+            }
+        }
+
+        stage("terraform validate") {
+            steps {
+                echo"Going to validate the code written in HCL"
+                sh '''
+		           pwd
+		           cd Iac_Scripts
+		           sleep 3
+		           echo "Going to validate the terraform scripts"
+		           terraform validate
+		    '''
+            }
+        }
+
+        stage("terraform plan") {
+            steps {
+                echo "Going to show us, what is going to be spin up"
+                sh '''
+		           pwd
+		           cd Iac_Scripts
+		           echo "Going to perform dry-run"
+		           terraform plan
+		    '''
+            }
+        }
+		stage("terraform apply"){
+		    steps {
+			    echo "Going to execute apply now"
+				sh '''
+				   cd Iac_Scripts
+				   ls -lrth
+				   terraform apply --auto-approve
+			'''
+			}
+		}
+	    stage("terraform output"){
+            steps {
+                sh '''
+                   cd Iac_Scripts
+                   pwd
+                   ls -lrth
+                   sleep 3
+                   echo "Going to show us the terraform output"
+                   terraform output
+                   sleep 2
+                   terraform output > /tmp/terraform_output.txt
+				   terraform output > /var/lib/jenkins/workspace/Infra_CICD_Terraform/Iac_Scripts
+                '''
+            }
+        }
+	    stage("Upload file"){
+            steps {
+                slackUploadFile channel: 'demo_jenkins_slack', credentialId: 'b9411ed2-2dae-4273-be8a-b3a0eb76fdab', filePath: '/Iac_Scripts/terraform_output.txt', initialComment: 'Terraform output'
+            }
+        }
+    }
+        post {
+            always {
+            echo "********** Sending Slack Notifications on Piepline Job Status"
+        }
+        failure {
+            slackSend channel: 'demo_jenkins_slack', message: 'Hey DevOps Team  #########  Job Failure. Please check the console output  #########'
+        }
+        success {
+            slackSend channel: 'demo_jenkins_slack', message: 'Hey DevOps Team  #########  Job Succeed. Resoruces have been provisioned  #########'
+        }
+    }
+}
