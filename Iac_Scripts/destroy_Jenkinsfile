@@ -81,7 +81,7 @@ pipeline {
             slackSend channel: 'demo_jenkins_slack', message: 'Hey DevOps Team  #########  Job Failure. Please check the console output  #########'
         }
         success {
-            slackSend channel: 'demo_jenkins_slack', message: 'Hey DevOps Team  #########  Job Succeed. Resoruces have been provisioned  #########'
+            slackSend channel: 'demo_jenkins_slack', message: 'Hey DevOps Team  #########  Job Succeed. Resoruces have been destroyed  #########'
         }
     }
 }
