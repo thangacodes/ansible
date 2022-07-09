@@ -120,3 +120,5 @@ pipeline {
         success {
             slackSend channel: 'demo_jenkins_slack', message: 'Hey DevOps Team  #########  Job Succeed. Resoruces have been provisioned  #########'
         }
+    }
+}
