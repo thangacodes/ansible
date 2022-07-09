@@ -98,7 +98,7 @@ pipeline {
                    sleep 2
                    terraform output > tf_output.txt
 				   pwd
-				   echo ******** Going to show us the list of files exist in the Jenkins_workspace"
+				   echo -e ******** Going to show us the list of files exist in the Jenkins_workspace ***********
 				   ls -lart
 				   sleep 10
             '''
