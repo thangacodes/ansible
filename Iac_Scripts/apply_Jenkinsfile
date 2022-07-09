@@ -95,6 +95,7 @@ pipeline {
                    sleep 3
                    echo "Going to show us the terraform output"
                    terraform output
+		   rm -rf tf_output.txt
                    sleep 2
                    terraform output > tf_output.txt
 				   pwd
