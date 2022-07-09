@@ -95,9 +95,9 @@ pipeline {
                    sleep 3
                    echo "Going to show us the terraform output"
                    terraform output
-		   rm -rf tf_output.txt
                    sleep 2
-                   terraform output > tf_output.txt
+                   terraform output > /tmp/tf_output.txt
+				   cd /tmp/
 				   pwd
 				   echo ******** Going to show us the list of files exist in the Jenkins_workspace"
 				   ls -lart
@@ -107,7 +107,7 @@ pipeline {
         }
 	    stage("Upload file"){
             steps {
-                slackUploadFile channel: 'demo_jenkins_slack', credentialId: 'b9411ed2-2dae-4273-be8a-b3a0eb76fdab', filePath: '/var/lib/jenkins/workspace/Infra_CICD_Terraform/Iac_Scripts/tf_output.txt', initialComment: 'Terraform output'
+                slackUploadFile channel: 'demo_jenkins_slack', credentialId: 'b9411ed2-2dae-4273-be8a-b3a0eb76fdab', filePath: '/tmp/tf_output.txt', initialComment: 'Terraform output'
             }
         }
     }
