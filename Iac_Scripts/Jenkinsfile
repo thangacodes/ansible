@@ -83,6 +83,9 @@ pipeline {
 				   cd Iac_Scripts
 				   ls -lrth
 				   terraform apply --auto-approve
+			'''
+			}
+		}
 	    stage("terraform output"){
             steps {
                 sh '''
@@ -103,7 +106,6 @@ pipeline {
                 slackUploadFile channel: 'demo_jenkins_slack', credentialId: 'b9411ed2-2dae-4273-be8a-b3a0eb76fdab', filePath: '/Iac_Scripts/terraform_output.txt', initialComment: 'Terraform output'
             }
         }
-    }
     }
         post {
             always {
