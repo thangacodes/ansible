@@ -1,3 +1,11 @@
+#######################################################
+/*                                                    #
+Name: IaC Buildout for Terraform Associate Exam       #
+Description: AWS infrastructure Buildout              #
+Contributors: Thangadurai Murugan                     #
+*/                                                    #
+#######################################################
+
 locals {
   project      = "lab"
   CreationDate = "07/07/2022"
