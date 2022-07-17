@@ -14,6 +14,7 @@ resource "aws_instance" "apache" {
   security_groups             = [aws_security_group.ssh.id, aws_security_group.web.id, aws_security_group.ssl.id]
   subnet_id                   = aws_subnet.dev_pub-subnet1.id
   associate_public_ip_address = var.assoc_public_ip
+  availability_zon            = var.avail_zone
   key_name                    = aws_key_pair.name.key_name
   connection {
     user        = "ec2-user"
