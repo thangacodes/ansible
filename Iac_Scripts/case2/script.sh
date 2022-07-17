@@ -79,7 +79,7 @@ cat << 'END_HTML' >index.html
 END_HTML
 sleep 2
 cat /opt/tomcat9/apache-tomcat-9.0.64/webapps/SampleWebApp/index.html >> /tmp/index.html
-sh /opt/tomcat9/apache-tomcat-9.0.64/bin/startup.sh
+sh /opt/tomcat9/apache-tomcat-9.0.64/bin/startup.sh -force
 sleep 10
 cat /opt/tomcat9/apache-tomcat-9.0.64/logs/catalina.out >> /tmp/re_start_log.txt
 exit
