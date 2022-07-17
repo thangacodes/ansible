@@ -21,7 +21,6 @@ cat <<"EOF"
 /_/   \_\ .__/ \__,_|\___|_| |_|\___|   |_|\___/|_| |_| |_|\___\__,_|\__|  /_/
         |_|
 EOF
-sudo su
 cd /tmp/
 yum update -y
 yum install -y wget
