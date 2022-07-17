@@ -13,3 +13,8 @@ variable "assoc_public_ip" {
   type        = bool
   default     = "true"
 }
+variable "avail_zone" {
+  description = "Instance provisioning on respective available zone"
+  type        = string
+  default     = "ap-south-1a"
+}
