@@ -39,9 +39,9 @@ pipeline {
             }
         }
 
-		stage("terraform apply"){
+		stage("terraform destroy"){
 		    steps {
-			    echo "Going to execute apply now"
+			    echo "Going to destroy now"
 				sh '''
 				   cd Iac_Scripts/case2/
 				   ls -lrth
