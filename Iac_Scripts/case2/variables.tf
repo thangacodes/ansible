@@ -1,3 +1,8 @@
+variable "region" {
+  description = "AWS region where the services will be spin up"
+  type        = string
+  default     = "ap-south-1"
+}
 variable "instance_type" {
   description = "Instance type Specification"
   type        = string
