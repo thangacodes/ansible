@@ -89,7 +89,7 @@ pipeline {
                    cd Iac_Scripts/case2/
                    ls -lrth
                    echo "Going to show us the terraform output"
-                   terraform state show
+                   terraform output
                    sleep 2
                    terraform stat list > /tmp/tf_state_output.txt
 				           echo "******** Going to show us the list of files exist in the Jenkins_workspace  ************"
