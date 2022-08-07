@@ -9,7 +9,7 @@ resource "aws_subnet" "first-pub-subnet" {
 
 resource "aws_subnet" "second-pub-subnet" {
   vpc_id                  = aws_vpc.second.id
-  cidr_block              = var.second-cidr
+  cidr_block              = var.secondpub-cidr
   map_public_ip_on_launch = true
   provider                = aws.dev
   tags = {
