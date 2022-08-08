@@ -49,22 +49,5 @@ pipeline {
 			       '''
 			}
 		}
-
-	    stage("Upload file"){
-            steps {
-                slackUploadFile channel: 'demo_jenkins_slack', credentialId: 'b9411ed2-2dae-4273-be8a-b3a0eb76fdab', filePath: '/tmp/tf_output.txt', initialComment: 'Here is your file'
-            }
-        }
-    }
-        post {
-            always {
-            echo "********** Sending Slack Notifications on Piepline Job Status"
-        }
-        failure {
-            slackSend channel: 'demo_jenkins_slack', message: 'Hey DevOps Team  #########  Job Failure. Please check the console output  #########'
-        }
-        success {
-            slackSend channel: 'demo_jenkins_slack', message: 'Hey DevOps Team  #########  Job Succeed. Resoruces have been provisioned  #########'
-        }
     }
 }
