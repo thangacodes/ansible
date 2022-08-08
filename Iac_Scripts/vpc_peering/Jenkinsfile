@@ -82,7 +82,7 @@ pipeline {
 		    steps {
 			    echo "Going to execute apply now"
 				sh '''
-				   cd Iac_Scripts/case2/
+				   cd Iac_Scripts/vpc_peering/
 				   ls -lrth
 				   terraform apply --auto-approve
 			    '''
@@ -91,7 +91,7 @@ pipeline {
 	    stage("terraform output"){
             steps {
                 sh '''
-                   cd Iac_Scripts/case2/
+                   cd Iac_Scripts/vpc_peering/
                    ls -lrth
                    echo "Going to show us the terraform output"
                    terraform output
