@@ -13,8 +13,8 @@ pipeline {
 
           }
         }
-	      stage ("Changing to the directory, where the terraform scripts exist"){
-	         steps {
+	    stage ("Changing to the directory, where the terraform scripts exist"){
+	        steps {
 	            echo "change directory"
 		    sh '''
 		       ls -lrth
@@ -24,6 +24,16 @@ pipeline {
 		      '''
 		}
 	     }
+		stage("Getting AWS Credentials"){
+			steps {
+              withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'Jenkins-aws-creds-binding', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                sh '''
+                   aws --version
+                   aws ec2 describe-instances
+          '''
+        }
+      }
+	}
 
         stage ("terraform init") {
             steps {
@@ -38,7 +48,7 @@ pipeline {
             }
         }
 		
-	     	stage ("terraform fmt") {
+	    stage ("terraform fmt") {
             steps {
                 echo "It checks and arranging the terraform code proper format"
                 sh '''
