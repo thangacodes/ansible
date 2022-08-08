@@ -5,7 +5,6 @@ pipeline {
         stage('Checkout') {
             steps {
             git branch: 'main', credentialsId: 'github', url: 'https://github.com/send2durai/ansible-notes.git'
-
           }
         }
 		stage("Getting AWS Credentials"){
@@ -13,12 +12,12 @@ pipeline {
               withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'Jenkins-aws-creds-binding', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                 sh '''
                    aws --version
-                   aws ec2 describe-instances
-          '''
+                   aws ec2 describe-instances --region ap-south-1
+                   '''
         }
       }
 	}
-    stage ("Changing to the directory, where the terraform scripts exist"){
+    stage ("Changing directory to check terraform state file exist"){
 	    steps {
 	    echo "change directory"
 		 sh    '''
@@ -47,7 +46,7 @@ pipeline {
 				   cd Iac_Scripts/vpc_peering/
 				   ls -lrth
 				   terraform destroy --auto-approve
-			    '''
+			       '''
 			}
 		}
 
