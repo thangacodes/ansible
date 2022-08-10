@@ -1,0 +1,124 @@
+pipeline {
+    agent any
+	
+    stages {
+        stage('Checkout') {
+            steps {
+            git branch: 'main', credentialsId: 'github', url: 'https://github.com/send2durai/ansible-notes.git'
+
+          }
+        }
+	    stage ("Changing to the directory, where the terraform scripts exist"){
+	        steps {
+	            echo "change directory"
+		    sh '''
+		       ls -lrth
+		       cd Iac_Scripts/vpc_peering/
+		       ls -larth
+		       pwd
+		      '''
+		}
+	     }
+		stage("Getting AWS Credentials"){
+			steps {
+              withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'Jenkins-aws-creds-binding', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                sh '''
+                   aws --version
+                   aws ec2 describe-instances --region ap-south-1
+          '''
+        }
+      }
+	}
+
+        stage ("terraform init") {
+            steps {
+                echo "Going to initialise the terraform module and download the plugin"
+                sh '''
+		              pwd
+		              cd Iac_Scripts/vpc_peering/
+		              ls -larth
+		              echo "Going to initialize the directory to download the require tf plugins"
+		              terraform init
+		              '''
+            }
+        }
+		
+	    stage ("terraform fmt") {
+            steps {
+                echo "It checks and arranging the terraform code proper format"
+                sh '''
+		              pwd
+		              cd Iac_Scripts/vpc_peering/
+		              echo "Going to align the scripts code to read by Human"
+		              terraform fmt
+		            '''
+            }
+        }
+
+        stage("terraform validate") {
+            steps {
+                echo"Going to validate the code written in HCL"
+                sh '''
+		               pwd
+		               cd Iac_Scripts/vpc_peering/
+		               echo "Going to validate the terraform scripts"
+		               terraform validate
+		              '''
+            }
+        }
+
+        stage("terraform plan") {
+            steps {
+                echo "Going to show us, what is going to be spin up"
+                sh '''
+		               pwd
+		               cd Iac_Scripts/vpc_peering/
+		               echo "Going to perform dry-run"
+		               terraform plan
+		              '''
+            }
+        }
+		stage("terraform apply"){
+		    steps {
+			    echo "Going to execute apply now"
+				sh '''
+				   cd Iac_Scripts/vpc_peering/
+				   ls -lrth
+				   terraform apply --auto-approve
+			    '''
+			}
+		}
+	    stage("terraform output"){
+            steps {
+                sh '''
+                   cd Iac_Scripts/vpc_peering/
+                   ls -lrth
+                   echo "Going to show us the terraform output"
+                   terraform output
+                   sleep 2
+                   terraform stat list > /tmp/tf_state_output.txt
+				           echo "******** Going to show us the list of files exist in the Jenkins_workspace  ************"
+				           cd /tmp/
+				          ls -lart
+				          sleep 10
+                  '''
+            }
+        }
+	    stage("Upload file"){
+            steps {
+                slackUploadFile channel: 'demo_jenkins_slack', credentialId: 'b9411ed2-2dae-4273-be8a-b3a0eb76fdab', filePath: '/tmp/tf_output.txt', initialComment: 'Here is your file'
+            }
+        }
+    }
+        post {
+            always {
+            echo "********** Sending Slack Notifications on Piepline Job Status"
+        }
+        failure {
+            slackSend channel: 'demo_jenkins_slack', message: 'Hey DevOps Team  #########  Job Failure. Please check the console output  #########'
+        }
+        success {
+            slackSend channel: 'demo_jenkins_slack', message: 'Hey DevOps Team  #########  Job Succeed. Resoruces have been provisioned  #########'
+        }
+    }
+}
