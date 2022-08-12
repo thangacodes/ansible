@@ -52,7 +52,7 @@ variable "ami_id" {
 }
 
 variable "instance_type" {
-  description = "Instance type should be selected as 't3.xlarge'(4vPC/16gig Mem)"
+  description = "Instance type should be selected as 't3.xlarge'(4vCPU/16gig Mem)"
   type        = string
 
   validation {
