@@ -15,9 +15,9 @@ variable "tagging" {
   default = {
     TFVersion    = "1.0.0"
     BusinessUnit = "as"
-    Owner        = "Aircentre"
+    Owner        = "DevOps"
     Environment  = "dev"
-    ContactEmail = "cm.saas@cae.com"
+    ContactEmail = "admin@example.com"
     VpcType      = "app"
   }
 }
