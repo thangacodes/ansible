@@ -1,26 +1,26 @@
 ## VPC -Virtual Network defining
 resource "aws_vpc" "dev" {
   cidr_block = var.vpc_cidr
-  tags       = merge(var.tagging, { Name = "accm-dev-app-vpc" })
+  tags       = merge(var.tagging, { Name = "demo-dev-app-vpc" })
 }
 
 ## Creation of Public/Private subnets
 resource "aws_subnet" "private" {
   vpc_id     = aws_vpc.dev.id
   cidr_block = var.privatecidr
-  tags       = merge(var.tagging, { Name = "accm-dev-app-private-a" })
+  tags       = merge(var.tagging, { Name = "demo-dev-app-private-a" })
 }
 resource "aws_subnet" "public" {
   vpc_id                  = aws_vpc.dev.id
   cidr_block              = var.publiccidr
   availability_zone       = var.avail_zone
   map_public_ip_on_launch = true
-  tags                    = merge(var.tagging, { Name = "accm-dev-app-public-a" })
+  tags                    = merge(var.tagging, { Name = "demo-dev-app-public-a" })
 }
 
 resource "aws_internet_gateway" "pub-igw" {
   vpc_id = aws_vpc.dev.id
-  tags   = merge(var.tagging, { Name = "accm-dev-app-igw" })
+  tags   = merge(var.tagging, { Name = "demo-dev-app-igw" })
 }
 
 resource "aws_route_table" "app-pub-rt" {
@@ -29,7 +29,7 @@ resource "aws_route_table" "app-pub-rt" {
     cidr_block = var.public-igw
     gateway_id = aws_internet_gateway.pub-igw.id
   }
-  tags = merge(var.tagging, { Name = "accm-dev-app-public-RT" })
+  tags = merge(var.tagging, { Name = "demo-dev-app-public-RT" })
 }
 
 resource "aws_route_table_association" "dev-pub-association" {
@@ -39,7 +39,7 @@ resource "aws_route_table_association" "dev-pub-association" {
 
 resource "aws_route_table" "app-priv-rt" {
   vpc_id = aws_vpc.dev.id
-  tags   = merge(var.tagging, { Name = "accm-dev-app-private-RT" })
+  tags   = merge(var.tagging, { Name = "demo-dev-app-private-RT" })
 }
 
 
@@ -85,7 +85,7 @@ resource "aws_security_group" "dev-sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  tags = merge(var.tagging, { Name = "accm-allow-all-ports" })
+  tags = merge(var.tagging, { Name = "demo-allow-all-ports" })
 }
 
 ### keypair creation
@@ -128,7 +128,7 @@ resource "aws_instance" "vm" {
   key_name                    = aws_key_pair.dev.id
   subnet_id                   = aws_subnet.public.id
   associate_public_ip_address = true
-  tags                        = merge(var.tagging, { Name = "ec2-as-accm-ansible-server" })
+  tags                        = merge(var.tagging, { Name = "ec2-as-demo-ansible-server" })
 }
 
 
