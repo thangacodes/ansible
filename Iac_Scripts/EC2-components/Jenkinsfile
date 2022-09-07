@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('TerraformInit'){
             steps {
-                dir('ansible-notes/Iac_Scripts/EC2-components/'){
+                dir('ansible-notes/Iac_Scripts/EC2-components/Jenkinsfile'){
                     sh 'terraform --version'
                     sh 'terraform init'
                 }
@@ -23,14 +23,14 @@ pipeline {
         }
         stage('ApplicationValidate'){
             steps {
-                dir('ansible-notes/Iac_Scripts/EC2-components/'){
+                dir('ansible-notes/Iac_Scripts/EC2-components/Jenkinsfile'){
                     sh 'terraform validate'
                 }
             }
         }
         stage('ApplicationPlan'){
             steps {
-                dir('ansible-notes/Iac_Scripts/EC2-components/'){
+                dir('ansible-notes/Iac_Scripts/EC2-components/Jenkinsfile'){
                     script {
                         try {
                            sh 'terraform plan'
@@ -50,13 +50,13 @@ pipeline {
                         apply = true
                     } catch (err) {
                         apply = false
-                        dir('ansible-notes/Iac_Scripts/EC2-components/'){
+                        dir('ansible-notes/Iac_Scripts/EC2-components/Jenkinsfile'){
                             sh 'terraform destroy -auto-approve'
                         }
                         currentBuild.result = 'UNSTABLE'
                     }
                     if(apply){
-                        dir('ansible-notes/Iac_Scripts/EC2-components/'){
+                        dir('ansible-notes/Iac_Scripts/EC2-components/Jenkinsfile'){
                             sh 'terraform apply --auto-approve'
                         }
                     }
