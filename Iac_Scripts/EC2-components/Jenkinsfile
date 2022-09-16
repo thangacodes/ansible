@@ -1,12 +1,8 @@
 pipeline{
     agent any
 	
-	withCredentials([[
-    $class: 'AmazonWebServicesCredentialsBinding',
-    credentialsId: "durai-aws-creds",
-    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']])
-	
+	def awsCredentials = [[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'durai-aws-creds']]
+
     stages{
         stage('CHECKING AWS CREDS'){
             steps{
