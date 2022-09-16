@@ -1,0 +1,62 @@
+pipeline{
+    agent any
+	
+	withCredentials([[
+    $class: 'AmazonWebServicesCredentialsBinding',
+    credentialsId: "durai-aws-creds",
+    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']])
+	
+    stages{
+        stage('CHECKING AWS CREDS'){
+            steps{
+                sh 'aws sts get-caller-identity'
+            }
+        }
+        stage('TERRAFORM INIT'){
+            steps{
+                echo "Initializing Terraform init to download the required AWS plugins from provider registry"
+                sh '''
+				    cd /ansible-notes/Iac_Scripts/EC2-components/
+					terraform init
+				'''
+            }
+        }
+        stage('TERRAFORM FORMAT'){
+          steps{
+            echo "Fomrating the terraform code w.r.t to Hashicorp Language"
+            sh '''
+		    cd /ansible-notes/Iac_Scripts/EC2-components/
+		    terraform fmt 
+			'''
+          }
+        }
+        stage('TERRAFORM VALIDATE'){
+          steps{
+            echo "Validating the code written by an user"
+            sh '''
+			   cd /ansible-notes/Iac_Scripts/EC2-components/
+			   terraform validate
+			'''
+          }
+        }
+        stage('TERRAFORM PLAN'){
+          steps{
+            echo "Going to show us, what are the services will be created in AWS Cloud"
+            sh '''
+			    cd /ansible-notes/Iac_Scripts/EC2-components/
+				terraform plan
+			'''
+          }
+        }
+        stage('TERRAFORM APPLY'){
+          steps{
+            echo "Going to creat the services in AWS Cloud"
+            sh '''
+			    cd /ansible-notes/Iac_Scripts/EC2-components/
+				terraform apply --auto-approve
+			'''
+          }
+        }
+    }
+}
