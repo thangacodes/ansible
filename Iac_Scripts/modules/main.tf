@@ -19,3 +19,19 @@ output "module_ec2name" {
 output "module_ec2privip" {
   value = module.key_module.instance_privips
 }
+
+output "module_vpcid" {
+  value = module.key_module.vpcid
+}
+
+output "module_vpccidr" {
+  value = module.key_module.vpccidr
+}
+
+output "module_pubsubcidr" {
+  value = module.key_module.pubsub
+}
+
+output "module_privsubcidr" {
+  value = module.key_module.privsub
+}
