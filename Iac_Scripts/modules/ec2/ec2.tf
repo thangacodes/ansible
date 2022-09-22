@@ -102,7 +102,7 @@ resource "aws_instance" "mod_ec2" {
   vpc_security_group_ids = ["${aws_security_group.demo_sg.id}"]
   subnet_id              = aws_subnet.demo-public.id
   key_name               = var.key_name
-  #user_data              = file("./bootstrap.sh")
+  user_data              = file("./bootstrap.sh")
   count                  = 2
   tags = {
     Name          = "Jenkins-Server${count.index}"
