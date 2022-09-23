@@ -17,6 +17,7 @@ resource "aws_subnet" "demo-public" {
   vpc_id                  = aws_vpc.demo-vpc.id
   cidr_block              = "170.0.1.0/24"
   map_public_ip_on_launch = true
+  availability_zone       = "ap-south-1a"
   tags = {
     Name = "public-subnet1"
   }
@@ -47,8 +48,9 @@ resource "aws_route_table" "public-route" {
 ## Private subnet creation
 
 resource "aws_subnet" "demo-private" {
-  vpc_id     = aws_vpc.demo-vpc.id
-  cidr_block = "170.0.2.0/24"
+  vpc_id            = aws_vpc.demo-vpc.id
+  cidr_block        = "170.0.2.0/24"
+  availability_zone = "ap-south-1a"
   tags = {
     Name = "private-subnet1"
   }
@@ -99,21 +101,17 @@ output "privsub" {
 resource "aws_instance" "mod_ec2" {
   instance_type          = "t2.micro"
   ami                    = "ami-06489866022e12a14"
+  availability_zone      = "ap-south-1a"
   vpc_security_group_ids = ["${aws_security_group.demo_sg.id}"]
   subnet_id              = aws_subnet.demo-public.id
-  key_name               = var.key_name
-  user_data              = file("./bootstrap.sh")
-  count                  = 2
+  key_name               = aws_key_pair.dev.id
+  #user_data              = file("./bootstrap.sh")
+  count = 1
   tags = {
     Name          = "Jenkins-Server${count.index}"
     Purpose       = "This is acting as Jenkins${count.index}"
     Change_Number = "CHG12345${count.index}"
   }
-}
-
-variable "key_name" {
-  type    = string
-  default = "admin"
 }
 
 output "instance_id" {
@@ -155,4 +153,21 @@ resource "aws_security_group" "demo_sg" {
     Name        = "module-vpc-sgp"
     Description = "This is associated with module-vpc"
   }
+}
+
+########Public/private ssh key creation #############
+resource "tls_private_key" "ssh" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+resource "local_file" "private-key" {
+  content         = tls_private_key.ssh.private_key_pem
+  filename        = "vijay.pem"
+  file_permission = "400"
+}
+
+resource "aws_key_pair" "dev" {
+  key_name   = "vijay"
+  public_key = tls_private_key.ssh.public_key_openssh
 }
