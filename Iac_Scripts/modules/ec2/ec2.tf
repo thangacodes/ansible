@@ -104,13 +104,24 @@ resource "aws_instance" "mod_ec2" {
   availability_zone      = "ap-south-1a"
   vpc_security_group_ids = ["${aws_security_group.demo_sg.id}"]
   subnet_id              = aws_subnet.demo-public.id
-  key_name               = aws_key_pair.dev.id
-  #user_data              = file("./bootstrap.sh")
-  count = 1
+  key_name               = "TF_key"
+  #count                  = 1
+
+  connection {
+    type        = "ssh"
+    host        = self.public_ip
+    user        = "ec2-user"
+    private_key = "tfkey.pem"
+  }
+
+  provisioner "file" {
+    source      = "./bootstrap.sh"
+    destination = "/tmp/bootstrap.sh"
+  }
   tags = {
-    Name          = "Jenkins-Server${count.index}"
-    Purpose       = "This is acting as Jenkins${count.index}"
-    Change_Number = "CHG12345${count.index}"
+    Name          = "Jenkins-Server"
+    Purpose       = "This is acting as Jenkins"
+    Change_Number = "CHG12345"
   }
 }
 
@@ -156,18 +167,18 @@ resource "aws_security_group" "demo_sg" {
 }
 
 ########Public/private ssh key creation #############
-resource "tls_private_key" "ssh" {
+resource "tls_private_key" "rsa" {
   algorithm = "RSA"
   rsa_bits  = 4096
 }
 
-resource "local_file" "private-key" {
-  content         = tls_private_key.ssh.private_key_pem
-  filename        = "vijay.pem"
-  file_permission = "400"
+resource "aws_key_pair" "dev" {
+  key_name   = "TF_key"
+  public_key = tls_private_key.rsa.public_key_openssh
+}
+resource "local_file" "TF-key" {
+  content         = tls_private_key.rsa.private_key_pem
+  filename        = "tfkey.pem"
+  file_permission = "0400"
 }
 
-resource "aws_key_pair" "dev" {
-  key_name   = "vijay"
-  public_key = tls_private_key.ssh.public_key_openssh
-}
