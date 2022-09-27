@@ -1,0 +1,6 @@
+---
+- name: "Installing the httpd softwares"
+  hosts: localhost
+  become: true
+  roles:
+    - ../httpd/
