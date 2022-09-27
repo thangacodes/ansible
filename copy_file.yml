@@ -1,0 +1,12 @@
+---
+  - name: Copying a file to remote machines
+    hosts: localhost
+    become: sudo
+    become_as: root
+    tasks:
+      - name: copying a file to the remote machiens
+        ansible.builtin.copy:
+          src: "/opt/dummy.txt"
+          dest: "/home/ec2-user/"
+          owner: ec2-user
+          mode: '0644'
