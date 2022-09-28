@@ -48,6 +48,10 @@ pipeline {
 			    sh '''
 			       echo "********** Going to delete the S3 bucket that we created in a minute ago ************"
 		               pwd
+			       cd jenkins-ansible/playbooks
+			       sleep 5
+			       pwd
+			       ls -larth
 		               ansible-playbook delete-s3-bucket.yml
 		               sleep 3
 		               aws s3 ls
