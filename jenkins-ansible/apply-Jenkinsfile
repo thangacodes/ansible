@@ -7,10 +7,12 @@ pipeline {
         stage('Ansible Version Checking') {
             steps {
                 sh '''
-                   echo 'Starts checking ansible'
+                   echo 'Jenkins Pipeline job starts at:' $(date)
+		   echo "******** Checking Ansible Verison ********"
                    ansible --version
                    ansible-playbook --version
                    ansible-galaxy --version
+		   echo "******* AWSCLI version ***********"
 		   aws --version
 		   aws s3 ls
                    aws ec2 describe-instances --region ap-south-1
@@ -20,6 +22,16 @@ pipeline {
 		   pwd
 		   echo "******* Ansible playbook execution starts in a seconds **********"
 	           ansible-playbook create-s3-bucket.yaml
+		   echo "******** S3 bucket has been created. Please verify at aws console ********"
+		   aws s3 ls
+		   sleep 5
+		   echo "********** Going to delete the S3 bucket that we created in a minute ago ************"
+		   pwd
+		   ansible-playbook delete-s3-bucket.yml
+		   sleep 3
+		   aws s3 ls
+		   echo "****************** FINALLY THE PIPELINE JOB HAS BEEN SUCCESSFULLY COMPLETED *****************"
+
                 '''
             }
         }
