@@ -1,0 +1,16 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Ansible version checking') {
+            steps {
+                sh '''
+                   echo 'Starts checking ansible'
+                   ansible --version
+                   ansible-playbook --version
+                   ansible-galaxy --verion
+                '''
+            }
+        }
+    }
+}
