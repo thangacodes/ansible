@@ -13,7 +13,7 @@ pipeline {
                    ansible-galaxy --version
 		   aws --version
 		   aws s3 ls
-                   aws ec2 describe-instances
+                   aws ec2 describe-instances --region {{ AWS_REGION }}
                 '''
             }
         }
