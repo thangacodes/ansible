@@ -8,31 +8,51 @@ pipeline {
             steps {
                 sh '''
                    echo 'Jenkins Pipeline job starts at:' $(date)
+		   echo " #######################################"
+		   echo " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 		   echo "******** Checking Ansible Verison ********"
                    ansible --version
                    ansible-playbook --version
                    ansible-galaxy --version
 		   echo "******* AWSCLI version ***********"
 		   aws --version
-		   aws s3 ls
-                   aws ec2 describe-instances --region ap-south-1
-                   echo "Going to create a NEW S3 bucket"
-		   pwd
-		   cd jenkins-ansible/playbooks
-		   pwd
-		   echo "******* Ansible playbook execution starts in a seconds **********"
-	           ansible-playbook create-s3-bucket.yaml
-		   echo "******** S3 bucket has been created. Please verify at aws console ********"
-		   aws s3 ls
-		   sleep 5
-		   echo "********** Going to delete the S3 bucket that we created in a minute ago ************"
-		   pwd
-		   ansible-playbook delete-s3-bucket.yml
-		   sleep 3
-		   aws s3 ls
-		   echo "****************** FINALLY THE PIPELINE JOB HAS BEEN SUCCESSFULLY COMPLETED *****************"
-
-                '''
+	      '''
+			}
+		}
+		stage('Executing some AWSCLI commands'){
+		    steps {
+			    sh '''
+		                aws s3 ls
+                                aws ec2 describe-instances --region ap-south-1
+			   '''
+			}
+		}
+		
+		stage('Creating S3 bucket in AWS Cloud'){
+		    steps {
+			    sh '''
+			       echo " ********** Going to create/delete a NEW S3 bucket *******"
+		               pwd
+		               cd jenkins-ansible/playbooks
+		               pwd
+		               echo "******* Ansible playbook execution starts in a seconds **********"
+        	               ansible-playbook create-s3-bucket.yaml
+		               echo "******** S3 bucket has been created. Please verify at aws console ********"
+		               aws s3 ls
+		              sleep 5
+		         '''
+			  }
+			}
+		stage('Deleting S3 bucket in AWS Cloud'){
+		    steps {
+			    sh '''
+			       echo "********** Going to delete the S3 bucket that we created in a minute ago ************"
+		               pwd
+		               ansible-playbook delete-s3-bucket.yml
+		               sleep 3
+		               aws s3 ls
+		               echo "****************** FINALLY THE PIPELINE JOB HAS BEEN SUCCESSFULLY COMPLETED *****************"
+                      '''
             }
         }
     }
