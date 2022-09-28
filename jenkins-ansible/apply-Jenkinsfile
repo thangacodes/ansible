@@ -13,7 +13,11 @@ pipeline {
                    ansible-galaxy --version
 		   aws --version
 		   aws s3 ls
-                   aws ec2 describe-instances --region {{ AWS_REGION }}
+		   aws configure get region
+                   aws ec2 describe-instances --region ap-south-1
+		   aws ec2 describe-instances  \
+                   --query "Reservations[*].Instances[*].{PublicIP:PublicIpAddress,Name:Tags[?Key=='Name']|[0].Value,Status:State.Name}" \
+                   --filters Name=instance-state-name,
                 '''
             }
         }
