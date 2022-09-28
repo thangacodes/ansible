@@ -15,7 +15,11 @@ pipeline {
 		   aws s3 ls
                    aws ec2 describe-instances --region ap-south-1
                    echo "Going to create a NEW S3 bucket"
-	           ansible-playbook playbooks/create-s3-bucket.yaml
+		   pwd
+		   cd playbooks
+		   pwd
+		   echo "******* Ansible playbook execution starts in a seconds **********"
+	           ansible-playbook create-s3-bucket.yaml
                 '''
             }
         }
