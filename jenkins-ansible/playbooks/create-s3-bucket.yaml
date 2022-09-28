@@ -1,0 +1,14 @@
+---
+- name: Execution of Ansible playbooks to create S3 buckets
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Calling the variables inside playbook
+      set_fact:
+        my_bucket: "Cloudbite-bucket-for-jenkins-ansible"
+    - name: Create a new S3 bucket
+      aws_s3:
+        ec2-region: "{{ AWS_REGION }}"
+        bucket: "{{ my_bucket }}"
+        mode: create
+
