@@ -14,9 +14,6 @@ pipeline {
 		   aws --version
 		   aws s3 ls
                    aws ec2 describe-instances --region ap-south-1
-		   sleep 5
-		   echo 'going to get region'
-		   aws configure get region
                 '''
             }
         }
