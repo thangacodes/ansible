@@ -8,7 +8,7 @@ pipeline {
                    echo 'Starts checking ansible'
                    ansible --version
                    ansible-playbook --version
-                   ansible-galaxy --verion
+                   ansible-galaxy --version
                 '''
             }
         }
