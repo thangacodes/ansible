@@ -3,12 +3,12 @@
   hosts: localhost
   gather_facts: no
   tasks:
-    - name: Calling the variables inside playbook
-      set_fact:
-        my_bucket: "Cloudbite-bucket-for-jenkins-ansible"
-    - name: Create a new S3 bucket
-      amazon.aws.aws_s3:
-        ec2-region: ap-south-1
-        bucket: "{{ my_bucket }}"
-        mode: create
-
+    - name: Create s3 bucket
+      s3_bucket:
+        name: myansible-bucket-demo
+        state: present
+        region: ap-south-1
+        versioning: no
+        tags:
+           name: myansible-bucket
+           type: demo
