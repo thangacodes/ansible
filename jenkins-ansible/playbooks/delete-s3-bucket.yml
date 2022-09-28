@@ -1,0 +1,14 @@
+---
+- name: Execution of Ansible playbooks to create S3 buckets
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Create s3 bucket
+      s3_bucket:
+        name: myansible-bucket-demo
+        state: absent
+        region: ap-south-1
+        versioning: no
+        tags:
+           name: myansible-bucket
+           type: demo
