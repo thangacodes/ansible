@@ -4,7 +4,7 @@ pipeline {
 	     SECRET_VALUE = credentials('jenkins-aws-creds')
 	}
     stages {
-        stage('Ansible Version Checking') {
+        stage('ansible/aws version status') {
             steps {
                 sh '''
                    echo 'Jenkins Pipeline job starts at:' $(date)
@@ -19,7 +19,7 @@ pipeline {
 	      '''
 			}
 		}
-		stage('Executing some AWSCLI commands'){
+		stage('AWSCLI execution status'){
 		    steps {
 			    sh '''
 		                aws s3 ls
