@@ -36,7 +36,7 @@ pipeline {
 		               cd ansible-roles/
 		               pwd
 		               echo "******* Ansible playbook execution starts in a seconds **********"
-        	           ansible-playbook install_httpd.yml
+                	       sudo ansible-playbook install_httpd.yml
 		               cat /var/www/html/index.html
 		               sleep 5
 		         '''
