@@ -2,5 +2,6 @@
 - name: "Installing the httpd softwares"
   hosts: localhost
   become: true
+  remote_user: root
   roles:
     - ../httpd/
