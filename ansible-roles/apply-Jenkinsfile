@@ -8,14 +8,14 @@ pipeline {
             steps {
                 sh '''
                    echo 'Jenkins Pipeline job starts at:' $(date)
-		           echo " #######################################"
-		           echo " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-		           echo "******** Checking Ansible Verison ********"
+		   echo " #######################################"
+		   echo " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+		   echo "******** Checking Ansible Verison ********"
                    ansible --version
                    ansible-playbook --version
                    ansible-galaxy --version
-		           echo "******* AWSCLI version ***********"
-		           aws --version
+		   echo "******* AWSCLI version ***********"
+		   aws --version
 	          '''
 			}
 		}
@@ -23,7 +23,7 @@ pipeline {
 		    steps {
 			    sh '''
 		            aws s3 ls
-                    aws ec2 describe-instances --region ap-south-1
+                            aws ec2 describe-instances --region ap-south-1
 			   '''
 			}
 		}
@@ -31,16 +31,16 @@ pipeline {
 		stage('Ansible-role execution'){
 		    steps {
 			    sh '''
-			           echo " ********** Going to create/delete a NEW S3 bucket *******"
-		               pwd
-		               cd ansible-roles/
-		               pwd
-		               echo "******* Ansible playbook execution starts in a seconds **********"
-                	       ansible-playbook install_httpd.yml
-		               cat /var/www/html/index.html
-		               sleep 5
+			           echo " ********** Going to install Apache Web Server locally *********"
+		                   pwd
+		                   cd ansible-roles/
+		                   pwd
+		                   echo"******* Ansible playbook execution starts in a seconds **********"
+                	           ansible-playbook install_httpd.yml
+		                   cat /var/www/html/index.html
+		                   sleep 5
 		         '''
 			  }
 			}
-        }
-	}
+                      }
+	            }
