@@ -2,6 +2,6 @@
 - name: "Installing the httpd softwares"
   hosts: localhost
   become: true
-  remote_user: root
+  become_user: ec2-user
   roles:
     - ../httpd/
