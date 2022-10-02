@@ -9,7 +9,7 @@
       instance_type: t2.micro
       image: ami-01216e7612243e0ef
       wait: yes
-      group: sg-0fb1052b659369aa8
+      group: app_group
       count: 2
       vpc_subnet_id: subnet-e9190a81
       assign_public_ip: yes
