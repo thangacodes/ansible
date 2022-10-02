@@ -8,6 +8,7 @@ pipeline {
             steps {
                 sh '''
                    echo 'Jenkins Pipeline job starts at:' $(date)
+		   echo 'Jenkins job is executed by:' $USER
 		   echo " #######################################"
 		   echo " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 		   echo "******** Checking Ansible Verison ********"
