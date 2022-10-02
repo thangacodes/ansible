@@ -11,5 +11,5 @@
       wait: yes
       group: sg-0fb1052b659369aa8
       count: 2
-      vpc_subnet_id: vpc-71c2281a
+      vpc_subnet_id: subnet-e9190a81
       assign_public_ip: yes
