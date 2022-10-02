@@ -1,0 +1,15 @@
+---
+- name: "Execution of Ansible playbook to create an EC2 instances"
+  hosts: localhost
+  gather_facts: no
+  tasks:
+  - name: "launch ec2 instances"
+    ec2:
+      key_name: admin
+      instance_type: t2.micro
+      image: ami-01216e7612243e0ef
+      wait: yes
+      group: sg-0fb1052b659369aa8
+      count: 2
+      vpc_subnet_id: vpc-71c2281a
+      assign_public_ip: yes
