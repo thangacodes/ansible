@@ -51,16 +51,23 @@ pipeline {
 			       echo "********** Going to delete the S3 bucket that we created in a minute ago ************"
 		               pwd
 			       cd jenkins-ansible/playbooks
-			       sleep 5
+			       sleep 2
 			       pwd
 			       ls -larth
 		               ansible-playbook delete-s3-bucket.yml
 		               sleep 3
 		               aws s3 ls
-			       echo "********** Going to spin up EC2 instance using Ansible playbook ************"
-			       ansible-playbook ec2-creation.yml
-		               echo "****************** FINALLY THE PIPELINE JOB HAS BEEN SUCCESSFULLY COMPLETED *****************"
-                      '''
+			    '''
+				}
+			}
+		stage('Provisioning EC2 instance'){
+            steps {
+                sh '''			
+	              echo "********** Going to spin up EC2 instance using Ansible playbook ************"
+		      cd jenkins-ansible/playbooks
+	              ansible-playbook ec2-creation.yml
+		      echo "****************** FINALLY THE PIPELINE JOB HAS BEEN SUCCESSFULLY COMPLETED *****************"
+                '''
             }
         }
     }
