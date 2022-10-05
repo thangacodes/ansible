@@ -12,7 +12,3 @@
       count: 1
       vpc_subnet_id: subnet-e9190a81
       assign_public_ip: yes
-      register: ec2_machine
-
-  - name: displaying output
-    debug: msg="{{ec2_machine}}"
