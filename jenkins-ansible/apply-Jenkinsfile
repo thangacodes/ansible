@@ -57,6 +57,7 @@ pipeline {
 		               ansible-playbook delete-s3-bucket.yml
 		               sleep 3
 		               aws s3 ls
+			       echo "********** Going to spin up EC2 instance using Ansible playbook ************"
 			       ansible-playbook ec2-creation.yml
 		               echo "****************** FINALLY THE PIPELINE JOB HAS BEEN SUCCESSFULLY COMPLETED *****************"
                       '''
