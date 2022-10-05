@@ -15,4 +15,3 @@
 
   - name: displaying output
     debug: msg="{{item.instance_id}}"
-    with_items: "{{ec2_info.instances}}"
