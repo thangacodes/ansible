@@ -13,7 +13,7 @@ pipeline {
 		   steps{
 		      cd Infrastructure_provision
 		      echo "listing out the files in the directory"
-		      ls -lrth
+		      sh 'ls -lrth'
                       }
 		}
     }
