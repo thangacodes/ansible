@@ -24,7 +24,7 @@ pipeline {
 			    sh '''
 		            aws s3 ls
                             aws ec2 describe-instances --region ap-south-1
-			   '''
+			    '''
 			}
 		}
 		
@@ -39,8 +39,13 @@ pipeline {
                 	           ansible-playbook install_httpd.yml
 		                   cat /var/www/html/index.html
 		                   sleep 5
-		         '''
-			  }
+		        '''
+			    }
 			}
-                      }
-	            }
+		stage('Clean Jenkins WorkSpace'){
+		    steps{
+			    cleanWs()
+			}
+		}
+	}
+}
