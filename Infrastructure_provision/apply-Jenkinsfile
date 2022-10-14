@@ -5,30 +5,35 @@ pipeline {
         stage('Cross checking selected parameterized selection'){
             steps {
             echo "You have selected the AWS ENVIRONMENT is: ${SELECT_ENV}"
-	        echo "You have selected the AMI_IMAGE ID is: ${SELECT_AWS_AMI}"
+                echo "You have selected the AMI_IMAGE ID is: ${SELECT_AWS_AMI}"
             }
         }
-		stage('Navigating to the terraform directory'){
-		   steps{
-		      sh '''
-		         pwd
-		         cd Infrastructure_provision
-		         echo "listing out the files in the directory"
-		         ls -lrth
-			     '''
+                stage('Navigating to the terraform directory'){
+                   steps{
+                      sh '''
+                         pwd
+                         cd Infrastructure_provision
+                         echo "listing out the files in the directory"
+                         ls -lrth
+                             '''
             }
-		}
-		stage('Terraform Script execution'){
-		   steps{
-		      sh '''
-		            pwd
-			    cd Infrastructure_provision/RDS/
-			    ls -lrth
-			    terraform init
-			    terraform fmt
-			    terraform plan
-			  '''
-			}
-		}
-    }
-}
+                }
+                stage('Terraform Script execution'){
+                   steps{
+                      sh '''
+                            pwd
+                            cd Infrastructure_provision/RDS/
+                            ls -lrth
+                            terraform init
+                            terraform fmt
+                            terraform plan
+                          '''
+                        }
+                    }
+                }
+				stage('Workspace CleanUp'){
+				    steps{
+					    cleanWs()
+					}
+				}   
+            }
