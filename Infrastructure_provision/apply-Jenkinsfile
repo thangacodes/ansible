@@ -27,7 +27,6 @@ pipeline {
                             terraform init
                             terraform fmt
                             terraform plan
-			    pwd
 			    echo "Going to apply on: ${TF_ACTION}"
 			    sleep 5
 			    ${TF_ACTION}
