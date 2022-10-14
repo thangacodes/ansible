@@ -8,14 +8,15 @@ pipeline {
 	        echo "You have selected the AMI_IMAGE ID is: ${SELECT_AWS_AMI}"
             }
         }
-	stage('Navigating to the terraform directory'){
-	    steps{
-	        pwd
-		sleep 10
-		cd AMI-SELECTION/Infrastructure_provision
-		echo "listing out the files in the directory"
-		ls -lrth
-            }
-	}
+		stage('Navigating to the terraform directory'){
+		   steps{
+		      sh '''
+		         pwd
+		         cd AMI-SELECTION/Infrastructure_provision
+		         echo "listing out the files in the directory"
+		         ls -lrth
+			'''
+                   }
+		}
     }
 }
