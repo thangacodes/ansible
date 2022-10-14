@@ -22,10 +22,11 @@ pipeline {
 		   steps{
 		      sh '''
 		            pwd
-			    cd RDS
-			     terraform init
-			     terraform fmt
-			      terraform plan
+			    cd Infrastructure_provision/RDS/
+			    ls -lrth
+			    terraform init
+			    terraform fmt
+			    terraform plan
 			  '''
 			}
 		}
