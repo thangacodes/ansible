@@ -12,7 +12,8 @@ pipeline {
 		   steps{
 		      sh '''
 		         pwd
-		         cd AMI-SELECTION/Infrastructure_provision
+			 ls -lrth
+		         cd Infrastructure_provision
 		         echo "listing out the files in the directory"
 		         ls -lrth
 			'''
