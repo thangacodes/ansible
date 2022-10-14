@@ -27,6 +27,7 @@ pipeline {
                             terraform init
                             terraform fmt
                             terraform plan
+			    echo "Going to apply on: ${Terraform_apply/destroy}"
                           '''
                         }
                     }
