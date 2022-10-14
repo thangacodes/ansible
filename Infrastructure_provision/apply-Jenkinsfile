@@ -4,17 +4,17 @@ pipeline {
     stages {
         stage('Cross checking selected parameterized selection'){
             steps {
-			    echo "starting the build"
+	        echo "starting the build"
                 echo "You have selected the AWS ENVIRONMENT is: ${SELECT_ENV}"
-				echo "You have selected the AMI_IMAGE ID is: ${SELECT_AWS_AMI}"
+	        echo "You have selected the AMI_IMAGE ID is: ${SELECT_AWS_AMI}"
             }
         }
 		stage('Navigating to the terraform directory'){
 		   steps{
 		      cd Infrastructure_provision
 		      echo "listing out the files in the directory"
-			  ls -lrth
-            }
+		      ls -lrth
+                      }
 		}
     }
 }
