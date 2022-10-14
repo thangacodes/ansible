@@ -11,7 +11,7 @@ pipeline {
         }
 		stage('Navigating to the terraform directory'){
 		   steps{
-		      cd Infrastructure_provision
+		      cd AMI-SELECTION/Infrastructure_provision
 		      echo "listing out the files in the directory"
 		      sh 'ls -lrth'
                       }
