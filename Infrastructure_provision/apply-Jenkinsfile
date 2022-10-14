@@ -22,7 +22,7 @@ pipeline {
                    steps{
                       sh '''
                             pwd
-                            cd Infrastructure_provision/RDS/
+                            cd Infrastructure_provision/tfstate/
                             ls -lrth
                             terraform init
                             terraform fmt
