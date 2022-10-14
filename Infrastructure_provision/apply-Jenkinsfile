@@ -21,10 +21,12 @@ pipeline {
 		stage('Terraform Script execution'){
 		   steps{
 		      sh '''
+		            pwd
+			    cd RDS
 			     terraform init
-				 terraform fmt
-				 terraform plan
-				 '''
+			     terraform fmt
+			      terraform plan
+			  '''
 			}
 		}
     }
