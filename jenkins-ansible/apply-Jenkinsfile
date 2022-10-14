@@ -70,11 +70,10 @@ pipeline {
                 '''
             }
         }
-		post {
-           always {
-           cleanWs()
-	       deleteDir()
-	       }
+		stage('CleanWorkspace'){
+		   steps{
+		       cleanWs()
+			}
 	    }
     }
 }
