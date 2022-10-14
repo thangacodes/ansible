@@ -12,12 +12,20 @@ pipeline {
 		   steps{
 		      sh '''
 		         pwd
-			 ls -lrth
 		         cd Infrastructure_provision
 		         echo "listing out the files in the directory"
 		         ls -lrth
-			'''
-                   }
+			     '''
+            }
+		}
+		stage('Terraform Script execution'){
+		   steps{
+		      sh '''
+			     terraform init
+				 terraform fmt
+				 terraform plan
+				 '''
+			}
 		}
     }
 }
