@@ -1,0 +1,11 @@
+The core concepts of boto3 are:
+
+Resource: higher-level object to access AWS services
+Client: low-level object to access AWS services
+Meta: object to enter into client object from resource object
+Session: It stores configuration state and allows you to
+create AWS service resources objects and clients objects.
+(Object to get connect with particular AWS account or IAM user account)
+Collections: a tool to iterate and manipulate groups of resoruces
+Paginators: automatic paging of responses
+Waiters: a way to block until a certain state has been reached.
