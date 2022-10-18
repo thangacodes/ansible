@@ -38,7 +38,10 @@ pipeline {
 			steps{
 			   echo "Deploying into Certification"
 			   	sh '''
-			      cd /Iac_Scripts/vpc_ec2_creation/
+				  ls -lrth
+				  pwd
+				  sleep 8
+			          cd /Iac_Scripts/vpc_ec2_creation/
 				  pwd
 				  ls -lrth
 				  sleep 3
