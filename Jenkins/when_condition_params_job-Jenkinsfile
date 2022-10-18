@@ -24,6 +24,8 @@ pipeline {
 				  terraform fmt
 				  terraform plan
 				  echo "Going to execute as: ${TF_ACTION}"
+				  sleep 5
+				  ${TF_ACTION}
 			  '''  
 		         }
 	        }
