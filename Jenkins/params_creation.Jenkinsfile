@@ -8,13 +8,13 @@ pipeline {
         stage('Parameters using scripted way') {
             steps {
                 echo 'Hello Params job'
-				echo "Hi ${params.firstname}, ${params.lastname},Welcome"
+		echo "Hi ${params.firstname}, ${params.lastname},Welcome"
             }
         }
-		stage('Workspace CleanUp'){
-		    steps{
-			   cleanWs()
-			}
+	stage('Workspace CleanUp'){
+           steps{
+	       cleanWs()
 		}
+	     }
 	}
 }
