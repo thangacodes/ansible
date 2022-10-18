@@ -52,11 +52,12 @@ variable "ami_id" {
 }
 
 variable "instance_type" {
-  description = "Instance type should be selected as 't3.xlarge'(4vCPU/16gig Mem)"
+  description = "By default it should t2.micro"
   type        = string
+  default     = "t2.micro"
 
-  validation {
-    condition     = can(regex("^[Tt][3].(large|xlarge|2xlarge)", var.instance_type))
-    error_message = "Invalid Instance Type name. You have to choose only - t3.large,t3.xlarge,t3.2xlarge?"
+  //validation {
+    //condition     = can(regex("^[Tt][3].(large|xlarge|2xlarge)", var.instance_type))
+    //error_message = "Invalid Instance Type name. You have to choose only - t3.large,t3.xlarge,t3.2xlarge?"
   }
 }
