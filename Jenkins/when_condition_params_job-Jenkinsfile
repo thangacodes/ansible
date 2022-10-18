@@ -1,8 +1,9 @@
 pipeline {
     agent any
     parameters {
+       string defaultValue: 'P021473', description: 'Who is executing the Jenkins Job', name: 'EXECUTOR_PID'
        choice choices: ['DEV', 'CERT', 'STAGE', 'PROD'], description: 'Select the environment to deploy the resources', name: 'selectenv'
-       choice choices: ['terraform apply --auto-approve', 'terraform destroy --auto-approve'], description: 'Please select what do you wanted to achieve it...', name: 'tf_action'
+       choice choices: ['terraform apply --auto-approve', 'terraform destroy --auto-approve'], description: 'Please select what do you wanted to achieve it...', name: 'TF_ACTION'
     }
 	stages{
 	    stage("provisioning infra on dev environment"){
@@ -22,7 +23,7 @@ pipeline {
 				  terraform init
 				  terraform fmt
 				  terraform plan
-				  echo "Going to execute as: ${tf_action}"
+				  echo "Going to execute as: ${TF_ACTION}"
 			  '''  
 		         }
 	        }
