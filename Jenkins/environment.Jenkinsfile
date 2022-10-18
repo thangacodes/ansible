@@ -17,9 +17,15 @@ pipeline{
 	    }
 		stage("if job failed"){
 		   steps{
-		      sh 'durai --version'
+		      sh 'vim --version'
 			}
 		}
+		stage('Workspace clean up'){
+           steps{
+	          echo "Cleaning up workspace"
+		      cleanWS()
+	        }
+        }
 	}
 	post {
      failure {
