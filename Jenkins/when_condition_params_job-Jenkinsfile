@@ -2,6 +2,7 @@ pipeline {
     agent any
     parameters {
        choice choices: ['DEV', 'CERT', 'STAGE', 'PROD'], description: 'Select the environment to deploy the resources', name: 'selectenv'
+       choice choices: ['terraform apply --auto-approve', 'terraform destroy --auto-approve'], description: 'Please select what do you wanted to achieve it...', name: 'tf_action'
     }
 	stages{
 	    stage("provisioning infra on dev environment"){
@@ -21,7 +22,7 @@ pipeline {
 				  terraform init
 				  terraform fmt
 				  terraform plan
-				  terraform destroy --auto-approve
+				  echo "Going to execute:${tf_action}"
 			  '''  
 		         }
 	        }
