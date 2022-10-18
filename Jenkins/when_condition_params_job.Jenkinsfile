@@ -8,28 +8,28 @@ pipeline {
 		    when{
 			  expression{
 			    params.selectenv == "DEV"
-				}
+			   }
 			}
 			steps{
 			   echo "Deploying into Development"
-		    }
-		}
+		         }
+	        }
 		stage("provisioning infra on cert environment"){
 		    when{
 			  expression{
 			    params.selectenv == "CERT"
-				}
+			   }
 			}
 			steps{
 			   echo "Deploying into Certification"
-		}
+		        }
 	}
 	stage("provisioning infra on staging environment"){
 	    when{
 		   expression{
 		     params.selectenv == "STAGE"
 			}
-		}
+		   }
 		steps{
 			   echo "Deploying into staging"
 			}
@@ -41,14 +41,14 @@ pipeline {
 			}
 		}
 		steps{
-			   echo "Deploying into production"
-			}
+		    echo "Deploying into production"
+		  }
 	}
 	stage("Workspace CleanUp"){
 		steps{
 		    echo "Cleaning up the workspace in Jenkins"
 			cleanWs()
-			}
+		 }
 	    }
 	}
 }
