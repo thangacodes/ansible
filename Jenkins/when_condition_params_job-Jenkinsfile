@@ -37,7 +37,18 @@ pipeline {
 			}
 			steps{
 			   echo "Deploying into Certification"
-		        }
+			   	sh '''
+			      cd /Iac_Scripts/vpc_ec2_creation/
+				  pwd
+				  ls -lrth
+				  sleep 3
+				  terraform init
+				  terraform fmt
+				  terraform plan
+				  echo "Going to apply on: ${TF_ACTION}"
+				  ${TF_ACTION}
+			  '''
+		    }
 	}
 	stage("provisioning infra on staging environment"){
 	    when{
@@ -58,12 +69,14 @@ pipeline {
 		steps{
 		    echo "Deploying into production"
 		  }
+	    }
 	}
-	//stage("Workspace CleanUp"){
-		//steps{
-		    //echo "Cleaning up the workspace in Jenkins"
-			//cleanWs()
-		 //}
-	    //}
-	}
+	post {
+     failure {
+     echo "Job is failure.Sending an email to the SCM team"
+    }
+	success {
+	  echo "Job is succeed.Sending an email to the SCM team"
+    }
+  }
 }
