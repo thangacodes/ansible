@@ -41,7 +41,7 @@ pipeline {
 				  ls -lrth
 				  pwd
 				  sleep 8
-			          cd /Iac_Scripts/vpc_ec2_creation/
+			          cd Iac_Scripts/vpc_ec2_creation/
 				  pwd
 				  ls -lrth
 				  sleep 3
