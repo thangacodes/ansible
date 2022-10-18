@@ -14,7 +14,7 @@ pipeline {
 			   echo "Deploying into Development"
 			   sh '''
 			      pwd
-				  cd Infrastructure_provision/vpc-subnet/
+				  cd Infrastructure_provision/IAM_USER/
 				  pwd
 				  ls -lrth
 				  sleep 5
