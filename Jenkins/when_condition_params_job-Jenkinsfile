@@ -22,7 +22,7 @@ pipeline {
 				  terraform init
 				  terraform fmt
 				  terraform plan
-				  echo "Going to execute:${tf_action}"
+				  echo "Going to execute as: ${tf_action}"
 			  '''  
 		         }
 	        }
