@@ -1,12 +1,12 @@
 ## The region where we are provisioning the resoruces
 variable "region" {
   type    = string
-  default = "eu-west-1"
+  default = "ap-south-1"
 }
 
 variable "avail_zone" {
   type    = string
-  default = "eu-west-1a"
+  default = "ap-south-1a"
 }
 
 ## Common tagging for the resources that we provision on AWS
