@@ -6,7 +6,7 @@ pipeline {
        choice choices: ['terraform apply --auto-approve', 'terraform destroy --auto-approve'], description: 'Please select what do you wanted to achieve it...', name: 'TF_ACTION'
     }
 	stages{
-	    stage("provisioning infra on dev environment"){
+	    stage("TF execution on DEV"){
 		    when{
 			  expression{
 			    params.selectenv == "DEV"
@@ -29,7 +29,7 @@ pipeline {
 			  '''  
 		         }
 	        }
-		stage("provisioning infra on cert environment"){
+		stage("TF execution on CERT"){
 		    when{
 			  expression{
 			    params.selectenv == "CERT"
@@ -53,7 +53,7 @@ pipeline {
 			  '''
 		    }
 	}
-	stage("provisioning infra on staging environment"){
+	stage("TF execution on STAGE"){
 	    when{
 		   expression{
 		     params.selectenv == "STAGE"
@@ -63,7 +63,7 @@ pipeline {
 			   echo "Deploying into staging"
 			}
 	}
-	stage("provisioning infra on prod environment"){
+	stage("TF execution on PROD"){
 	    when{
 		   expression{
 		     params.selectenv == "PROD"
