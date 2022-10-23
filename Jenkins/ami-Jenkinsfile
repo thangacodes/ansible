@@ -8,17 +8,19 @@ pipeline {
 	}
     stages {
         stage('String parameter checking') {
-            steps {
+            steps{
                 echo 'Hello Params job'
-		echo "Hi ${params.firstname}, ${params.lastname},Welcome"
+		        echo "Hi ${params.firstname}, ${params.lastname},Welcome"
             }
 		}
 		stage('AMI_Creation'){
 		    steps{
-			    echo 'AMI Creation from the EC2 instance'
+			    sh ''' 
+				echo "AMI Creation from the EC2 instance"
 				cd Iac_Scripts/ec2_ami_creation/
 				echo ${TF_ACTION}
-				sh '${TF_ACTION}'
+				${TF_ACTION}
+				'''
 			}
         }
 	}
