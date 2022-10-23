@@ -5,7 +5,7 @@ pipeline {
 	 string defaultValue: 'murugan', description: 'Enter the lastname', name: 'lastname'
 	 choice choices: ['i-0974b6ff2651ebd0b'], description: 'Select the AMI ID', name: 'INSTANCE_ID'
 	 choice choices: ['terraform init'], description: 'Terraform initialization', name: 'TF_INIT'
-	 choice choices: ['terraform format'], description: 'Terraform format', name: 'TF_FMT'
+	 choice choices: ['terraform fmt'], description: 'Terraform format', name: 'TF_FMT'
 	 choice choices: ['terraform validate'], description: 'Terraform validate', name: 'TF_VALID'
 	 choice choices: ['terraform plan'], description: 'Terraform plan', name: 'TF_PLAN'
 	 choice choices: ['terraform apply --auto-approve', 'terraform destroy --auto-approve'], description: 'What do you want to perform using Terraform?', name: 'TF_ACTION'
