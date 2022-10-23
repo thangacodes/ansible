@@ -1,9 +1,13 @@
 pipeline {
     agent any
 	parameters{  
-     string defaultValue: 'thangadurai', description: 'Enter the firstname', name: 'firstname'
+         string defaultValue: 'thangadurai', description: 'Enter the firstname', name: 'firstname'
 	 string defaultValue: 'murugan', description: 'Enter the lastname', name: 'lastname'
 	 choice choices: ['i-0974b6ff2651ebd0b'], description: 'Select the AMI ID', name: 'INSTANCE_ID'
+	 choice choices: ['terraform init'], description: 'Terraform initialization', name: 'TF_INIT'
+	 choice choices: ['terraform format'], description: 'Terraform format', name: 'TF_FMT'
+	 choice choices: ['terraform validate'], description: 'Terraform validate', name: 'TF_VALID'
+	 choice choices: ['terraform plan'], description: 'Terraform plan', name: 'TF_PLAN'
 	 choice choices: ['terraform apply --auto-approve', 'terraform destroy --auto-approve'], description: 'What do you want to perform using Terraform?', name: 'TF_ACTION'
 	}
     stages {
@@ -18,7 +22,15 @@ pipeline {
 			    sh ''' 
 				echo "AMI Creation from the EC2 instance"
 				cd Iac_Scripts/ec2_ami_creation/
+				echo ${TF_INIT}
+				echo ${$TF_FMT}
+				echo ${TF_VALID}
+				echo $TF_PLAN}
 				echo ${TF_ACTION}
+				${TF_INIT}
+				${$TF_FMT}
+				${TF_VALID}
+				$TF_PLAN}
 				${TF_ACTION}
 				'''
 			}
