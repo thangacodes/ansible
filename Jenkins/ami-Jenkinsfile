@@ -25,12 +25,12 @@ pipeline {
 				echo ${TF_FMT}
 				echo ${TF_INIT}
 				echo ${TF_VALID}
-				echo $TF_PLAN}
+				echo ${TF_PLAN}
 				echo ${TF_ACTION}
 				${TF_INIT}
 				${TF_FMT}
 				${TF_VALID}
-				$TF_PLAN}
+				${TF_PLAN}
 				${TF_ACTION}
 				'''
 			}
