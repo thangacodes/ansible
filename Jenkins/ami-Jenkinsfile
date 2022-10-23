@@ -15,6 +15,9 @@ pipeline {
 		stage('AMI_Creation'){
 		    steps{
 			    echo 'AMI Creation from the EC2 instance'
+			    cd Iac_Scripts/ec2_ami_creation/
+			    echo ${TF_ACTION}
+			    sh '${TF_ACTION}'
 			}	
 	    stage('Workspace CleanUp'){
            steps{
