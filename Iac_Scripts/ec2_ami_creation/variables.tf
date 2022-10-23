@@ -5,6 +5,7 @@ variable "region" {
 
 variable "instance_id" {
   type = string
+  default = "i-0974b6ff2651ebd0b"
 }
 
 variable "tagging" {
