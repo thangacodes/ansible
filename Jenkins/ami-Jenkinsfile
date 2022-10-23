@@ -1,9 +1,10 @@
 pipeline {
     agent any
 	parameters{  
-     string defaultValue: 'thangadurai', description: 'Enter the firstname', name: 'firstname'
+           string defaultValue: 'thangadurai', description: 'Enter the firstname', name: 'firstname'
 	   string defaultValue: 'murugan', description: 'Enter the lastname', name: 'lastname'
 	   choice choices: ['i-0974b6ff2651ebd0b'], description: 'Select the AMI ID', name: 'INSTANCE_ID'
+	   choice choices: ['terraform apply --auto-approve', 'terraform destroy --auto-approve'], description: 'What do you want to perform using Terraform?', name: 'TF_ACTION'
 	}
     stages {
         stage('String parameter checking') {
