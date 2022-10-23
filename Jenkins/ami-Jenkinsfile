@@ -22,8 +22,8 @@ pipeline {
 			    sh ''' 
 				echo "AMI Creation from the EC2 instance"
 				cd Iac_Scripts/ec2_ami_creation/
-				echo ${TF_INIT}
-				echo ${$TF_FMT}
+				echo ${TF_FMT}
+				echo ${$TF_INIT}
 				echo ${TF_VALID}
 				echo $TF_PLAN}
 				echo ${TF_ACTION}
