@@ -29,7 +29,7 @@ parameters {
                    openssl req -new -nodes -newkey rsa:2048 -subj "/CN=${HOST6}/C=IN/L=Bangalore/O=Example Softtech corp/OU=ITOPS/ST=Karnataka/emailAddress=TECH_OPS@example.com/subjectAltName=${HOST6}" -keyout ${HOST6}.key -out ${HOST6}.csr
                    ls -l | cut -d " " -f9 | grep csr > csr.txt
                    sleep 4
-				           echo "Viewing csr.txt file, what it contains?"
+	           echo "Viewing csr.txt file, what it contains?"
                    cat csr.txt
 				     '''
 			}
@@ -38,13 +38,13 @@ parameters {
 		    steps{
 			    echo "Started to uploading the generated CSR files to S3 bucket"
 				sh '''
-				           pwd
-				           ls -lrth
-                   sleep 5
-                   aws s3 ls
-                   aws s3 cp csr.txt s3://grabtech-space/SSL_CERTS/
-                   aws s3 ls s3://grabtech-space/SSL_CERTS/
-             '''
+				      pwd
+				      ls -lrth
+                                      sleep 5
+                                      aws s3 ls
+                                      aws s3 cp csr.txt s3://grabtech-space/SSL_CERTS/
+                                       aws s3 ls s3://grabtech-space/SSL_CERTS/
+                                   '''
             }
         }
 		stage('Workspace CleanUp'){
