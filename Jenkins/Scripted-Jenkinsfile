@@ -1,0 +1,59 @@
+pipeline {
+    agent any
+parameters {
+  string defaultValue: 'web01.dev.aws.example.com', description: 'web-server01', name: 'HOST1'
+  string defaultValue: 'web02.dev.aws.example.com', description: 'web-server02', name: 'HOST2'
+  string defaultValue: 'web03.dev.aws.example.com', description: 'web-server03', name: 'HOST3'
+  string defaultValue: 'web04.dev.aws.example.com', description: 'web-server04', name: 'HOST4'
+  string defaultValue: 'web05.dev.aws.example.com', description: 'web-server05', name: 'HOST5'
+  string defaultValue: 'web06.dev.aws.example.com', description: 'web-server06', name: 'HOST6'
+}
+    stages {
+        stage('Repo Cloning') {
+            steps {
+                echo 'Cloning the repository from GIT'
+                git branch: 'main', url: 'https://github.com/send2durai/ansible-notes.git'
+            }
+        }
+        stage('CSR Generation'){
+            steps{
+                echo 'Generating CSR file internally to get signed by the SecOps'
+                sh '''
+                   mkdir SIJO
+                   cd SIJO
+                   openssl req -new -nodes -newkey rsa:2048 -subj "/CN=${HOST1}/C=IN/L=Bangalore/O=Example Softtech corp/OU=ITOPS/ST=Karnataka/emailAddress=TECH_OPS@example.com/subjectAltName=${HOST1}" -keyout ${HOST1}.key -out ${HOST1}.csr
+                   openssl req -new -nodes -newkey rsa:2048 -subj "/CN=${HOST2}/C=IN/L=Bangalore/O=Example Softtech corp/OU=ITOPS/ST=Karnataka/emailAddress=TECH_OPS@example.com/subjectAltName=${HOST2}" -keyout ${HOST2}.key -out ${HOST2}.csr
+                   openssl req -new -nodes -newkey rsa:2048 -subj "/CN=${HOST3}/C=IN/L=Bangalore/O=Example Softtech corp/OU=ITOPS/ST=Karnataka/emailAddress=TECH_OPS@example.com/subjectAltName=${HOST3}" -keyout ${HOST3}.key -out ${HOST3}.csr
+                   openssl req -new -nodes -newkey rsa:2048 -subj "/CN=${HOST4}/C=IN/L=Bangalore/O=Example Softtech corp/OU=ITOPS/ST=Karnataka/emailAddress=TECH_OPS@example.com/subjectAltName=${HOST4}" -keyout ${HOST4}.key -out ${HOST4}.csr
+                   openssl req -new -nodes -newkey rsa:2048 -subj "/CN=${HOST5}/C=IN/L=Bangalore/O=Example Softtech corp/OU=ITOPS/ST=Karnataka/emailAddress=TECH_OPS@example.com/subjectAltName=${HOST5}" -keyout ${HOST5}.key -out ${HOST5}.csr
+                   openssl req -new -nodes -newkey rsa:2048 -subj "/CN=${HOST6}/C=IN/L=Bangalore/O=Example Softtech corp/OU=ITOPS/ST=Karnataka/emailAddress=TECH_OPS@example.com/subjectAltName=${HOST6}" -keyout ${HOST6}.key -out ${HOST6}.csr
+                   ls -l | cut -d " " -f9 | grep csr > csr.txt
+                   sleep 4
+				           echo "Viewing csr.txt file, what it contains?"
+                   cat csr.txt
+				     '''
+			}
+		}
+		stage('Uploading the CSR files to S3 bucket'){
+		    steps{
+			    echo "Started to uploading the generated CSR files to S3 bucket"
+				sh '''
+				           pwd
+				           ls -lrth
+                   sleep 5
+                   aws s3 ls
+                   aws s3 cp csr.txt s3://grabtech-space/SSL_CERTS/
+                   aws s3 ls s3://grabtech-space/SSL_CERTS/
+             '''
+            }
+        }
+		stage('Workspace CleanUp'){
+		    steps{
+			    sh '''
+				   echo "Cleaning the Jenkins workspace"
+				'''
+				cleanWs()
+			}
+		}
+    }
+}
