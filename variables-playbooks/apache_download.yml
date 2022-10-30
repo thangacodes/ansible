@@ -1,0 +1,22 @@
+---
+- name: "Playbook to download Apache Tomcat latest version"
+  hosts: localhost
+  become: true
+  vars:
+    - tomcat_url: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.68/bin/apache-tomcat-9.0.68.tar.gz
+    - tomcat_dest: /tmp/
+    - greetings: Playbook to download
+    - site: apache-tomcat binary for linux
+  tasks:
+  - name: "Print the value of variables"
+    debug:
+      msg: "{{ greetings }}, to {{ site }}"
+
+  - name: "donwload apache from the website"
+    get_url:
+      url: "{{ tomcat_url }}"
+      dest: "{{ tomcat_dest }}"
+  - name: "extract apache tomcat package"
+    unarchive:
+      src: /tmp/apache-tomcat-9.0.68.tar.gz
+      dest: /tmp/

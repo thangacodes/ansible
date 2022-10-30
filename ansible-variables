@@ -1,0 +1,23 @@
+Ansible Variables:-
+
+Define with the file directly
+
+Passing from external files
+
+Passing from hosts inventory
+
+Using group_vars or hosts_vars and so on..
+
+=================
+
+Please make a note:-
+  
+  a) When you use variables under hosts section, please follow the below. Example,
+   
+     vars:
+       - tomcat_url: Specify the downloading URL    //You should not user '-' in the variable name. Use always '_' instead of Hypen.
+
+  b) When you call variable in the playbook, you should user flower bracker twice {{  }}. Example,
+
+     url: "{{ url_down }}"                         // When you call the variable at the first, you should use "{{ }}" 
+     dest: /tmp/{{ apache }}/                     // When you call the variables in between, where it doesn't matter to user double-quote with flower bracket. Simply use on                                                  ly {{ }} . That's enough
