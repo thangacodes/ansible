@@ -1,0 +1,15 @@
+---
+- name: "Just executing local variables to the print"
+  hosts: localhost
+  become: true
+  vars:
+    cidr_blocks:
+      production:
+        vpc_cidr: "192.168.0.0/24"
+      staging:
+        vpc_cidr: "192.168.1.0/24"
+
+  tasks:
+  - name: Print production vpc_cidr
+    ansible.builtin.debug:
+      var: cidr_blocks['production']['vpc_cidr']
