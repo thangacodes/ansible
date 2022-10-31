@@ -1,0 +1,18 @@
+---
+- name: "Example simple variable to pass & call"
+  hosts: localhost
+  become: true
+  vars:
+    username: bob
+    username1: john
+
+  tasks:
+  - name: Add the user {{ username }}
+    ansible.builtin.user:
+      name: "{{ username }}"
+      state: present
+
+  - name: List out the user {{ username }}
+    shell: cat /etc/passwd | grep -i {{ username }}
+    register: user_out
+  - debug: msg="{{ user_out }}"
