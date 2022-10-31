@@ -1,0 +1,21 @@
+---
+- name: "Playbook to download Apache Tomcat latest version"
+  hosts: localhost
+  become: true
+  vars_files:
+    - tomcat_vars
+
+  tasks:
+  - name: "Message about the playbook"
+    debug:
+      msg: "{{ greetings }}, to {{ site }}"
+
+  - name: "donwload apache from the website"
+    get_url:
+      url: "{{ tomcat_url }}"
+      dest: "{{ tomcat_dest }}"
+  - name: "extract apache tomcat package"
+    unarchive:
+      src: /tmp/apache-tomcat-9.0.68.tar.gz
+      dest: /tmp/
+
