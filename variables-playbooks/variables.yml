@@ -1,0 +1,12 @@
+---
+- name: "Just playbook variable checking"
+  hosts: localhost
+  become: true
+  vars:
+    - greetings: Welcome to my channel!
+    - hello: Hey there!
+    - hiya: How are you?
+  tasks:
+  - name: "vcalling here"
+    debug:
+      msg: "{{ hello }}, {{ greetings }}.{{ hiya }}"
