@@ -48,7 +48,7 @@ pipeline {
            steps {
               sh '''
 	         echo "Terraform apply in progress"
-	         terraform destroy --auto-approve
+	         terraform apply --auto-approve
 	      '''
         }
     }
