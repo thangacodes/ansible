@@ -26,7 +26,7 @@ pipeline {
                 echo 'Terraform Init will begun..'
 		mkdir iam_user
 		cd iam_user
-	        cp -r Iac_Scripts/Iam_user_creation/* .
+	        cp ../Iac_Scripts/Iam_user_creation/* .
 		sleep 5
                 terraform init
 		'''
