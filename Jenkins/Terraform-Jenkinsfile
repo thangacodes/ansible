@@ -10,6 +10,8 @@ pipeline {
             }
 	    steps{
 	      echo 'Terraform project will begin'
+	      echo "Terraform project build no is:" ${BUILD_ID}
+	      echo "You've chosen environment is:" ${ENVIRONMENT}
 	    }
 	}
     stage('Cloning the Repository'){
@@ -21,37 +23,36 @@ pipeline {
     stage('Terraform Init'){
         steps {
             echo 'Init will begun..'
-	     cd Iac_Scripts/vpc_ec2_creation
-	     pwd
-	     ls -lrth
-             sh 'terraform init'
+	        pwd
+	        cd Iac_Scripts/vpc_ec2_creation
+	        pwd
+	        ls -lrth
+            sh 'terraform init'
         }
     }
     stage('Terraform fmt'){
         steps {
             echo 'Terraform format...'
-			sh 'terraform fmt'
+	    sh 'terraform fmt'
         }
     }
 	stage('Terraform validate'){
-        steps {
+           steps {
             echo 'Terraform validate...'
-			sh 'terraform validate'
+	    sh 'terraform validate'
         }
     }
 	stage('Terraform plan'){
-        steps {
-            echo 'Terraform plan in progress...'
-			sh 'terraform plan'
+           steps {
+              echo 'Terraform plan in progress...'
+	      sh 'terraform plan'
         }
     }
 	stage('Workspace CleanUp'){
-		steps{
-			sh '''
-			    echo "Cleaning the Jenkins workspace"
-			'''
-			cleanWs()
+	   steps{
+	      echo "Cleaning the Jenkins workspace"
+	      cleanWs()
             }
-		}
 	}
+     }
 }
