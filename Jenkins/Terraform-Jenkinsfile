@@ -1,7 +1,8 @@
 pipeline {
     agent any
 	parameters {
-    choice choices: ['Development', 'Certification', 'Staging', 'Production'], description: 'Please select the environment?', name: 'ENVIRONMENT'
+        choice choices: ['Development', 'Certification', 'Staging', 'Production'], description: 'Please select the environment?', name: 'ENVIRONMENT'
+	choice choices: ['terraform apply --auto-approve', 'terraform destroy --auto-approve'], description: 'This is the terraform action that we call it in our terraform scripts', name: 'TF_ACTION'
 }
     stages{
     stage("Are we good to deploy the Infra Provisioning?"){
