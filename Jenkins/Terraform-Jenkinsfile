@@ -1,9 +1,10 @@
 pipeline {
     agent any
 	parameters {
-        choice choices: ['Development', 'Certification', 'Staging', 'Production'], description: 'Please select the environment?', name: 'ENVIRONMENT'
-	choice choices: ['terraform apply --auto-approve', 'terraform destroy --auto-approve'], description: 'This is the terraform action that we call it in our terraform scripts', name: 'TF_ACTION'
-}
+    choice choices: ['Development', 'Certification', 'Staging', 'Production'], description: 'Please select the environment?', name: 'ENVIRONMENT'
+	choice choices: ['terraform apply --auto-approve'], description: 'This is the terraform action that we call it in our terraform scripts', name: 'TF_APPLY'
+	choice choices: ['terraform destroy --auto-approve'], description: 'This is the terraform action that we call it in our terraform scripts', name: 'TF_DESTROY'
+    }
     stages{
     stage("Are we good to deploy the Infra Provisioning?"){
         input{
@@ -18,20 +19,20 @@ pipeline {
     stage('Cloning the Repository'){
         steps {
             echo 'Git cloning in progress..'
-	    git branch: 'main', url: 'https://github.com/send2durai/ansible-notes.git'
+	        git branch: 'main', url: 'https://github.com/send2durai/ansible-notes.git'
         }
     }
     stage('Terraform Init'){
         steps {
 		sh '''
-                echo 'Terraform Init will begun..'
-		mkdir iam_user
-		cd iam_user
-	        cp ../Iac_Scripts/Iam_user_creation/* .
-		sleep 5
-                terraform init
-		terraform plan
-		'''
+              echo 'Terraform Init will begun..'
+		      mkdir iam_user
+		      cd iam_user
+	              cp ../Iac_Scripts/Iam_user_creation/* .
+		      sleep 5
+                      terraform init
+		      terraform plan
+		  '''
         }
     }
     stage('Terraform fmt'){
@@ -57,12 +58,18 @@ pipeline {
               sh '''
 	         cd iam_user
 	         echo "Terraform apply in progress"
-	         terraform apply --auto-approve
+	         ${TF_APPLY}
 		 sleep 20
-		 echo "Going to remove the users in AWS"
-		 terraform destroy --auto-approve
+		 echo "Going to perform destroy the resources"
+		 ${TF_DESTROY}
 	      '''
         }
     }
-   }
-}
+	stage('Workspace CleanUp'){
+	   steps{
+	      echo "Cleaning the Jenkins workspace"
+	      cleanWs()
+             }
+	  }
+      }
+ }
