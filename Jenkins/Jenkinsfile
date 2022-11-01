@@ -5,9 +5,11 @@ pipeline {
 }
     stages{
     stage("Are we good to deploy? Say yes or no?"){
-        input{
+	   steps{
+          input{
            message "Should we deploy the project?"
-           }
+        }
+	  }
 	}
     stage('Build') {
         steps {
@@ -26,10 +28,10 @@ pipeline {
     }
 	stage('Workspace CleanUp'){
 		steps{
-		   sh '''
-		      echo "Cleaning the Jenkins workspace"
-		   '''
-		      cleanWs()
+			sh '''
+			    echo "Cleaning the Jenkins workspace"
+			'''
+			cleanWs()
             }
 		}
 	}
