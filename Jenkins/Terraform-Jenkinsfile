@@ -9,9 +9,9 @@ pipeline {
            message "Should we deploy the TF Infra Project?"
             }
 	    steps{
-	      echo 'Terraform project will begin'
-	      echo "Terraform project build no is:" ${BUILD_ID}
-	      echo "You've chosen environment is:" ${ENVIRONMENT}
+	      echo "Terraform project will begin"
+	      echo "Terraform project build no is: ${BUILD_ID}"
+	      echo "You've chosen environment is: ${ENVIRONMENT}"
 	    }
 	}
     stage('Cloning the Repository'){
