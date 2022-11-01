@@ -17,7 +17,7 @@ pipeline {
     stage('Cloning the Repository'){
         steps {
             echo 'Git cloning in progress..'
-	        git branch: 'main', url: 'https://github.com/send2durai/ansible-notes.git'
+	    git branch: 'main', url: 'https://github.com/send2durai/ansible-notes.git'
         }
     }
     stage('Terraform Init'){
@@ -57,6 +57,9 @@ pipeline {
 	         cd iam_user
 	         echo "Terraform apply in progress"
 	         terraform apply --auto-approve
+		 sleep 20
+		 echo "Going to remove the users in AWS"
+		 terraform destroy --auto-approve
 	      '''
         }
     }
