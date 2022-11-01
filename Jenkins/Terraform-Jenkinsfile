@@ -1,14 +1,14 @@
 pipeline {
     agent any
 	parameters {
-        choice choices: ['Development', 'Certification', 'Staging', 'Production'], description: 'Please select the environment?', name: 'ENVIRONMENT'
+    choice choices: ['Development', 'Certification', 'Staging', 'Production'], description: 'Please select the environment?', name: 'ENVIRONMENT'
 	choice choices: ['terraform apply --auto-approve'], description: 'This is the terraform action that we call it in our terraform scripts', name: 'TF_APPLY'
 	choice choices: ['terraform destroy --auto-approve'], description: 'This is the terraform action that we call it in our terraform scripts', name: 'TF_DESTROY'
     }
     stages{
-    stage("User Input"){
+    stage("Are we good to deploy the Infra Provisioning?"){
         input{
-           message "Are we good to deploy the resources in AWS?"
+           message "Should we deploy the TF Infra Project?"
         }
 	    steps{
 	      echo "Terraform project will begin"
@@ -19,20 +19,20 @@ pipeline {
     stage('Cloning the Repository'){
         steps {
             echo 'Git cloning in progress..'
-	        git branch: 'main', url: 'https://github.com/send2durai/ansible-notes.git'
+	    git branch: 'main', url: 'https://github.com/send2durai/ansible-notes.git'
         }
     }
     stage('Terraform Init'){
         steps {
 		sh '''
-              echo 'Terraform Init will begun..'
+                      echo 'Terraform Init will begun..'
 		      mkdir iam_user
 		      cd iam_user
 	              cp ../Iac_Scripts/Iam_user_creation/* .
 		      sleep 5
                       terraform init
 		      terraform plan
-		  '''
+		'''
         }
     }
     stage('Terraform fmt'){
@@ -59,18 +59,22 @@ pipeline {
 	         cd iam_user
 	         echo "Terraform apply in progress"
 	         ${TF_APPLY}
-		 sleep 20
+		 sleep 10
 		 echo "Going to perform destroy the resources"
 		 ${TF_DESTROY}
 	      '''
-        }
-    }
+             }
+       }
 	stage('Workspace CleanUp'){
 	   steps{
-	      echo "Cleaning the Jenkins workspace"
-	      echo "Jenkins Build_Number:${BUILD_ID} is on ${ENVIRONMENT}:environment workspace deletion in progress.NO more required"
+	      echo "Build_Id:${BUILD_ID} on Environment:${ENVIRONMENT} workspace is deleted"
 	      cleanWs()
              }
-	  }
-      }
+	}
+	stage('Happy Learning Automation!!'){
+	   steps{
+	      echo "The Job is succeed!!"
+             }
+	}
+   }
  }
