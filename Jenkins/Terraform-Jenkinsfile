@@ -1,0 +1,57 @@
+pipeline {
+    agent any
+	parameters {
+    choice choices: ['Development', 'Certification', 'Staging', 'Production'], description: 'Please select the environment?', name: 'ENVIRONMENT'
+}
+    stages{
+    stage("Are we good to deploy the Infra?"){
+        input{
+           message "Should we deploy the TF Infra Project?"
+            }
+	    steps{
+	      echo 'Terraform project will begin'
+	    }
+	}
+    stage('Cloning the Repository'){
+        steps {
+            echo 'Git cloning in progress..'
+			git branch: 'main', url: 'https://github.com/send2durai/ansible-notes.git'
+        }
+    }
+    stage('Terraform Init'){
+        steps {
+            echo 'Init will begun..'
+			cd Iac_Scripts/vpc_ec2_creation
+			sh '''
+			   terraform init
+			'''
+        }
+    }
+    stage('Terraform fmt'){
+        steps {
+            echo 'Terraform format...'
+			sh 'terraform fmt'
+        }
+    }
+	stage('Terraform validate'){
+        steps {
+            echo 'Terraform validate...'
+			sh 'terraform validate'
+        }
+    }
+	stage('Terraform plan'){
+        steps {
+            echo 'Terraform plan in progress...'
+			sh 'terraform plan'
+        }
+    }
+	stage('Workspace CleanUp'){
+		steps{
+			sh '''
+			    echo "Cleaning the Jenkins workspace"
+			'''
+			cleanWs()
+            }
+		}
+	}
+}
