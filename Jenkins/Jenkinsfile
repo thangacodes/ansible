@@ -1,32 +1,36 @@
 pipeline {
     agent any
 	parameters {
-        choice choices: ['Development', 'Certification', 'Staging', 'Production'], description: 'Please select the environment?', name: 'ENVIRONMENT'
+    choice choices: ['Development', 'Certification', 'Staging', 'Production'], description: 'Please select the environment?', name: 'ENVIRONMENT'
 }
     stages {
-        stage('Build') {
-            steps {
-		echo "The build number is: ${BUILD_NUMBER}"
-		echo "The build is happening on: ${ENVIRONMENT}"
+    stage("deploy the artifacts if a user confirms"){
+        input {
+            message "Should we deploy the project?"
             }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
+	}
+    stage('Build') {
+        steps {
+	    echo "The build is happening on:" ${ENVIRONMENT}
+            echo 'Building..'
             }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
+    }
+    stage('Test'){
+        steps {
+            echo 'Testing..'
             }
-        }
-		stage('Workspace CleanUp'){
-		    steps{
-			    sh '''
-				   echo "Cleaning the Jenkins workspace"
-				   echo "The ${BUILD_NUMBER} workspace is deleted"
-				'''
-				cleanWs()
+    }
+    stage('Deploy') {
+        steps {
+            echo 'Deploying....'
+            }
+    }
+	stage('Workspace CleanUp'){
+		steps{
+			sh '''
+			    echo "Cleaning the Jenkins workspace"
+			'''
+			cleanWs()
             }
 		}
 	}
