@@ -1,14 +1,14 @@
 pipeline {
     agent any
 	parameters {
-    choice choices: ['Development', 'Certification', 'Staging', 'Production'], description: 'Please select the environment?', name: 'ENVIRONMENT'
+        choice choices: ['Development', 'Certification', 'Staging', 'Production'], description: 'Please select the environment?', name: 'ENVIRONMENT'
 	choice choices: ['terraform apply --auto-approve'], description: 'This is the terraform action that we call it in our terraform scripts', name: 'TF_APPLY'
 	choice choices: ['terraform destroy --auto-approve'], description: 'This is the terraform action that we call it in our terraform scripts', name: 'TF_DESTROY'
     }
     stages{
-    stage("Are we good to deploy the Infra Provisioning?"){
+    stage("User Input"){
         input{
-           message "Should we deploy the TF Infra Project?"
+           message "Are we good to deploy the resources in AWS?"
         }
 	    steps{
 	      echo "Terraform project will begin"
@@ -68,6 +68,7 @@ pipeline {
 	stage('Workspace CleanUp'){
 	   steps{
 	      echo "Cleaning the Jenkins workspace"
+	      echo "Jenkins ${BUILD_ID} is on ${ENVIRONMENT} workspace will be deleted"
 	      cleanWs()
              }
 	  }
