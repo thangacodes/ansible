@@ -47,7 +47,7 @@ pipeline {
 	stage('Terraform apply'){
            steps {
               sh '''
-	         echo "Terraform plan in progress"
+	         echo "Terraform apply in progress"
 	         terraform apply --auto-approve
 	      '''
         }
