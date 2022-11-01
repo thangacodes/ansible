@@ -24,7 +24,7 @@ pipeline {
         steps {
 		sh '''
                 echo 'Terraform Init will begun..'
-		mkdir iam_user
+		#mkdir iam_user
 		cd iam_user
 	        cp ../Iac_Scripts/Iam_user_creation/* .
 		sleep 5
