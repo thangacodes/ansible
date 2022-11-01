@@ -5,11 +5,12 @@ pipeline {
 }
     stages{
     stage("Are we good to deploy? Say yes or no?"){
-	   steps{
-          input{
+        input{
            message "Should we deploy the project?"
-        }
-	  }
+             }
+	    steps{
+	      echo 'India is my country!'
+	    }
 	}
     stage('Build') {
         steps {
