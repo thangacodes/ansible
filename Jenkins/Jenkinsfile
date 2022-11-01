@@ -3,15 +3,14 @@ pipeline {
 	parameters {
     choice choices: ['Development', 'Certification', 'Staging', 'Production'], description: 'Please select the environment?', name: 'ENVIRONMENT'
 }
-    stages {
-    stage("deploy the artifacts if a user confirms"){
-        input {
-            message "Should we deploy the project?"
-            }
+    stages{
+    stage("Are we good to deploy? Say yes or no?"){
+        input{
+           message "Should we deploy the project?"
+           }
 	}
     stage('Build') {
         steps {
-	    echo "The build is happening on:" ${ENVIRONMENT}
             echo 'Building..'
             }
     }
@@ -27,10 +26,10 @@ pipeline {
     }
 	stage('Workspace CleanUp'){
 		steps{
-			sh '''
-			    echo "Cleaning the Jenkins workspace"
-			'''
-			cleanWs()
+		   sh '''
+		      echo "Cleaning the Jenkins workspace"
+		   '''
+		      cleanWs()
             }
 		}
 	}
