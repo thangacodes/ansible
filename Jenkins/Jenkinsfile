@@ -16,5 +16,13 @@ pipeline {
                 echo 'Deploying....'
             }
         }
-    }
+		stage('Workspace CleanUp'){
+		    steps{
+			    sh '''
+				   echo "Cleaning the Jenkins workspace"
+				'''
+				cleanWs()
+            }
+		}
+	}
 }
