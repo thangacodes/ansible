@@ -36,18 +36,25 @@ pipeline {
     stage('Terraform fmt'){
         steps {
             echo 'Terraform format...'
-	        sh 'terraform fmt'
+	    sh '''
+	      cd iam_user
+	      terraform fmt
+	    '''
         }
     }
 	stage('Terraform validate'){
            steps {
               echo 'Terraform validate...'
-	      sh 'terraform validate'
+	      sh '''
+	         cd iam_user
+	         terraform validate
+	      '''
             }
 	}
 	stage('Terraform apply'){
            steps {
               sh '''
+	         cd iam_user
 	         echo "Terraform apply in progress"
 	         terraform apply --auto-approve
 	      '''
