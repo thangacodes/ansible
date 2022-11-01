@@ -68,7 +68,7 @@ pipeline {
 	stage('Workspace CleanUp'){
 	   steps{
 	      echo "Cleaning the Jenkins workspace"
-	      echo "Jenkins ${BUILD_ID} is on ${ENVIRONMENT} workspace will be deleted"
+	      echo "Jenkins Build_Number:${BUILD_ID} is on ${ENVIRONMENT}:environment workspace deletion in progress.NO more required"
 	      cleanWs()
              }
 	  }
