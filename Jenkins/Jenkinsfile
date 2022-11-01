@@ -24,6 +24,7 @@ pipeline {
 		    steps{
 			    sh '''
 				   echo "Cleaning the Jenkins workspace"
+				   echo "The build is workspace is deleted: ${BUILD_NUMBER}"
 				'''
 				cleanWs()
             }
