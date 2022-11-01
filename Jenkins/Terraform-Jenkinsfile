@@ -24,10 +24,7 @@ pipeline {
         steps {
 		sh '''
                 echo 'Terraform Init will begun..'
-	        pwd
-	        cd Iac_Scripts/vpc_ec2_creation
-	        pwd
-	        ls -lrth
+	        cd Iac_Scripts/vpc_ec2_creation/
                 terraform init
 		'''
         }
