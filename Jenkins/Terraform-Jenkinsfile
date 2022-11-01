@@ -28,7 +28,7 @@ pipeline {
 	        cd Iac_Scripts/vpc_ec2_creation
 	        pwd
 	        ls -lrth
-                terraform init
+                terraform init > /tmp/terra/terraform_init.txt
 		'''
         }
     }
@@ -41,14 +41,14 @@ pipeline {
 	stage('Terraform validate'){
            steps {
               echo 'Terraform validate...'
-	      sh 'terraform validate'
+	      sh 'terraform validate > /tmp/terra/tf_validate.txt'
             }
 	}
 	stage('Terraform plan'){
            steps {
               sh '''
 	         echo "Terraform plan in progress"
-	         terraform plan
+	         terraform plan > /tmp/terra/tf_plan.txt
 	      '''
         }
     }
