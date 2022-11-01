@@ -29,6 +29,7 @@ pipeline {
 	        cp ../Iac_Scripts/Iam_user_creation/* .
 		sleep 5
                 terraform init
+		terraform plan
 		'''
         }
     }
