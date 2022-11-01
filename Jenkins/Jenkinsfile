@@ -6,7 +6,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-		    echo 'Build is happening on: ${ENVIRONMENT}'
+		echo "The build number is: ${BUILD_NUMBER}"
+		echo "The build is happening on: ${ENVIRONMENT}"
             }
         }
         stage('Test') {
