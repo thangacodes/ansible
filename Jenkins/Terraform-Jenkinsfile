@@ -15,16 +15,16 @@ pipeline {
     stage('Cloning the Repository'){
         steps {
             echo 'Git cloning in progress..'
-			git branch: 'main', url: 'https://github.com/send2durai/ansible-notes.git'
+	    git branch: 'main', url: 'https://github.com/send2durai/ansible-notes.git'
         }
     }
     stage('Terraform Init'){
         steps {
             echo 'Init will begun..'
-			cd Iac_Scripts/vpc_ec2_creation
-			sh '''
-			   terraform init
-			'''
+	     cd Iac_Scripts/vpc_ec2_creation
+	     pwd
+	     ls -lrth
+             sh 'terraform init'
         }
     }
     stage('Terraform fmt'){
