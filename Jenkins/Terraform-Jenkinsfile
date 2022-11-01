@@ -22,13 +22,13 @@ pipeline {
     }
     stage('Terraform Init'){
         steps {
-		   sh '''
-            echo 'Terraform Init will begun..'
+		sh '''
+                echo 'Terraform Init will begun..'
 	        pwd
 	        cd Iac_Scripts/vpc_ec2_creation
 	        pwd
 	        ls -lrth
-            terraform init
+                terraform init
 		'''
         }
     }
@@ -41,13 +41,15 @@ pipeline {
 	stage('Terraform validate'){
            steps {
               echo 'Terraform validate...'
-	          sh 'terraform validate'
+	      sh 'terraform validate'
             }
 	}
 	stage('Terraform plan'){
            steps {
-              echo 'Terraform plan in progress...'
-	          sh 'terraform plan'
+              sh '''
+	         echo "Terraform plan in progress"
+	         terraform plan
+	      '''
         }
     }
 	stage('Workspace CleanUp'){
