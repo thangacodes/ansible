@@ -1,5 +1,8 @@
 pipeline {
     agent any
+	parameters {
+        choice choices: ['Development', 'Certification', 'Staging', 'Production'], description: 'Please select the environment?', name: 'ENVIRONMENT'
+}
     stages {
         stage('Build') {
             steps {
