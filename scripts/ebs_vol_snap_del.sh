@@ -1,1 +1,5 @@
-
+#!/bin/bash
+echo "Deleting EBS Volume snapshot using AWS CLI"
+aws ec2 delete-snapshot --snapshot-id snap-1234567890abcdef0 --region "ap-south-1"
+sleep 30
+exit
