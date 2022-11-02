@@ -9,27 +9,28 @@ stages{
 stage('Clone the Repo'){
    steps{
        echo "Code cloning in progress"
-	   git branch: 'main', url: 'https://github.com/send2durai/ansible-notes.git'
-	}
+       git branch: 'main', url: 'https://github.com/send2durai/ansible-notes.git'
+     }
 }
 stage("User Input"){
         input{
            message "Good to take EBS Snapshot:?"
         }
-	    steps{
-	      echo "Jenkins build no is: ${BUILD_ID}"
-	      echo "You've chosen environment is: ${ENVIRONMENT}"
-		  echo "You've entered EBS volume_ID is: ${EBS_VOL_ID}"
+	 steps{
+	     echo "Jenkins build no is: ${BUILD_ID}"
+	     echo "You've chosen environment is: ${ENVIRONMENT}"
+             echo "You've entered EBS volume_ID is: ${EBS_VOL_ID}"
 	    }
     }
-	stage("Creating EBS_VOL_SNAPSHOT"){
-	   steps{
-	       echo "Taking EBS Volume snapshot begun"
-		   sh '''
-		    cd scripts/
-			./ebs_vol_snap.sh
+    stage("Creating EBS_VOL_SNAPSHOT"){
+       steps{
+	  echo "Taking EBS Volume snapshot begun"
+          sh '''
+		cd scripts/
+	        sh ebs_vol_snap.sh
+	     '''
 	    }
-    }
+        }
 	stage("Deleting EBS_VOL_SNAPSHOT"){
 	   steps{
 	       echo "Deleting EBS Volume snapshot begun"
@@ -38,12 +39,12 @@ stage("User Input"){
 		   sh ebs_vol_snap_del.sh
 		'''
 	    }
-    }
+        }
 	stage("CleanUp"){
 	   steps{
 	       echo "Build_Id:${BUILD_ID} on Environment:${ENVIRONMENT} workspace is deleted"
 	       cleanWs()
 	    }
-    }
-  }
+         }
+      }
 }
