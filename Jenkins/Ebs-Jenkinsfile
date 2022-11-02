@@ -27,7 +27,7 @@ stage("User Input"){
 	       echo "Taking EBS Volume snapshot begun"
 		   sh '''
 		    cd scripts/
-			./ebs_vol_snap.sh
+		    sh ebs_vol_snap.sh
 		    '''
 	    }
     }
