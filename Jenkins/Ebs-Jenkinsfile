@@ -28,8 +28,8 @@ stage("User Input"){
 		   sh '''
 		    cd scripts/
 			./ebs_vol_snap.sh
+		    '''
 	    }
     }
   }
 }
-
