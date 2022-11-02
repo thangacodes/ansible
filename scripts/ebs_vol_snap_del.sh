@@ -6,7 +6,8 @@ cut -d ":" -f 2 snap.txt | grep 'snap-0'
 cut -d ":" -f 2 snap.txt | grep 'snap-0' > snapid
 cat snapid
 echo $(cat snapid)
+echo $(cat snapid) | sed -e 's/"//g' > id
 sleep 5
-aws ec2 delete-snapshot --snapshot-id $(cat snapid) --region=ap-south-1
-sleep 20
+aws ec2 delete-snapshot --snapshot-id $(cat id) --region=ap-south-1
+sleep 15
 exit
