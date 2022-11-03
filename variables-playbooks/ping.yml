@@ -1,0 +1,7 @@
+---
+- hosts: localhost
+  tasks:
+  - name: "Getting ping response"
+    ping:
+    register: ping_res
+  - debug: msg="{{ ping_res }}"
