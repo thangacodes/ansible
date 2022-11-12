@@ -7,8 +7,10 @@ pipeline {
         stage('Git checkout') {
            steps{
                 git branch: 'main', url: 'https://github.com/send2durai/ansible-notes.git'
-				sh 'cd Iac_Scripts/Iam_user_creation'
-				sh 'pwd'
+		sh '''
+		    cd Iac_Scripts/Iam_user_creation
+		    pwd
+		'''
             }
         }
         stage('terraform format check') {
@@ -22,15 +24,15 @@ pipeline {
         stage('terraform Init') {
             steps{
                 sh '''
-			cd Iac_Scripts/Iam_user_creation
-			terraform init
+		     cd Iac_Scripts/Iam_user_creation
+		     terraform init
 		  '''
             }
         }
 		stage('User Input Require'){
 		    steps{
-			    input 'Do you want to proceed? If yes, please select Proceed or Abort?'
-				}
+			input 'Do you want to proceed? If yes, please select Proceed or Abort?'
+			}
 		}
         stage('terraform apply') {
             steps{
