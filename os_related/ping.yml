@@ -1,0 +1,20 @@
+---
+- name: "Ping and hostname checking"
+  hosts: localhost
+  become: yes
+  vars:
+    - wait_seconds: 20
+  tasks:
+  - name: Checking ping connectivity
+    ping:
+    register: ping_out
+  - debug: msg="{{ ping_out }}"
+
+  - name: Getting the hostname of the remote machines
+    command: hostname -f
+    register: host_out
+  - debug: msg="{{ host_out }}"
+
+  - name: pause for {{wait_seconds | int }}
+    ansible.builtin.pause:
+      seconds: "{{ wait_seconds }}"
