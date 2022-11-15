@@ -1,35 +1,35 @@
 On remote machines:-
 ====================
-# Login as ec2-user@instance_ip_address
-## Switch to root account
+## Switch to root account:
+
+Login as ec2-user@instance_ip_address
 $ sudo -i
 root@ec2-instance-172.13.14.15
-# Perform the following action in Root user
 
+Update and Restart sshd daemon on Linux/Unix:
+# Perform the following action in Root user
 # vi /etc/ssh/sshd_config
 Password Authentication yes (uncomment)
 No Password Authentication (comment) 
 save and exit (ESC+wq!)
-
 # systemctl restart sshd
 
+Changing ec2-user password:
 # passwd ec2-user
 Changing password for user ec2-user.
-New password: login1-2
-Retype password: login1-2
+New password: login1234
+Retype password: login1234
+######################################
+## Switch user back to ec2-user account:
 
-############
-## Switch user back to ec2-user
 #root@ec2-instance-172.13.14.15 ~ exit
 ec2-user@ec2-instance-172.13.14.15$
 
 Create Authentication key pairs:-
-
 Ssh-keygen is a tool for creating new authentication key pairs for SSH..
-
 # ssh-keygen
-
-cd .ssh/
+Navigate to .ssh under ec2-user home directory
+cd /home/ec2-user/.ssh
 ls -lrth
 rsa_id
 rsa_id.pub
