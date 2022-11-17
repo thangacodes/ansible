@@ -17,13 +17,9 @@ ansible-playbook << playbook >> Ex: ansible-playbook test.yaml
 Will be able to execute playbooks in any places in Unix based OS, ansible-playbook /opt/playbooks/httpd_config.yml
 
 $ ansible-playbook -i inventory /home/ec2-user/dev.yml app-deployer.yml (if you wanna call multi playbook in adhoc)
-
 $ ansible localhost -m command -a "cat /etc/passwd"
-
 $ ansible localhost -m command -a "cat /etc/rsyslog.conf"
-
 $ ansible webservers -m setup -a "filter=ipv"
-
 $ ansible -m command -a "uptime" localhost
 $ ansible -m command -a "uptime -p" localhost
 $ ansible -m shell -a "uptime -p" localhost
@@ -35,28 +31,18 @@ $ ansible -m command -a "df -hT" localhost
 $ ansible -m command -a "id ec2-user" localhost
 $ ansible -m command -a "cat /etc/passwd" localhost
 $ ansible -m command -a "cat /etc/passwd" localhost
-
 $ ansible all -m copy -a "src=/home/ansadmin/india.html dest=/home/ansadmin" --check
-
 $ ansible -s all -m yum -a "name=httpd state=latest" --> When you run this adhoc, where it will throw as " root privilege required"
-
 $ ansible all -a 'uptime'
-
 $ ansible all -a 'uptime' -o
-
 $ ansible localhost -m command -a uptime (we are using 'command' module)
-
 $ ansible all -b -a 'whoami' # b- become as 'root' user.
-
 $ ansible all -b -m yum -a "name=httpd state=latest"
-
 $ ansible all -b -m service -a "name=httpd state=started"
-
 $ ansible all -b -m yum -a "name=httpd state=absent" ("To remove the httpd package")
-
 $ ansible all -b -m reboot
 
-Note" Yum, service, copy, command, ping, reboot are ansible modules.
+Note: "yum,service,copy,command,shell,ping,reboot" are ansible modules. These module can be used in adhoc as well in playbooks.
 
 $ ansible all -b -a 'uptime' -o (note: wihtout using command module also, we'll be able to get the o/p)
 
