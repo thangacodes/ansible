@@ -16,6 +16,17 @@ ansible-playbook << playbook >> Ex: ansible-playbook test.yaml
 
 Will be able to execute playbooks in any places in Unix based OS, ansible-playbook /opt/playbooks/httpd_config.yml
 
+# ansible [target] -m [module] -a "[module options]"
+
+# ping localhost
+ansible localhost -m ping
+# Creating a file on all remote clients
+ansible localhost -m file -a "path=/home/ec2-user/file123 state=touch mode=0700"
+# Deleting a file on all remote clients
+ansible localhost -m file -a "path=/home/ec2-user/file123 state=absent"
+# Copying a file to remote clients
+ansible localhost -m copy -a "src=/tmp/adhoc2 dest=/home/ec2-user/adhoc2"
+
 $ ansible-playbook -i inventory /home/ec2-user/dev.yml app-deployer.yml (if you wanna call multi playbook in adhoc)
 $ ansible localhost -m command -a "cat /etc/passwd"
 $ ansible localhost -m command -a "cat /etc/rsyslog.conf"
