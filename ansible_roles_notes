@@ -1,0 +1,52 @@
+Roles:
+
+The role are the ways of breaking a playbook into multiple playbook files. This simplifies writing complex playbooks, and it makes
+them easier to reuse.
+
+Writing ansible code to manage the same service for multiple environments creates more complexity and it becomes difficult to manage
+everything in one ansible playbooks. 
+Also sharing code among other teams become difficult. That is where Ansible Role helps solve these problems.
+
+Roles are like templates that are most of the time static and can be called by the playbooks.
+
+Roles allow the entier configuration to be grouped in:
+
+- Tasks
+- Modules
+- Variables
+- Handlers
+
+## Please note roles can be grouped by type of servers, type of applications or organizational requirement.
+
+
+Tagging:
+
+Tagging is used to call the task action that we wanted to perform. Example playbook here,
+
+# vim httpdtag.yml
+---
+- name: Setup Apache server
+  hosts: localhost
+  become: yes
+  tasks:
+  - name: Install httpd
+    yum:
+      name: httpd
+      state: present
+    tags: i-httpd
+
+  - name: Start httpd
+    service:
+      name: httpd
+      state: started
+    tags: s-httpd
+
+  - name: Remove httpd
+    yum:
+      name: httpd
+      state: absent
+    tags: r-httpd
+
+$ ansible-playbook httpdtag.yml -t i-httpd
+$ ansible-playbook httpdtag.yml -t s-httpd
+$ ansible-playbook httpdtag.yml -t r-httpd
