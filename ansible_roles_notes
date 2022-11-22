@@ -50,3 +50,8 @@ Tagging is used to call the task action that we wanted to perform. Example playb
 $ ansible-playbook httpdtag.yml -t i-httpd
 $ ansible-playbook httpdtag.yml -t s-httpd
 $ ansible-playbook httpdtag.yml -t r-httpd
+
+## If you wanted to see how many tags are configured in a playbook, use following ansible command to list out
+
+$ ansible-playbook httpdtag.yml --list-tags
+
