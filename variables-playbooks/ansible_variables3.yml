@@ -1,0 +1,8 @@
+---
+- name: Variables fourth
+  hosts: localhost
+  tasks:
+  - name: Variable Tutorial
+    shell: echo "The hostname of this machine is {{ ansible_hostname }} and this machine belongs to {{ ansible_os_family }} OS family"
+    register: vari4
+  - debug: msg="{{ vari4 }}"
