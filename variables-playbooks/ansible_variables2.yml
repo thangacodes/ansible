@@ -1,0 +1,14 @@
+---
+- name: Checking variables in array form
+  hosts: localhost
+  vars:
+    Color:
+      - Green
+      - Blue
+      - Yellow
+  tasks:
+  - name: Variables calling in array format
+    shell: echo "My car color is {{ Color[0] }} and the my bad color is {{ Color[2] }}"
+    register: array_out
+  - debug: msg="{{ array_out }}"
+

@@ -1,0 +1,7 @@
+---
+- hosts: localhost
+  vars_files:
+  - variable.txt
+  become_user: ec2-user  tasks:
+  - name: Variable tutorial
+    shell: echo "My car is {{ Car }} and the color is {{ Color }}" > /root/ansible_variable.txt

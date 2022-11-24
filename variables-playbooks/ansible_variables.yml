@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  vars:
+    Color: Green
+    Car: BMW
+    Place: Bangalore
+  become_user: ec2-user
+  tasks:
+  - name: Variable workouts
+    shell: echo " My car is {{ Car }} and the color of the {{ Car }} is {{ Color }}" > /home/ec2-user/playbook/out.txt
+    #register: car_out
+  #- debug: msg="{{ car_out }}"
