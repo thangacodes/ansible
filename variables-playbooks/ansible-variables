@@ -20,5 +20,6 @@ Please make a note:-
   b) When you call variable in the playbook, you should user flower bracker twice {{  }}. Example,
 
      url: "{{ url_down }}"                         // When you call the variable at the first, you should use "{{ }}" 
-     dest: /tmp/{{ apache }}/                     // When you call the variables in between, where it doesn't matter to user double-quote with flower bracket. Simply use only {{ }} .
-                                                    That's enough
+     dest: /tmp/{{ apache }}/                     // When you call the variables in between, where it doesn't matter to user double-quote with flower bracket. Simply use only {{ }} .That's enough!
+
+  c) ansible localhost -m setup
