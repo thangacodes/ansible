@@ -8,9 +8,10 @@
     - name: Create users
       user:
         name: '{{ item }}'
+        state: absent
       with_items: '{{ users }}'
 
-    - name: grep the passwd file
+    - name: List out the passwd file
       command: cat /etc/passwd
       register: pwd_list
     - debug: msg="{{ pwd_list }}"
