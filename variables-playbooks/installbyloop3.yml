@@ -1,0 +1,10 @@
+---
+- name: Install packages thru loop
+  hosts: localhost
+  vars:
+    packages: [ftp,telnet,htop]
+  tasks:
+    - name: Installing packages
+      yum:
+        name: '{{ packages }}'
+        state: present
