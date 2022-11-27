@@ -2,14 +2,16 @@
 - name: Create users through loop
   hosts: localhost
   tasks:
-  - name: Create users
+  - name: Delete users
     user:
       name: "{{ item }}"
+      state: absent
+    with_items: '{{ item }}'
     loop:
       - John
       - sood
       - kane
-  - name: User created list checkouts
+  - name: User deleted list checkouts
     command: cat /etc/passwd
     register: list_user
   - debug: msg="{{ list_user }}"
