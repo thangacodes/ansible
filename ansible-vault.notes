@@ -18,3 +18,28 @@ How to execute ansible-playbook which is password protected?
 ansible-playbook users.yaml --ask-vault-pass
 How to execute ansible-playbook which is password protected? Calling vault password file?
 ansible-playbook users.yaml --vault-password-file /home/centos/cmx/vault-password
+
+###############################################################
+Create a simple playbook with the extension of .yml
+# vi httpd.yml
+ansible-vault create httpd.yml
+New Vault password:
+Retype Vault password: 
+
+Once secret has been set, you need to use the same password for the actions of all.
+ansible-vault view httpd.yml
+enter vault password: 
+ansible-vault edit httpd.yml
+enter vault password: 
+
+Other way to set secret for existing playbooks, when we wanted to share someone else.
+ansible-vault encrypt httpd.yml
+New Vault password:
+Retype Vault password: 
+
+ansible-vault decrypt httpd.yml
+New Vault password:
+
+How to execute vaulted playbook
+ansible-playbook httpd.yml --ask-vault-pass
+enter valut password:
