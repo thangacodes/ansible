@@ -8,5 +8,5 @@
   tasks:
   - name: Variable workouts
     shell: echo " My car is {{ Car }} and the color of the {{ Car }} is {{ Color }}" > /home/ec2-user/playbook/out.txt
-    #register: car_out
-  #- debug: msg="{{ car_out }}"
+    register: car_out
+  - debug: msg="{{ car_out }}"
