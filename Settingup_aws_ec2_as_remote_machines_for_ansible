@@ -6,6 +6,10 @@ Login as ec2-user@instance_ip_address
 $ sudo -i
 root@ec2-instance-172.13.14.15
 
+## Change ec2 hostname as per your wishe
+# hostnamectl set-hostname apache1
+
+
 Update and Restart sshd daemon on Linux/Unix:
 # Perform the following action in Root user
 # vi /etc/ssh/sshd_config
