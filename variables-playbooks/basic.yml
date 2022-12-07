@@ -15,3 +15,13 @@
       register: passwd_out
     - debug:
         var: passwd_out.stdout_lines
+    - name: ping and lsblk out
+      shell: lsblk
+      register: lsblk_out
+    - debug:
+        var: lsblk_out.stdout_lines
+    - name: ping checkouts
+      command: ping -c 4 google.com
+      register: google_out
+    - debug:
+        var: google_out.stdout_lines
