@@ -1,0 +1,17 @@
+---
+- name: ansible-adhoc commands
+  hosts: localhost
+  tasks:
+    - name: Checking whoami
+      shell: whoami
+      register: whoami_out
+    - debug:
+        var: whoami_out.stdout_lines
+    - name: sleep 3 seconds
+      ansible.builtin.pause:
+        seconds: 3
+    - name: passwd catting
+      command: cat /etc/passwd
+      register: passwd_out
+    - debug:
+        var: passwd_out.stdout_lines
