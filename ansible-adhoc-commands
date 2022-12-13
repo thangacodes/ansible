@@ -80,7 +80,7 @@ $ ansible localhost -m user -a "name=weblogic group=weblogic createhome=yes" -b
 
 Note: it will create an user name called "weblogic" and it's adding that user to "weblogic" group (which is already exist) and creating home directory for the user.
 
-###################################################################
+#############################################################################################################################
 COPY MODULE in AD_HOC COMMANDS:
 
 # ansible db -m copy -a "src=./hosts dest=/tmp/inventory"
@@ -91,7 +91,8 @@ ansible dev -m copy -a "content='hello, I am from Ansible SCM' dest=/tmp/ans.txt
 ## Take a backup of existing file and update the content on the same file
  ansible dev -m copy -a "content='hello, I am from Ansible SCM.Good to learn ansible' dest=/tmp/ans.txt backup=yes"
 
-=====================================================
+#############################################################################################################################
+
 DOWNLOAD FILE FROM REMOTE NODES TO THE ANSIBLE-CONTROL-MACHINE:
 
 # ansible dev -m fetch -a "src=/home/ec2-user/india.txt dest=/home/ec2-user/demo"
@@ -100,6 +101,9 @@ DOWNLOAD FILE FROM REMOTE NODES TO THE ANSIBLE-CONTROL-MACHINE:
 
 # ansible dev -m fetch -a "src=/home/ec2-user/india.txt dest=/home/ec2-user/{{ inventory_hostname}}_demo1.txt flat=yes"
 
+#############################################################################################################################
+CREATE/DELETE FILE OR DIRECTORY USING ANSIBLE ADHOC COMMANDS:
 
+ansible dev -m file -a "path=/home/ec2-user/demo.txt state=touch"
 
 
