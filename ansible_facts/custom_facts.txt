@@ -42,6 +42,15 @@ Step3: The output of fact file should be a json
 Step4: The fact file should have execution permission
 Step5: We can find custom facts under ansible_local filter or key.
 
+###################################################################################################################################################
+[root@acm facts.d]# ansible localhost -m setup | egrep -i "(git_ver | jenkins_ver)"
+[root@acm facts.d]# ansible localhost -m setup | egrep -i "(git_ver | jenkins)"
+[root@acm facts.d]# ansible localhost -m setup -a "filter=ansible_local"
+
+# ansible dev -m file -a "path=/etc/ansible/facts.d state=directory" -b
+# ansible dev -m copy -a "src=/etc/ansible/facts.d/git_jenkins.fact dest=/etc/ansible/facts.d/git_jenkins.fact" -b
+# ansible dev -m setup -a "filter=ansible_local"
+# ansible dev -m setup -a "filter=ansible_local"
 
 
 
