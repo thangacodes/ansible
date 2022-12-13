@@ -1,0 +1,49 @@
+Ansible Facts:
+
+Ansible facts are nothing but information about managed nodes like: OS distribution, release, hostname, IP address, processor, python location, etc...
+
+The task of collecting this remote system information is called as Gathering facts, and collected/Gathered information is called facts or variable.
+
+You can Gather/Collect Facts using setup module in Ad-hoc commands.
+
+Note: Ansible Playbooks call this setup module by default to perform Gathering Facts task.
+
+Setup Module to Gather facts:
+
+# ansible group_name -m setup
+# ansible dev -m setup
+
+If you wants to get specific gather facts, you may use filter. Filter is similar like is grep or cat in Linux.
+
+# ansible dev -m setup -a "filter=ansible_mounts"
+
+Types of Ansible Facts:
+There are two types of Ansible facts or Variable for Managed Nodes.
+They are,
+a) Default Facts
+b) Custom Facts
+===========================
+Why we need Custom Facts?
+* To get user defined required facts.
+Example, I need to find the git version, httpd version, apache tomcat version, db version etc..
+for all my managed nodes.
+* To identify dev/qa/pre-prod/prod servers.
+
+Note: Just to be rememer that, custom facts are not mandatory too.
+
+# ansible dev -m shell -a "git --version"
+# ansible dev -m shell -a "/usr/sbin/httpd -version"
+ 
+Steps to Create Custom Facts?
+
+Step 1: Create /etc/ansible/facts.d on Managed Nodes (No need to installed Ansible on remote machines, instead just create /etc/ansible/facts.d
+Step2: Inside of facts.d place one more custom facts files with extension as .fact
+Step3: The output of fact file should be a json
+Step4: The fact file should have execution permission
+Step5: We can find custom facts under ansible_local filter or key.
+
+
+
+
+
+
