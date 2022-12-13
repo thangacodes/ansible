@@ -79,3 +79,27 @@ note: Deleting the group if you change the 'state to absent'
 $ ansible localhost -m user -a "name=weblogic group=weblogic createhome=yes" -b
 
 Note: it will create an user name called "weblogic" and it's adding that user to "weblogic" group (which is already exist) and creating home directory for the user.
+
+###################################################################
+COPY MODULE in AD_HOC COMMANDS:
+
+# ansible db -m copy -a "src=./hosts dest=/tmp/inventory"
+
+## Create a file with some contents on the remote machines
+ansible dev -m copy -a "content='hello, I am from Ansible SCM' dest=/tmp/ans.txt"
+
+## Take a backup of existing file and update the content on the same file
+ ansible dev -m copy -a "content='hello, I am from Ansible SCM.Good to learn ansible' dest=/tmp/ans.txt backup=yes"
+
+=====================================================
+DOWNLOAD FILE FROM REMOTE NODES TO THE ANSIBLE-CONTROL-MACHINE:
+
+# ansible dev -m fetch -a "src=/home/ec2-user/india.txt dest=/home/ec2-user/demo"
+
+# ansible dev -m fetch -a "src=/home/ec2-user/india.txt dest=/home/ec2-user/demo flat=yes"
+
+# ansible dev -m fetch -a "src=/home/ec2-user/india.txt dest=/home/ec2-user/{{ inventory_hostname}}_demo1.txt flat=yes"
+
+
+
+
