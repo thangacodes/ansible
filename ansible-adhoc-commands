@@ -106,4 +106,31 @@ CREATE/DELETE FILE OR DIRECTORY USING ANSIBLE ADHOC COMMANDS:
 
 ansible dev -m file -a "path=/home/ec2-user/demo.txt state=touch"
 
+############################################################################################################################
+
+Create a file:
+# ansible dev -m file -a "path=/home/ec2-user/demo.txt state=touch"
+Create a file with file permission:
+# ansible dev -m file -a "path=/home/ec2-user/demo.txt state=touch mode='0777'"
+Delete a file:
+# ansible dev -m file -a "path=/home/ec2-user/demo.txt state=absent"
+Create a directory:
+# ansible dev -m file -a "path=/tmp/LinuxOS state=directory"
+
+In order to create a file or directory under /etc or any where which is fall under root user,
+you need to use -b (become user) ==> become user is for privilege escalation.
+
+ansible dev -m file -a "path=/etc/custom-conf state=directory" -b
+
+If you wanted to list out the remote hosts ip or hostnames while using ping module,
+
+# ansible dev -m ping --list-hosts
+
+Ansible help command is below,
+# ansible -h
+
+To see dev group servers uptime,
+# ansible dev -m shell -a "uptime -p"
+
+Note: Inorder to execute binary commands on remote nodes which are Linux/Debian/Ubuntu, you can go ahead and use Shell module.
 
