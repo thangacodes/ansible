@@ -1,9 +1,11 @@
-#!/bin/bash
+i#!/bin/bash
 git_ver=$(git --version | awk '{print $3}')
+httpd_ver=$(httpd -version | awk 'NR==1 {print $3}')
 jenkins_ver=$(jenkins --version | awk '{print $1}')
 
 cat << EOF
 { "git_version": "$git_ver",
-  "jenkins_version": "$jenkins_ver"
+  "httpd_version": "$httpd_ver",
+  "jenkins_version":"$jenkins_ver"
 }
 EOF
