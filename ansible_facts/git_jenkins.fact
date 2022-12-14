@@ -1,6 +1,6 @@
-i#!/bin/bash
+#!/bin/bash
 git_ver=$(git --version | awk '{print $3}')
-httpd_ver=$(httpd -version | awk 'NR==1 {print $3}')
+httpd_ver=$(/usr/sbin/httpd -version | awk 'NR==1 {print $3}')
 jenkins_ver=$(jenkins --version | awk '{print $1}')
 
 cat << EOF
