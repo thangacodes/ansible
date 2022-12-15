@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    tools {
-    terraform 'TF_VERSION'
-    }
     stages {
         stage('Git checkout') {
            steps{
@@ -14,30 +11,38 @@ pipeline {
 				'''
             }
         }
-		stage('User Input on APACHE_DEPLOY'){
+		stage('User Input on STATIC_WEB_DEPLOYMENT'){
 		    steps{
 			    input 'Do you want to proceed? If yes, please select Proceed or Abort?'
 			}
 		}
-        stage('APACHE_INSTALLATION') {
+        stage('STATIC_WEB_DEPLOYMENT') {
             steps{
                 sh '''
-				   cd ansible-playbooks/apache-jenkins
-				   sudo ansible-playbook apache_install.yml --extra-vars "ansible_ssh_user=ec2-user ansible_ssh_pass=login1-2"
-				'''
+		      cd ansible-playbooks/apache-jenkins
+		       sudo ansible-playbook apache_install.yml --extra-vars "ansible_ssh_user=ec2-user ansible_ssh_pass=login1-2"
+		  '''
             }
         }
-		stage('User Input on APACHE_DESTROY'){
+		stage('CURL REMOTEHOST'){
+		    steps{
+			    sh '''
+				   curl 172.31.2.66:80
+				'''
+			}
+		}
+			
+		stage('User Input on STATIC_WEB_DEPLOYMENT DELETION'){
 		    steps{
 			    input 'Do you want to proceed? If yes, please select Proceed or Abort?'
 			}
 		}
-		stage('APACHE_REMOVAL') {
+		stage('STATIC_WEB_DEPLOYMENT DELETION') {
             steps{
                 sh '''
-				   cd ansible-playbooks/apache-jenkins
-				   sudo ansible-playbook apache_remove.yml --extra-vars "ansible_ssh_user=ec2-user ansible_ssh_pass=login1-2"
-				'''
+		     cd ansible-playbooks/apache-jenkins
+		      sudo ansible-playbook apache_remove.yml --extra-vars "ansible_ssh_user=ec2-user ansible_ssh_pass=login1-2"
+		'''
             }
         }
 		stage('Workspace CleanUP'){
