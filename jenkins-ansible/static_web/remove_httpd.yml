@@ -1,0 +1,8 @@
+---
+- name: Installing httpd package on web servers
+  hosts: web
+  become: yes
+  tasks:
+  - command: systemctl stop httpd
+  - command: rm -f /var/www/html/index.html
+  - yum: name=httpd state=absent

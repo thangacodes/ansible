@@ -1,0 +1,11 @@
+---
+- name: Installing httpd package on web servers
+  hosts: web
+  become: yes
+  tasks:
+  - yum: name=httpd state=present
+  - command: systemctl restart httpd
+  - copy:
+      src: index.html
+      dest: /var/www/html/index.html
+  - command: systemctl restart httpd
