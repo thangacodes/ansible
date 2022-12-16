@@ -1,0 +1,3 @@
+[web]
+172.31.39.176 ansible_ssh_user=ec2-user ansible_ssh_pass=123
+172.31.32.237 ansible_ssh_user=ec2-user ansible_ssh_pass=123
