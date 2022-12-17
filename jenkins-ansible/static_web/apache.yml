@@ -2,6 +2,7 @@
 - name: To download and execute tomcat
   hosts: web
   become: yes
+  become_user: ec2-user
   tasks:
   - name: Folder creation at opt directory
     file:
