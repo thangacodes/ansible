@@ -1,6 +1,6 @@
 ---
 - name: To download and execute tomcat
-  hosts: localhost
+  hosts: web
   become: yes
   tasks:
   - name: Folder creation at opt directory
