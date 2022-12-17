@@ -5,36 +5,36 @@
   tasks:
   - name: Folder creation at opt directory
     file:
-      path: /tmp/tomcat/
+      path: /home/ec2-user/tomcat/
       state: directory
 
   - name: Download apache tomcat tar file
     get_url:
       url: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.70/bin/apache-tomcat-9.0.70.tar.gz
-      dest: /tmp/tomcat/apache-tomcat-9.0.70.tar.gz
+      dest: /home/ec2-user/tomcat/apache-tomcat-9.0.70.tar.gz
 
   - name: Extract the tomcat gz file
     ansible.builtin.unarchive:
-      src: /tmp/tomcat/apache-tomcat-9.0.70.tar.gz
-      dest: /tmp/
+      src: /home/ec2-user/tomcat/apache-tomcat-9.0.70.tar.gz
+      dest: /home/ec2-user/
 
   - name: Download SampleWebApp war file
     get_url:
       url: https://github.com/AKSarav/SampleWebApp/raw/master/dist/SampleWebApp.war
-      dest: /tmp/apache-tomcat-9.0.70/webapps/SampleWebApp.war
+      dest: /home/ec2-user/apache-tomcat-9.0.70/webapps/SampleWebApp.war
 
   - name: Start the tomcat service
-    command: sh /tmp/apache-tomcat-9.0.70/bin/startup.sh
+    command: sh /home/ec2-user/apache-tomcat-9.0.70/bin/startup.sh
   - name: Sleep for 20 seconds
     ansible.builtin.pause:
       seconds: 20
   - name: Grepping the log file
-    command: grep -i 'Server startup' /tmp/apache-tomcat-9.0.70/logs/catalina.out
+    command: grep -i 'Server startup' /home/ec2-user/apache-tomcat-9.0.70/logs/catalina.out
     register: cata_out
   - debug: msg="{{ cata_out }}"
 
   - name: Stop the tomcat service
-    command: sh /tmp/apache-tomcat-9.0.70/bin/shutdown.sh
+    command: sh /home/ec2-user/apache-tomcat-9.0.70/bin/shutdown.sh
 
   - name: Sleep for 20 seconds
     ansible.builtin.pause:
@@ -43,12 +43,12 @@
   - name: Copying the index.html file
     copy:
       src: index.html
-      dest: /tmp/apache-tomcat-9.0.70/webapps/SampleWebApp/index.html
+      dest: /home/ec2-user/apache-tomcat-9.0.70/webapps/SampleWebApp/index.html
 
   - name: Starting the service back
-    command: sh /tmp/apache-tomcat-9.0.70/bin/startup.sh
+    command: sh /home/ec2-user/apache-tomcat-9.0.70/bin/startup.sh
 
   - name: Grepping the log file
-    command: grep -i 'Server startup' /tmp/apache-tomcat-9.0.70/logs/catalina.out
+    command: grep -i 'Server startup' /home/ec2-user/apache-tomcat-9.0.70/logs/catalina.out
     register: catali_out
   - debug: msg="{{ catali_out }}"
