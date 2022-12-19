@@ -1,0 +1,15 @@
+---
+- name: Installing MySQLInstall on Remote machines
+  hosts: dev
+  become: yes
+  tasks:
+  - name: Install Python
+    yum: name=MySQL-python state=installed
+  - name: Download library
+    command: yum install mariadb-server -y
+  - name: Start SQL service
+    service: name=mariadb.service state=restarted
+  - name: Create demo database
+    mysql_db: name=ansible state=present
+  - name: Create test user
+    mysql_user: name=demo password=demo priv=demo.*:ALL host='%' state=present
