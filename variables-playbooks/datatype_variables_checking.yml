@@ -1,0 +1,25 @@
+---
+- name: Working with variables
+  hosts: localhost
+  gather_facts: false
+  vars:
+    x: 20
+    y: 30.6
+    my_name: Thangadurai Murugan
+    my_bool: False
+    my_daughter: Vedhiksha Shree
+    studying_at: Pre-school
+    living_place: Bangalore
+
+  tasks:
+  - name: Fetching variables value in message key
+    debug:
+      msg:
+        - "The value of x is: {{ x }} and type: {{x|type_debug}}"
+        - "The value of y is: {{ y }} and type: {{y|type_debug}}"
+        - "The value of My Name is: {{ my_name }} and type: {{my_name|type_debug}}"
+        - "The value of My boolean is: {{ my_bool }} and type: {{my_bool|type_debug}}"
+        - "The value of My daughter name is: {{ my_daughter }} and type: {{my_daughter|type_debug}}"
+        - "The value of studying_at: {{ studying_at }} and type: {{studying_at|type_debug}}"
+        - "The value of living_place: {{ living_place }} and type: {{living_place|type_debug}}"
+
