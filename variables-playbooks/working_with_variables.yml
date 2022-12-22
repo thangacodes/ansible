@@ -1,0 +1,24 @@
+---
+- name: Working with variables
+  hosts: localhost
+  vars:
+    x: 24
+    y: 40.6
+    my_name: Thangadurai Murugan
+    my_bool: false
+    my_daughter: Vedhiksha Shree
+    studying_at: Pre-school
+    living_place: Bangalore
+
+  tasks:
+  - name: Substiting the vars values
+    debug:
+      msg:
+        - "The value of x is: {{ x}}"
+        - "The value of y is: {{ y }}"
+        - "The value of My Name is: {{ my_name }}"
+        - "The value of My boolean is: {{ my_bool }}"
+        - "The value of My daughter name is: {{ my_daughter }}"
+        - "The value of studying_at: {{ studying_at }}"
+        - "The value of living_place: {{ living_place }}"
+
