@@ -1,0 +1,5 @@
+{
+  "randomnumber": 24,
+  "country": [india,usa,uk,brazil],
+  "digit": { "one":1, "two":2}
+}
