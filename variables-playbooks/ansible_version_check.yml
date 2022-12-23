@@ -7,7 +7,7 @@
   - name: ansible version checking using shell module
     shell: ansible --version
     register: ansi_out
-  - name: Storing ansible version output
+  - name: Storing ansible version output in another variable using set_fact module
     set_fact:
       ansi_version: "{{ ansi_out.stdout.split('\n')[0]}}"
   - debug: var=ansi_version
