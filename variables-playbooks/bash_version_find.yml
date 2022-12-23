@@ -1,0 +1,11 @@
+---
+- name: Find Bash_version in Linux Machines
+  hosts: localhost
+  gather_facts: false
+  tasks:
+  - name: Ansible_playbook begins
+    shell: bash --version
+    register: bash_out
+    set_fact:
+      bash_version: "{{bash_out.stdout.split('\n')[0].split()[3]}}"
+  - debug: var=bash_version
