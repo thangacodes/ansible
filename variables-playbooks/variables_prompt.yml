@@ -3,8 +3,8 @@
   hosts: localhost
   gather_facts: false
   vars:
-    my_name: "soandso"
-    my_corporatename: "soandso"
+    my_name: "thangadurai murugan"
+    my_corporatename: "dell.com"
   vars_prompt:
     - name: domain
       prompt: Enter the value for domain
@@ -19,8 +19,8 @@
   tasks:
   - debug:
       msg:
-        - "The value of my_name is: {{ my_name }}"
-        - "The value of my_corporatename is: {{ my_corporatename }}"
-        - "The value of domain is: {{ domain }}"
-        - "The value of username is: {{ username }}"
-        - "The value of password is: {{ password }}"
+        - "Your good name is: {{ my_name }}"
+        - "Your working corporatename is: {{ my_corporatename }}"
+        - "Your corporate domain is: {{ domain }}"
+        - "Your domain username is: {{ username }}"
+        - "Your domain password is: {{ password }}"
