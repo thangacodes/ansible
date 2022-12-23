@@ -1,0 +1,11 @@
+---
+- name: Find out ansible version
+  hosts: localhost
+  gather_facts: false
+  tasks:
+  - name: tasks begin with shell module
+    shell: ansible --version
+    register: ansi_out
+  - set_fact:
+     ansi_version: "{{ ansi_out.stdout.split('\n')[0]}}"
+  - debug: var=ansi_version
