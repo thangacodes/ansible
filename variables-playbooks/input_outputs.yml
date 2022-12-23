@@ -1,0 +1,16 @@
+---
+- name: This playbook is to feeding the input value in variable already and prompting us to enter the value
+  hosts: localhost
+  gather_facts: false
+  vars:
+    my_name: "soandso"
+    my_wifename: "soandso"
+  vars_prompt:
+    name: z
+    prompt: Enter the value for z
+  tasks:
+  - debug:
+      msg:
+        - "The value of my_name is: {{ my_name }}"
+        - "The value of my_wifename is: {{ my_wifename }}"
+        - "The value of z is: {{ z }}"
