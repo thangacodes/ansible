@@ -1,0 +1,10 @@
+---
+  pkgs:
+    "linux": "httpd"
+    "ubuntu": "apache2"
+  india:
+    "state": "Tamil nadu"
+    "place": "Dharmapuri"
+  sports:
+    "brazil": "Football"
+    "cricket": "India"
