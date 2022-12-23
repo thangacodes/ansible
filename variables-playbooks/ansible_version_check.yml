@@ -4,9 +4,10 @@
   become: yes
   gather_facts: false
   tasks:
-  - name: tasks begin with shell module
+  - name: ansible version checking using shell module
     shell: ansible --version
     register: ansi_out
+  - name: Storing ansible version output
   - set_fact:
      ansi_version: "{{ ansi_out.stdout.split('\n')[0]}}"
   - debug: var=ansi_version
