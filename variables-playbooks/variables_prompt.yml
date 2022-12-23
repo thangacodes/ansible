@@ -4,7 +4,7 @@
   gather_facts: false
   vars:
     my_name: "thangadurai murugan"
-    my_corporatename: "dell.com"
+    my_corporatename: "yahoo.com"
   vars_prompt:
     - name: domain
       prompt: Enter the value for domain
