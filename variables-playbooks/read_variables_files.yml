@@ -1,0 +1,12 @@
+---
+- name: "This is the playbook to read variable values in variable.yml and variable.json file"
+  hosts: localhost
+  vars_files:
+    - variable_file.yml
+    - variable_file.json
+  tasks:
+  - debug:
+      var: pkgs
+      var: india
+      var: sports
+      var: country
