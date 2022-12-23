@@ -1,6 +1,7 @@
 ---
 - name: Find out ansible version
   hosts: localhost
+  become: yes
   gather_facts: false
   tasks:
   - name: tasks begin with shell module
