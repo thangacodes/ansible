@@ -15,7 +15,6 @@
     - name: password
       prompt: Enter the value for password
       private: yes
-
   tasks:
   - debug:
       msg:
