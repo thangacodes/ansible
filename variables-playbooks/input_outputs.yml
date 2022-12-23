@@ -8,9 +8,14 @@
   vars_prompt:
     name: z
     prompt: Enter the value for z
+    private: false
   tasks:
   - debug:
       msg:
         - "The value of my_name is: {{ my_name }}"
         - "The value of my_wifename is: {{ my_wifename }}"
         - "The value of z is: {{ z }}"
+
+
+### Note: By default when prompt is a private, as we cannot see it the value that we entered during the execution. If you wanted to see it, please set private=false or no, so 
+you can see it.
