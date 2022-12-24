@@ -14,4 +14,4 @@
 
 # ansible-playbook install_uninstall_pkgs.yml -e "pkg=httpd require_state=present"
 # ansible-playbook install_uninstall_pkgs.yml -e "pkg=httpd require_state=absent"
-#  ansible-playbook install_uninstall_pkgs.yml -e "pkg=httpd require_state=latest"
+# ansible-playbook install_uninstall_pkgs.yml -e "pkg=httpd require_state=latest"
