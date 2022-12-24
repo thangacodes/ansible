@@ -1,0 +1,10 @@
+---
+- name: Installing/Uninstalling {{ pkg }}
+  hosts: localhost
+  become: yes
+  gather_facts: false
+  tasks:
+  - name: Install-Uninstall any {{ pkg }} using cmdline variables
+    yum:
+      name: "{{ pkg }}"
+      state: "{{ require_state }}"
