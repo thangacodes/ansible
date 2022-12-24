@@ -1,0 +1,10 @@
+---
+- name: Updating the {{ pkg }}
+  hosts: localhost
+  become: yes
+  gather_facts: false
+  tasks:
+  - name: Updating {{ pkg }} using cmdline variables
+    command: "{{ pkg }} update -y "
+    register: yu_out
+  - debug: msg="{{ yu_out }}"
