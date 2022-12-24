@@ -6,5 +6,8 @@
   tasks:
   - name: Updating {{ pkg }} using cmdline variables
     command: "{{ pkg }} update -y "
-    register: yu_out
-  - debug: msg="{{ yu_out }}"
+    register: yum_out
+  - debug: msg="{{ yum_out }}"
+
+## Note: To execute this playbook, you need to place variables in the cmdline example..
+# ansible-playbook yum_update.yml -e "pkg=yum"
