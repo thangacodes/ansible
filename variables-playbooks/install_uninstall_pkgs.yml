@@ -8,3 +8,10 @@
     yum:
       name: "{{ pkg }}"
       state: "{{ require_state }}"
+
+
+### Note: When you execute this playbook, you need to place variable in cmdline example
+
+# ansible-playbook install_uninstall_pkgs.yml -e "pkg=httpd require_state=present"
+# ansible-playbook install_uninstall_pkgs.yml -e "pkg=httpd require_state=absent"
+#  ansible-playbook install_uninstall_pkgs.yml -e "pkg=httpd require_state=latest"
