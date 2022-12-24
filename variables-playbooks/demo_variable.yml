@@ -1,0 +1,14 @@
+---
+- name: This is demo variable yaml file to execute command line
+  hosts: localhost
+  gather_facts: false
+  tasks:
+  - debug:
+      msg:
+        - "My name is : {{ my_name }}"
+        - "My wife name is : {{ wife_name }}"
+        - "My first daughter name is: {{ first_daughter }}"
+        - "My first daughter name is: {{ second_daughter }}"
+
+## Note: To execute this playbook, you need to place variables in the cmdline example..
+# ansible-playbook demo_variable.yml -e "my_name='yyy xxx' wife_name=xxxx first_daughter='Iniya Shree' second_daughter='yet to be named'"
