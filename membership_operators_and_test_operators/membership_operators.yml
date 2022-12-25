@@ -1,0 +1,14 @@
+---
+- name: This is about membership operators examples
+  hosts: localhost
+  vars:
+    x: [3,4,5,6]
+    y: 5
+  tasks:
+  - name: task begins
+    debug:
+      msg:
+        - "The value of x is : {{ x }}"
+        - "The value of y is : {{ y }}"
+        - "y in of x is : {{ y in x }}"
+        - "7 is not in of y is: {{ 7 not in x }}"
