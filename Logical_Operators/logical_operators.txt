@@ -1,0 +1,7 @@
+Logical Operators
+
+* or
+* and
+* not
+
+* or OR and operators useful to club multiple results.
