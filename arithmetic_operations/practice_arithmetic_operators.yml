@@ -1,0 +1,13 @@
+---
+- name: Practice sections on arithmetic operators in ansible
+  hosts: localhost
+  vars:
+    x: 45
+    y: "{{ 5+x}}"
+  tasks:
+  - name: Printing the value of x+y
+    debug:
+      msg:
+        - "The value of x+y is: {{ 5+y }}"
+        - "The value of x is: {{ x }}"
+        - "The value of y is: {{ y }}"

@@ -1,0 +1,28 @@
+---
+- name: variable prompts on arithmetic operators
+  hosts: localhost
+  vars:
+    a: 100
+  vars_prompt:
+    - name: x
+      prompt: Please enter x value
+      private: no
+    - name: y
+      prompt: Please enter y value
+      private: no
+  tasks:
+  - name: Playbook begins now
+    debug:
+      msg:
+        - "The value of x is : {{ x }}"
+        - "The value of y is : {{ y }}"
+        - "The value of a is : {{ a }}"
+        - "The addition of x+y is : {{ x|int + y|int }}"
+        - "The subtraction of x-y is : {{ x|int - y|int }}"
+        - "The multiplication of x*y is : {{ x|int * y|int }}"
+        - "The division of x/y is : {{ x|int / y|int }}"
+        - "The reminder of x%y is : {{ x|int % y|int }}"
+        - "The addition of a+x is : {{ a + x|int }}"
+        - "The addition of a+y is : {{ a + y|int }}"
+
+## Note: When you work on vars_prompt in arithmetic operations, by default whatever we feed as input that will consider as "string" only. We need to convert string into a integer using int command.

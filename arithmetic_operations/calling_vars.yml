@@ -1,0 +1,17 @@
+---
+- name: Calling variables.yml file in the playbook
+  hosts: localhost
+  vars_files:
+    - variables_file.yml
+  tasks:
+  - name: Just place in vars section x and y
+    debug:
+      msg:
+        - "The value of x is: {{ x }}"
+        - "The value of y is: {{ y }}"
+        - "The value of a is: {{ a }}"
+        - "The value of b is: {{ b }}"
+        - "The datatype of x is: {{ x| type_debug }}"
+        - "The datatype of y is: {{ y| type_debug }}"
+        - "The datatype of a is: {{ a| type_debug }}"
+        - "The datatype of b is: {{ b| type_debug }}"
