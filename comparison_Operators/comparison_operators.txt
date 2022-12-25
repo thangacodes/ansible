@@ -1,0 +1,16 @@
+Comparison Operators:
+
+These are very important to work with conditional operators.
+The result of comparison operators is either true or false.
+
+Expression   Definition
+
+==           Compares two objects equality
+!=           Compares two objects for inequality
+>            True if the left-hand is greater than the right-hand side
+<            True if the left-hand side is less than the right-hand side
+>=           True if the left-hand side is greater than or equal to the right-hand side
+<=           True if the left-hand side is less than or equal to the right-hand side
+
+
+This operators are valid for both strings and numbers.
