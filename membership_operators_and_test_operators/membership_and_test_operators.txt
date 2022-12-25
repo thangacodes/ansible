@@ -9,4 +9,4 @@ Test Operators:
 * Tests for strings (strx is lower, strx is upper, strx is string)
 * Tests for numbers (numx is divisibleby 5, is odd, is even, is number)
 * Tests for paths (pth1 is directory, pth2 is file, pth3 is link, pth1 is exists, pth2 is same_file(pth4))
-
+* * Tests for tasks (result2 is succeeded, result2 is success, result2 is changed, result1 is failed, result1 is skipped)

@@ -1,0 +1,21 @@
+---
+- name: This is about path checking using test operators
+  hosts: localhost
+  vars:
+    - my_path: '/home/ec2-user/ansible_practice/testing/membership_and_test_operators/num_operators.yml'
+    - my_link_path: '/home/ec2-user/ansible_practice/testing/membership_and_test_operators/num.yml'
+  tasks:
+  - name: task will begin now
+    debug:
+      msg:
+        - "The given path is my_path is : {{ my_path }}"
+        - "my_path is file or not: {{ my_path is file }}"
+        - "my_path is directory or not: {{ my_path is directory }}"
+        - "my_path is exists or not: {{ my_path is exists }}"
+        - "my_link_path is exists or not: {{ my_link_path is exists }}"
+        - "my_link_path is link: {{ my_link_path is link }}"
+        - "my_link_path is link: {{ my_path is link }}"
+
+## Takeaway:
+# ln -s num_operators.yml num.yml
+# ls -lrth
