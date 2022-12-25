@@ -1,0 +1,17 @@
+---
+- name: This is about test operators, where defined and undefined variables declared
+  hosts: localhost
+  vars:
+    x: 45
+  tasks:
+  - name: task begins
+    debug:
+      msg:
+        - "x is defined: {{ x is defined }}"
+        - "y is undefined: {{ y is undefined }}"
+        - "z is defined: {{ z is defined }}"
+        - "x is divisibleby 5: {{ x is divisibleby 5 }}"
+        - "x is even: {{ x is even }}"
+        - "x is odd: {{ x is odd }}"
+        - "x is number: {{ x is number }}"
+
