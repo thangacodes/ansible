@@ -5,3 +5,11 @@ Logical Operators
 * not
 
 * or OR and operators useful to club multiple results.
+
+and operator:
+   useful to club multiple results
+   output is true if all results
+
+Or operators:
+   useful to club multiple results
+   output is true if at least one result is true
