@@ -1,0 +1,12 @@
+---
+- name: There will be an action,When condition mets
+  hosts: localhost
+  become: yes
+  gather_facts: yes
+  tasks:
+    - name: Updating {{ ansible_pkg_mgr }} REPO on {{ ansible_distribution }} machine2 at the server {{ ansible_hostname }}
+      command: yum update -y
+      register: yu_out
+    - debug: msg="{{ yu_out }}"
+      when: ansible_distribution != "Ubuntu"
+
