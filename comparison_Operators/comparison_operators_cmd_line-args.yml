@@ -1,0 +1,15 @@
+---
+- name: Working on comparison Operators
+  hosts: localhost
+  tasks:
+  - name: Playbook begins
+    debug:
+      msg:
+        - "The value of x is {{ x }} and the value of y is {{ y }}"
+        - "If x == y is: {{ x == y }}"
+        - "If x != y is: {{ x != y }}"
+        - "If x > y is:  {{ x > y }}"
+        - "If x < y is:  {{ x < y }}"
+        - "If x >= y is: {{ x >= y }}"
+        - "If x <= y is: {{ x <= y }}"
+
