@@ -1,0 +1,19 @@
+---
+- name: Arithmetic Operations
+  hosts: localhost
+  gather_facts: false
+  vars:
+    x: 100
+    y: 20
+  tasks:
+  - name: Playbook begins to perform Arithmetic operations
+    debug:
+      msg:
+        - "The value of x is : {{ x }}"
+        - "The value of x is : {{ y }}"
+        - "The addition of x+y value is : {{ x+y }}"
+        - "The substraction of x-y value is : {{ x-y }}"
+        - "The multiplication of x*y value is : {{ x*y }}"
+        - "The division of x/y value is : {{ x/y }}"
+        - "The remainder of x%y value is : {{ x%y }}"
+
