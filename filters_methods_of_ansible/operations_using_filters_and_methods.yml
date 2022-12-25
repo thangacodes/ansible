@@ -1,0 +1,19 @@
+---
+- name: Operations using filter and methods in ansible
+  hosts: localhost
+  vars:
+    x : "My name is DUrai"
+    y : "56"
+    z : [2,4,6,8,10]
+  tasks:
+  - name: Playbook begins
+    debug:
+      msg:
+        - "{{ x.upper()}}"
+        - "{{ x.lower()}}"
+        - "{{ x|title}}"
+        - "{{ x|upper}}"
+        - "{{ x|lower}}"
+        - "{{ y|int }}"
+        - "The maximum value from z is : {{ z|max }}"
+        - "The minimum value from z is : {{ z|min }}"

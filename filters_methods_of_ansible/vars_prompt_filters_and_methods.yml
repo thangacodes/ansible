@@ -1,0 +1,31 @@
+---
+- name: Operations using filter and methods in ansible
+  hosts: localhost
+  vars:
+    x : "My name is DUrai"
+    y : "56"
+    z : [2,4,6,8,10]
+  vars_prompt:
+    - name: a
+      prompt: Enter the value of a
+      private: no
+    - name: b
+      prompt: Enter the value of b
+      private: no
+  tasks:
+  - name: Playbook begins
+    debug:
+      msg:
+        - "{{ x.upper()}}"
+        - "{{ x.lower()}}"
+        - "{{ x|title}}"
+        - "{{ x|upper}}"
+        - "{{ x|lower}}"
+        - "{{ y|int }}"
+        - "The maximum value from z is : {{ z|max }}"
+        - "The minimum value from z is : {{ z|min }}"
+        - "The entered value of a is : {{ a }}"
+        - "The entered value of b is : {{ b }}"
+        - "The entered value of a datatype is: {{ a|type_debug }}"
+        - "The entered value of b datatype is: {{ b|type_debug }}"
+
