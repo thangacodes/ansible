@@ -1,0 +1,14 @@
+---
+- name: This is about test operators, where defined and undefined variables declared
+  hosts: localhost
+  vars_prompt:
+    name: x
+    prompt: Enter the x value
+    private: no
+  tasks:
+  - name: task begins
+    debug:
+      msg:
+        - "x is defined: {{ x is defined }}"
+        - "y is undefined: {{ y is undefined }}"
+        - "z is defined: {{ z is defined }}"
