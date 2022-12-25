@@ -1,0 +1,12 @@
+---
+- name: This is about test operators, where defined and undefined variables declared
+  hosts: localhost
+  vars:
+    my_name: ansible
+  tasks:
+  - name: task begins
+    debug:
+      msg:
+        - "my_name is lower: {{ my_name is lower }}"
+        - "my_name is upper: {{ my_name is upper }}"
+        - "my_name is string: {{ my_name is string }}"
