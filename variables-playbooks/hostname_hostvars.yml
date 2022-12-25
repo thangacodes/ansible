@@ -1,0 +1,8 @@
+---
+- name: hostname with hostvars finding
+  hosts: localhost
+  gather_facts: yes
+  tasks:
+  - debug: var=inventory_hostname
+  - debug: var=hostvars[inventory_hostname]
+  - debug: var=ansible_facts
