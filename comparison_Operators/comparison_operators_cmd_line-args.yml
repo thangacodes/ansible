@@ -13,3 +13,6 @@
         - "If x >= y is: {{ x >= y }}"
         - "If x <= y is: {{ x <= y }}"
 
+
+## Take away here is that, when you are executing the playbook follow the below as,
+# ansible-playbook comparison_operators_cmd_line-args.yml -e "x=20 y=10"
