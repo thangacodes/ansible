@@ -6,3 +6,5 @@
   - debug: var=inventory_hostname
   - debug: var=hostvars[inventory_hostname]
   - debug: var=ansible_facts
+
+## Note: By default ansible_facts stored in hostvars. Hence, no need to enable ansible_facts in debug module.
