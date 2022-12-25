@@ -1,0 +1,14 @@
+Conditional Statements of Ansible Playbooks:
+
+ * when
+ * failed_when
+ * changed_when
+ 
+When conditional statement:
+ * It is like if conditional statement in other languages.
+ * It works or executes any task if condition is true.
+ * Condition/expression can be form with comparison, membership, test and logical operators.
+
+
+
+

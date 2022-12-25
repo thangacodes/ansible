@@ -1,0 +1,23 @@
+---
+- name: This is about conditional statements
+  hosts: localhost
+  gather_facts: false
+  vars:
+    x: 100
+    y: 200
+    z: [100,200,300]
+  tasks:
+  - name: first task
+    debug:
+      msg:
+        - "The value of x is: {{ x }} and the value of y is: {{ y }} and the value of z is : {{ z }}"
+    when: x == y
+  - name: second task
+    debug:
+      msg:
+        - "If x in z: {{ x in z }}"
+    when: x in z
+  - name: third task
+    debug:
+      msg: "If x is equal to z: {{ x ==z }}"
+    when: x == z
