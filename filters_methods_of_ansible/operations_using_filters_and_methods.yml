@@ -2,7 +2,7 @@
 - name: Operations using filter and methods in ansible
   hosts: localhost
   vars:
-    x : "My name is DUrai"
+    x : "mY nAmE Is DUrAi"
     y : "56"
     z : [2,4,6,8,10]
   tasks:
@@ -15,5 +15,6 @@
         - "{{ x|upper}}"
         - "{{ x|lower}}"
         - "{{ y|int }}"
+        - "{{ x.split()}}"
         - "The maximum value from z is : {{ z|max }}"
         - "The minimum value from z is : {{ z|min }}"
