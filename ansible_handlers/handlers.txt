@@ -1,0 +1,3 @@
+Ansible handlers:
+
+Handlers are just like regular tasks in an Ansible playbook. 

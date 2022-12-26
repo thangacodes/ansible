@@ -1,0 +1,26 @@
+---
+- name: Installing httpd and starting the service
+  hosts: localhost
+  become: yes
+  gather_facts: yes
+  tasks:
+  - name: "Installing httpd using {{ ansible_pkg_mgr }}"
+    yum:
+      name: httpd
+      state: present
+    register: out
+  - name: "Starting httpd.service using {{ ansible_service_mgr }}"
+    service:
+      name: httpd
+      state: started
+    when: out.changed == true
+
+
+
+
+
+
+
+
+
+
