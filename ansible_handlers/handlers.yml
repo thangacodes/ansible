@@ -9,18 +9,9 @@
       name: httpd
       state: present
     register: out
+  - debug: var=out.changed
   - name: "Starting httpd.service using {{ ansible_service_mgr }}"
     service:
       name: httpd
       state: started
     when: out.changed == true
-
-
-
-
-
-
-
-
-
-
