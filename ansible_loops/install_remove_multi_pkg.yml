@@ -1,0 +1,29 @@
+---
+- name: Installing multi_binaries on Linux Machine
+  hosts: localhost
+  gather_facts: True
+  become: yes
+  tasks:
+  - name: Installing binary one after another using loop with items
+    yum:
+      name: "{{ item }}"
+      state: present
+    loop:
+      - gettext-devel
+      - openssl-devel
+      - perl-CPAN
+      - perl-devel
+      - zlib-devel
+  - name: Taking a small break
+    ansible.builtin.pause:
+      seconds: 30
+  - name: Uninstalling binary one after another using loop with items
+    yum:
+      name: "{{ item }}"
+      state: absent
+    loop:
+      - gettext-devel
+      - openssl-devel
+      - perl-CPAN
+      - perl-devel
+      - zlib-devel
