@@ -1,0 +1,18 @@
+---
+- name: Removing packages using variables
+  hosts: localhost
+  become: yes
+  gather_facts: true
+  tasks:
+  - name: Stopping the service
+    service:
+      name: "{{ pkg_name }}"
+      state: "{{ ser_state }}"
+  - name: Removing the {{ pkg_name }}
+    yum:
+      name: "{{ pkg_name }}"
+      state: "{{ req_state }}"
+
+## Note: when you are execute this playbook please follow the steps below and change according to your convinience.
+#
+#ansible-playbook removal_any_pkgs.yml -e "pkg_name=httpd ser_state=stopped req_state=absent" 
