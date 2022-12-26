@@ -13,22 +13,32 @@
       - David
       - Siju
       - Lijo
-      - Aju 
-  - name: Taking a small break
-    ansible.builtin.pause:
-      seconds: 4
+      - Aju
+
   - name: Verifying the user accounts
     command: cat /etc/passwd
     register: user_out
-    debug:
+  - debug:
       var: user_out.stdout_lines
-  - name: Uninstalling binary one after another using loop with items
-    yum:
+
+  - name: Small break
+    ansible.builtin.pause:
+      seconds: 5
+
+  - name: Deletion of user accounts along with their /home directories
+    user:
       name: "{{ item }}"
       state: absent
+      remove: true
     loop:
       - John
       - David
       - Siju
       - Lijo
-      - Aju 
+      - Aju
+  - name: Cross verifying the user account status
+    command: ls -l /home
+    register: cross_out
+  - debug:
+      var: cross_out.stdout_lines
+
