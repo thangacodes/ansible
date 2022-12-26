@@ -1,0 +1,21 @@
+---
+- name: Ansible handlers
+  hosts: localhost
+  become: yes
+  gather_facts: yes
+  tasks:
+  - name: "Installing httpd using {{ ansible_pkg_mgr }}"
+    yum:
+      name: httpd
+      state: present
+    notify:
+      - start httpd
+  - name: Copying index.html file to the dest
+    copy:
+      src: index.html
+      dest: /var/www/html/index.html
+  handlers:
+  - name: start httpd
+    service:
+      name: httpd
+      state: started
