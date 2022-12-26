@@ -1,0 +1,34 @@
+---
+- name: Creationg of multiple user accounts in Linux box
+  hosts: localhost
+  gather_facts: True
+  become: yes
+  tasks:
+  - name: User creation is one after another using loop with items
+    user:
+      name: "{{ item }}"
+      state: present
+    loop:
+      - John
+      - David
+      - Siju
+      - Lijo
+      - Aju 
+  - name: Taking a small break
+    ansible.builtin.pause:
+      seconds: 4
+  - name: Verifying the user accounts
+    command: cat /etc/passwd
+    register: user_out
+    debug:
+      var: user_out.stdout_lines
+  - name: Uninstalling binary one after another using loop with items
+    yum:
+      name: "{{ item }}"
+      state: absent
+    loop:
+      - John
+      - David
+      - Siju
+      - Lijo
+      - Aju 
