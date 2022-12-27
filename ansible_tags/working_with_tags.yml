@@ -1,0 +1,46 @@
+---
+- name: Working with tags to control certain tasks when to run
+  hosts: localhost
+  gather_facts: false
+  tasks:
+  - debug:
+      msg: "This is my first task"
+    tags: 
+      - first
+      - common
+      #- never
+      - always
+  - debug:
+      msg: "This is my second task"
+    tags: 
+      - second
+  - debug:
+      msg: "This is my third task"
+    tags: 
+      - third
+      - never
+  - debug:
+      msg: "This is my first task"
+    tags: 
+      - fourth
+      - common
+      - never 
+  - debug:
+      msg: "This is my fifth task"
+    tags: 
+      - fifth
+      - never 
+
+## Note while executhing this playbook follow the method
+
+# ansible-playbook working_with_tags.yml
+# ansible-playbook working_with_tags.yml --tags first (Run only first task or first tag)
+# ansible-playbook working_with_tags.yml --tags first,fourth  (Run only tags first and fourth tasks)
+# ansible-playbook working_with_tags.yml --skip-tags first,fourth   ( It will exclude first and fourth task in the playbook. rest all getting executed)
+# ansible-playbook working_with_tags.yml -t common ( It run only first and fourth tasks. Since we specified 'common' tags both the tasks.)
+# ansible-playbook working_with_tags.yml  (IT won't execute any tasks. since we specified 'never' in all the tasks tags)
+# ansible-playbook working_with_tags.yml -t first ( Even if never specified also, when you call first tag it will get executed)
+# ansible-playbook working_with_tags.yml -t second (it always execute first task and then second task. since always mentioned in the first tag )
+# ansible-playbook working_with_tags --list-tags 
+# if you mentioned all the tasks tag as never, that won't be listed out using --list-tags command line. 
+# If you want to see all the tags that are specified in each tasks tag, then remove 'never' from the tasks tag section.
