@@ -1,0 +1,15 @@
+---
+- name: This is about Error handling section
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - command: "ls /home"
+      register: home_out
+      failed_when: home_out.rc == 0
+    - debug: var=home_out
+
+    - command: ls -l /tmp
+      register: tmp_out
+    - debug:
+        var: tmp_out.stdout_lines
+

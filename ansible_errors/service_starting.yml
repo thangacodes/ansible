@@ -1,0 +1,30 @@
+---
+- name: Service starting on the remote machine and ignoring errors
+  gather_facts: false
+  hosts: localhost
+  become: yes
+  tasks:
+  - name: Starting nginx service
+    service:
+      name: nginx
+      state: started
+    ignore_errors: yes
+  - name: Installing httpd package
+    yum:
+      name: httpd
+      state: present
+  - name: Starting httpd service
+    service:
+      name: httpd
+      state: started
+  - name: Taking some break of silence
+    ansible.builtin.pause:
+      seconds: 5
+  - name: Stopping the service
+    service:
+      name: httpd
+      state: stopped
+  - name: Removing the httpd
+    yum:
+      name: httpd
+      state: absent
