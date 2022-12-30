@@ -1,0 +1,37 @@
+---
+- name: Simple play to Un-install java,webpackages
+  hosts: dev
+  gather_facts: true
+  become: yes
+  tasks:
+    - name: Service stopping
+      service:
+        name: httpd
+        state: stopped
+      when: ansible_os_family == "RedHat"
+    - name: Installing webserver on Ubuntu family
+      apt:
+        name: apache2
+        state: absent
+      when: ansible_os_family == "Debian"
+    - name: Service stopping
+      service:
+        name: apache2
+        state: stopped
+      when: ansible_os_family == "Debian"
+    - name: Un-installing java on RedHat family
+      yum:
+        name: java-1.8.0-openjdk
+        state: absent
+      when: ansible_os_family=="RedHat"
+    - name: Un-Installing java on Ubuntu family
+      apt:
+        name: openjdk-8-jdk
+        state: absent
+      when: ansible_os_family== "Debian"
+    - name: Un-Installing websever on REDHAT family
+      yum:
+        name: httpd
+        state: absent
+      when: ansible_os_family =="RedHat"
+
