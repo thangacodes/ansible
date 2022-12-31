@@ -1,0 +1,31 @@
+---
+- name: Discovery play
+  hosts: dev
+  gather_facts: True
+  tasks:
+  - name: Finding OS name
+    shell: "uname"
+    register: os_name
+  - name: Finding uptime of the servers
+    shell: "uptime -p"
+    register: up_time
+  - name: Displaying Discovery Info
+    debug:
+      msg: "{{ inventory_hostname }}, {{ ansible_system }}, {{ os_name.stdout }}, {{ up_time.stdout }}, {{ ansible_nodename }}, {{ ansible_pkg_mgr }}"
+  - name: Removing old Discovery.csv file
+    file:
+      dest: ./Discovery.csv
+      state: absent
+    delegate_to: localhost
+    run_once: localhost
+  - name: Creating Discovery.csv file
+    copy:
+      dest: ./Discovery.csv
+      content: "Server_Name, OS Family, OS Name, OS Distribution, uptime, Pkg_Manager\n"
+    delegate_to: localhost
+    run_once: localhost
+  - name: Updating the content in Discovery.csv file wrt field
+    lineinfile:
+      path: ./Discovery.csv
+      line: "{{ inventory_hostname }}, {{ ansible_system }}, {{ os_name.stdout }}, {{ up_time.stdout }}, {{ ansible_nodename }}, {{ ansible_pkg_mgr }}"
+    delegate_to: localhost
