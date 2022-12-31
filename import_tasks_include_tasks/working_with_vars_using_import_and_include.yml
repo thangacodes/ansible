@@ -6,3 +6,6 @@
     - include_vars: required_variables_for_{{ ansible_os_family }}.yml
     - debug:
         msg: "pkg name = {{ pkg }}"
+    - include_vars: required_variables_for_pkg_{{ ansible_pkg_mgr }}.yml
+    - debug:
+        msg: "pkg manager name = {{ pk_mgr }}"
