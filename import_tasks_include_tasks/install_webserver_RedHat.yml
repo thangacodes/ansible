@@ -1,0 +1,14 @@
+---
+  - name: Installing webserver on RedHat family
+    yum:
+      name: httpd
+      state: present
+    when: ansible_os_family=="RedHat"
+  - name: Starting the httpd service
+    service:
+      name: httpd
+      state: started
+  - name: Copying index.html file
+    copy:
+      src: index.html
+      dest: /var/www/html/index.html

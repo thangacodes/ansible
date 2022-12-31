@@ -1,0 +1,6 @@
+---
+  - name: Installing java on Ubuntu family
+    apt:
+      name: openjdk-11-jdk
+      state: present
+    when: ansible_os_family == "Debian"
