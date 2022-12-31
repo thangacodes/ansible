@@ -1,0 +1,17 @@
+---
+- name: Installing and configuring httpd
+  hosts: localhost
+  become: yes
+  tasks:
+  - name: begin the play
+    yum:
+      name: httpd
+      state: latest
+  - name: service starting
+    service:
+      name: httpd
+      state: started
+  - name: Copying index.html.j2 file
+    template:
+      src: index.html.j2
+      dest: /usr/share/httpd/noindex/index.html
