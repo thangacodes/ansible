@@ -1,0 +1,10 @@
+---
+- name: Checking uptime on all dev group servers
+  hosts: dev
+  gather_facts: true
+  tasks:
+  - name: Playbook begin
+    shell: "uptime -p"
+    register: uptime_out
+    delegate_to: 172.31.10.74
+  - debug: var=uptime_out.stdout_lines
