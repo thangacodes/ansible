@@ -1,0 +1,17 @@
+---
+- name: Terminating the instancs which are not required
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  vars_prompt:
+  - name: Instance_id
+    prompt: Enter the instance_id that you wanted to delete off it
+    private: false
+    register: value
+  tasks:
+  - debug:
+      msg="{{ Instance_id }}"
+  - ec2:
+      instance_ids: "{{ Getting_ID }}"
+      state: absent
+      region: ap-south-1
