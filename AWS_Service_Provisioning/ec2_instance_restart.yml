@@ -1,0 +1,20 @@
+---
+- name: This play is used to restart EC2 instance
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars_prompt:
+    name: Instance_id
+    prompt: Please provide the instance id that you wants to recycle it
+    private: false
+  tasks:
+  - name: Checking the variable that we feed while execution
+    debug:
+      msg:
+        - "The variable that you feeded is : {{ Instance_id }}"
+  - name: Restarting ec2 instance
+    ec2:
+      instance_ids: "{{ Instance_id }}"
+      region: ap-south-1
+      state: restarted
+      wait: yes
