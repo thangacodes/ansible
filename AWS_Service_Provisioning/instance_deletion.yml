@@ -12,6 +12,6 @@
   - debug:
       msg="{{ Instance_id }}"
   - ec2:
-      instance_ids: "{{ Getting_ID }}"
+      instance_ids: "{{ Instance_id }}"
       state: absent
       region: ap-south-1
