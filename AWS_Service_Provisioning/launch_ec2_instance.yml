@@ -1,0 +1,22 @@
+---
+- name: Simple play to create an EC2 instance in AWS Cloud
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+  - name: Play will execute to launch EC2
+    ec2:
+      instance_type: t2.micro
+      image: ami-0e6329e222e662a52
+      key_name: admin
+      region: ap-south-1
+      wait: yes
+      count: 1
+      assign_public_ip: yes
+      instance_tags:
+        name: Demo_EC2_instance
+        Owner: Thangadurai Murugan
+        Email_Id: send2durai@hotmail.com
+        Country: India
+      #aws_access_key: xxxxx
+      #aws_secret_key: bbbb
