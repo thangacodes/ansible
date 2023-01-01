@@ -1,0 +1,39 @@
+---
+- name: This is about EC2 instance starting,stopping,Terminating
+  hosts: localhost
+  gather_facts: false
+  connection: local
+  vars_prompt:
+    - name: EC2ID
+      prompt: Enter the EC2 instance Id
+      private: false
+    - name: REGION
+      prompt: Enter the region name
+      private: false
+  tasks:
+  - name: Debugging the entered variables in prompt
+    debug:
+      msg:
+        - "The entered instance_id is: {{ EC2ID }}"
+        - "The entered region is: {{ REGION }}"
+  - name: Sleeping for 5 seconds
+    ansible.builtin.pause:
+      seconds: 5
+  - name: Start the EC2 instance
+    ec2:
+      instance_ids: "{{ EC2ID }}"
+      region: "{{ REGION }}"
+      state: running
+      wait: yes
+  - name: Stop the EC2 instance
+    ec2:
+      instance_ids: "{{ EC2ID }}"
+      region: "{{ REGION }}"
+      state: stopped
+      wait: yes
+  - name: Terminating the EC2 instance
+    ec2:
+      instance_ids: "{{ EC2ID }}"
+      region: "{{ REGION }}"
+      state: absent
+      wait: yes
