@@ -1,5 +1,5 @@
 ---
-- name: This play is used to start EC2 instance
+- name: This play is used to stop EC2 instance
   hosts: localhost
   connection: local
   gather_facts: false
@@ -8,7 +8,7 @@
     prompt: Enter the instance id that you wanted to power off
     private: false
   tasks:
-  - name: Starting ec2 instance
+  - name: Stopping ec2 instance
     ec2:
       instance_ids: "{{ instance_id }}"
       region: ap-south-1
