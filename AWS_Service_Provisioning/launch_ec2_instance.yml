@@ -2,17 +2,35 @@
 - name: Simple play to create an EC2 instance in AWS Cloud
   hosts: localhost
   connection: local
-  gather_facts: false
+  gather_facts: true
+  vars_prompt:
+    - name: type
+      prompt: Enter the instance_type
+      private: false
+    - name: ami
+      prompt: Enter the ami_id
+      private: false
+    - name: region
+      prompt: Enter the region name
+      private: false
+    - name: keyname
+      prompt: Enter the key name
+      private: false
   tasks:
+  - debug:
+       msg:
+         -  "The entered instance_type spec is: {{ type }}"
+         -  "The entered ami_id is: {{ ami }}"
+         -  "The entered region is: {{ region }}"
+         -  "The entered key_name is: {{ keyname }}"
   - name: Play will execute to launch EC2
     ec2:
-      instance_type: t2.micro
-      image: ami-0e6329e222e662a52
-      key_name: admin
-      region: ap-south-1
+      instance_type: "{{ type }}"
+      image: "{{ ami }}"
+      key_name: "{{ keyname }}"
+      region: "{{ region }}"
       wait: yes
       count: 1
-      assign_public_ip: yes
       instance_tags:
         name: Demo_EC2_instance
         Owner: Thangadurai Murugan
@@ -20,3 +38,10 @@
         Country: India
       #aws_access_key: xxxxx
       #aws_secret_key: bbbb
+  - name: Pause for 10 seconds
+    ansible.builtin.pause:
+      seconds: 10
+  - name: List out the instances
+    command: aws ec2 describe-instances
+    register: aws_out
+  - debug: msg="{{ aws_out }}"
