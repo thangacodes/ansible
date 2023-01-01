@@ -46,3 +46,12 @@
     tags:
       - terminate
       - never
+
+## Takeaways:
+# By default when you are execute this playbook wouldn't do any tasks, why because in the tag section we specified "never".
+# If you wanted to perform a specific task follow the command line below
+# ansible-playbook ec2_instance_tags.yml 
+# ansible-playbook ec2_instance_tags.yml -t start
+# ansible-playbook ec2_instance_tags.yml -t stop
+# ansible-playbook ec2_instance_tags.yml -t terminate
+
