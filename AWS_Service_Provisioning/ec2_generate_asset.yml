@@ -16,6 +16,6 @@
     register: out
   - name: Displaying the information of ec2 instances
     template:
-      src: generate_csv.j2
+      src: ec2_generate_csv.j2
       dest: ec2_instance_info.csv
 
