@@ -1,0 +1,51 @@
+---
+- name: This play is use to fetch Remote EC2 information in AWS Cloud
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars_prompt:
+    name: region
+    prompt: Enter the region that you wanted to work with fetching EC2 information
+    private: false
+  tasks:
+  - name: Info about ec2 using ec2_instance_facts module
+    ec2_instance_facts:
+      region: "{{ region }}"
+      filters:
+        "tag:Env": Staging
+    register: ec2_info
+    tags:
+      - always
+  - name: Displaying output
+    debug: msg="{{ item.instance_id }}"
+    with_items: "{{ ec2_info.instances }}"
+  - name: Starting the EC2 instance
+    ec2:
+      instance_ids: "{{ item.instance_id }}"
+      region: "{{ region }}"
+      state: running
+      wait: yes
+    tags:
+      - start
+      - never
+    with_items: "{{ ec2_info.instances }}"
+- name: Stopping the EC2 instance
+  ec2:
+    instance_ids: "{{ item.instance_id }}"
+    region: "{{ region }}"
+    state: running
+    wait: yes
+  tags:
+    - stop
+    - never
+  with_items: "{{ ec2_info.instances }}"
+- name: Terminating the EC2 instance
+  ec2:
+    instance_ids: "{{ item.instance_id }}"
+    region: "{{ region }}"
+    state: running
+    wait: yes
+  tags:
+    - terminate
+    - never
+  with_items: "{{ ec2_info.instances }}"
