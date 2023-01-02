@@ -1,0 +1,21 @@
+---
+- name: This play is used to fetch ec2 instances information
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars_prompt:
+    name: region
+    prompt: Enter the region name please?
+    private: false
+  tasks:
+  - name: Info about ec2 using ec2_instance_facts
+    ec2_instance_facts:
+      region: "{{ region }}"
+      filters:
+       "tag:Env": Staging
+    register: out
+  - name: Displaying the information of ec2 instances
+    template:
+      src: generate_csv.j2
+      dest: ec2_instance_info.csv
+
