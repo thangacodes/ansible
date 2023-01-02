@@ -33,7 +33,7 @@
   ec2:
     instance_ids: "{{ item.instance_id }}"
     region: "{{ region }}"
-    state: running
+    state: stopped
     wait: yes
   tags:
     - stop
@@ -43,9 +43,16 @@
   ec2:
     instance_ids: "{{ item.instance_id }}"
     region: "{{ region }}"
-    state: running
+    state: absent
     wait: yes
   tags:
     - terminate
     - never
   with_items: "{{ ec2_info.instances }}"
+
+## Takeaways:
+# When you are executing this playbook, you should follow the syntax based on your needs. Like starting,stopping, terminating the ec2-instances using tags filtering.
+#
+# ansible-playbook getting_ec2_info.yml -t stop
+# ansible-playbook getting_ec2_info.yml -t start
+# ansible-playbook getting_ec2_info.yml -t terminate
