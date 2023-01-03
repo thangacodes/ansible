@@ -1,0 +1,22 @@
+---
+- name: This is about Custom VPC creation
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars_prompt:
+    - name: region
+      prompt: Enter the AWS REGION name please?
+      private: false
+    - name: vpc_name
+      prompt: Enter the VPC Name that you wanted to delete off?
+      private: false
+    - name: cidr_range
+      prompt: Enter the VPC CIDR block please?
+      private: false
+  tasks:
+  - name: VPC deletion begin with the help of ec2_vpc_net module
+    ec2_vpc_net:
+      name: "{{ vpc_name }}"
+      region: "{{ region }}"
+      cidr_block: "{{ cidr_range }}"
+      state: absent

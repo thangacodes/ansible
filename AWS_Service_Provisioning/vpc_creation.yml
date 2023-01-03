@@ -1,0 +1,24 @@
+---
+- name: This is to create VPC
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars_prompt:
+    - name: region
+      prompt: Enter the AWS REGION name please?
+      private: false
+    - name: cidr_range
+      prompt: Enter the custom VPC CIDR Range?
+      private: false
+  tasks:
+  - name: VPC creation begin with the help of ec2_vpc_net module
+    ec2_vpc_net:
+      name: example_vpc
+      region: "{{ region }}"
+      cidr_block: "{{ cidr_range }}"
+      state: present
+      tags:
+        Name: example_corp
+        Environment: Development
+        CreationDate: 03/01/2023
+        OwnedBy: thangadurai.murugan@example.com
