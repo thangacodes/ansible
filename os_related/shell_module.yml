@@ -1,0 +1,19 @@
+---
+- name: Execting linux commands using shell module
+  hosts: localhost
+  become: yes
+  remote_user: ec2-user
+  tasks:
+  - name: feeding the cmdlets
+    shell: |
+      uptime
+      cat /etc/os-release
+      sleep 5
+      echo "going to perform the important linux commands"
+      cat /var/log
+      whoami
+      cat /etc/passwd
+      cat /var/log/secure
+    register: os_out
+  - debug: msg="{{ os_out.stdout }}"
+
