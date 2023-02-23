@@ -10,7 +10,7 @@
       cat /etc/os-release
       sleep 5
       echo "going to perform the important linux commands"
-      cat /var/log
+      ls -l /var/log/
       whoami
       cat /etc/passwd
       cat /var/log/secure
