@@ -1,0 +1,29 @@
+---
+- hosts: localhost
+  become: yes
+  become_user: ec2-user
+  gather_facts: yes
+  vars_prompt:
+  - name: region
+    prompt: Enter the AWS REGION name please?
+    private: no
+  - name: ami_id
+    prompt: Enter the AWS AMI_ID please?
+    private: no
+  tasks:
+    - name: region prompt
+      set_fact:
+        region: "{{ region }}"
+      register: reg_out
+    - debug: msg="{{ reg_out }}"
+    - name: ami prompt
+      set_fact:
+        ami_id: "{{ ami_id }}"
+      register: ami_out
+    - debug: msg="{{ ami_out }}"
+
+    - name: sleep for 5 seconds
+      pause:
+        seconds: 5
+    - debug: msg="You've entered the region {{ region }} and the selected ami_id is {{ ami_id }}"
+
