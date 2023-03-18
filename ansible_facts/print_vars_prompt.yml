@@ -1,0 +1,24 @@
+---
+- hosts: localhost
+  become: yes
+  become_user: sudo
+  gather_facts: yes
+  vars_prompt:
+  - name: CR_NUMBER
+    prompt: Enter the change number please?
+    private: no
+  - name: EXECUTOR
+    prompt: Enter the CR executor name please?
+    private: no
+  - name: ENVIRONMENT
+    prompt: Enter the CR execution ENVIRONMENT please?
+    private: no
+  - name: AWS_ACCOUNT
+    prompt: Enter the aws_account please?
+    private: no
+
+  tasks:
+    - name: print before proceedings
+      debug: msg="The entered {{ CR_NUMBER }} and the cr_executor name is {{ EXECUTOR }}"
+    - name: fetching aws_details
+      debug: msg="Working on {{ ENVIRONMENT }} and account_detail is {{ AWS_ACCOUNT }}"
