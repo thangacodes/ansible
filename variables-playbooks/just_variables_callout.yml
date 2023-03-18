@@ -1,0 +1,16 @@
+---
+- name: Just playing with variables
+  hosts: localhost
+  become: yes
+  become_user: ec2-user
+  gather_facts: yes
+  vars:
+    aws_account: DEMO_AWS
+    cr_number: CHG123456
+    place: PARIS
+  tasks:
+  - name: calling the vars substitution
+    shell: echo "I'm working on aws account is {{ aws_account }} and the CR is {{ cr_number }} and execution place is {{ place }}"
+    register: demo_out
+  - debug: msg="{{ demo_out.stdout }}"
+
