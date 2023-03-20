@@ -1,0 +1,30 @@
+---
+- hosts: localhost
+  become: yes
+  become_user: wasadm
+  gather_facts: yes
+  vars_prompt:
+  - name: CR_NUMBER
+    prompt: Enter the change number please?
+    private: no
+  - name: IMPLEMENTOR
+    prompt: Enter the CR executor name please?
+    private: no
+  - name: ENVIRONMENT
+    prompt: Enter the CR execution ENVIRONMENT please?
+    private: no
+  - name: AWS_ACCOUNT
+    prompt: Enter the aws_account details please?
+    private: no
+  - name: ABOUT
+    prompt: Enter the task is all about?
+    private: no
+
+  tasks:
+    - name: print before proceedings
+      debug: msg="The entered CHANGE_NUMBER is {{ CR_NUMBER }} and the CR_IMPLEMENTOR name is {{ IMPLEMENTOR }}"
+    - name: fetching aws_details
+      debug: msg="Working on the {{ ENVIRONMENT }} environment and the {{ ENVIRONMENT }} ACCOUNT_ID is {{ AWS_ACCOUNT }}"
+    - name: describe about the work
+      debug: msg="The work is all about {{ ABOUT }}"
+
