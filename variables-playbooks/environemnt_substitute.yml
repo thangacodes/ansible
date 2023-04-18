@@ -1,0 +1,26 @@
+---
+- hosts: localhost
+  gather_facts: yes
+
+  environment:
+    EXAMPLE: "This is at playbook level variable"
+
+  tasks:
+  - name: Environment var at playbook
+    command: echo $EXAMPLE
+    register: playbook_out
+  - debug: msg="{{ playbook_out.stdout_lines }}"
+
+  - name: Environment var at only task level
+    environment:
+      MY_TASK1_LEVEL_VAR: "Hello thangaa!"
+    command: echo $MY_TASK1_LEVEL_VAR, $EXAMPLE
+    register: play_out
+  - debug: msg="{{ play_out.stdout_lines }}"
+
+  - name: testing both playbook and task level
+    environment:
+      MY_TASK2_LEVEL_VAR: "Hello India"
+    command: echo $MY_TASK2_LEVEL_VAR, $EXAMPLE
+    register: testing_out
+  - debug: msg="{{ testing_out.stdout_lines }}"
