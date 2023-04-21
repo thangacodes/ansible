@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  gather_facts: yes
+
+  vars:
+    mssql: "Developed by Microsoft"
+    mysql: "Developed by Oracle"
+    mongo: "Developed by MongoDB"
+  tasks:
+  - name: first task is talk about the product {{ mssql }}
+    debug:
+      var: mssql
+  - name: second task is talk about the product {{ mysql }}
+    debug:
+      var: mysql
+  - name: third task is talk about the product {{ mongo }}
+    debug:
+      var: mongo
