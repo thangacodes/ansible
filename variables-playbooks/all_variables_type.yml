@@ -1,0 +1,42 @@
+---
+- hosts: localhost
+  gather_facts: true
+
+  vars:
+    # 1. String variables
+    main_playbook_variable: "this is string variables"
+
+    # 2. Boolean variables
+    is_enabled: true
+
+    # 3. List Variable
+    fruits:
+      - apple
+      - banana
+      - orange
+
+    # 4. Dictionary Variables
+    fruit_prices:
+      apple: 150
+      banana: 80
+      orange: 120
+  tasks:
+    - name: String Variable from checking
+      debug:
+        var: main_playbook_variable
+    - name: Boolean variable
+      debug:
+        msg: "Variable is true"
+      when: is_enabled
+    - name: Sleep for 5 seconds
+      command: sleep 5
+
+    - name: List variable - print list of fruits
+      debug:
+        var: fruits
+    - name: List variable - Reference individual item in list
+      debug:
+        var: fruits[0]
+    - name: Dictionary Variable - Accessing all dictionary variable
+      debug:
+        var: fruit_prices
