@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Git Phase') {
+            steps {
+                echo "This is the stage of Git cloning!"
+            }
+        }
+        stage('Build Phase'){
+            steps{
+                echo "This is the stage of building artificate using maven tool"
+                sh "df -hT"
+            }
+        }
+        stage('Testing Phase'){
+            steps{
+                echo "This is the stage of doing manual or automation SDLC testing"
+            }
+        }
+        stage('Deploy Phase'){
+            steps{
+                echo "This is the stage of deploying the product in app or web servers."
+            }
+        }
+        stage('Sending email'){
+            steps{
+                echo "This is the stage of sending emails to the admin or Job runner."
+            }
+        }
+    }
+}
