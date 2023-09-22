@@ -1,4 +1,8 @@
-Ansible syntaxes:
+## Ansible syntaxes:
 
 # ansible-playbook real-playbook.yml --syntax-check   // It will check the playbook does it have any syntax error.
 # ansible-playbook real-playbook.yml --extra-vars "version=1.1"   // If you wanna override the variable value that you passed in playbook, use --extra-vars argument while executing ansible playbook.
+
+# ansible-playbook variables.yml --syntax-check  
+# ansible-playbook variables.yml --extra-vars "name=joe"
+
