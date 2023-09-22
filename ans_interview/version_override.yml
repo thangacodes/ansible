@@ -1,0 +1,10 @@
+---
+- name: print the variable in this playbook
+  hosts: localhost
+  become: yes
+  vars:
+    version: "1.0"
+  tasks:
+  - name: print the variable value of file
+    debug:
+      var=vars
