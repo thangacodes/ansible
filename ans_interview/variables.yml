@@ -1,0 +1,18 @@
+---
+- name: Checking variables values in bulk
+  hosts: localhost
+  become: yes
+  vars:
+    version: 1.10
+    name: Thangadurai
+    place: Tamilnadu
+    country: India
+  tasks:
+  - name: Getting the variables values
+    debug:
+      msg:
+        - "The version is : {{ version }}"
+        - "The executor name is : {{ name }}"
+        - "The executor_place is : {{ place }}"
+        - "The executor_country is : {{ country }}"
+
