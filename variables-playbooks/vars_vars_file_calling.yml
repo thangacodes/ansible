@@ -1,0 +1,27 @@
+---
+- name: "Tags calling in the task and playbook execution"
+  hosts: localhost
+  gather_facts: no
+  vars:
+    - tag1: first
+    - tag2: second
+    - tag3: third
+    - file: cred.yml
+  vars_files:
+    - cred.yml
+  tasks:
+  - name: "{{ tag1 }} tag"
+    debug:
+      msg: "This is my {{ tag1 }} tag"
+    tags: "{{ tag1 }}"
+  - name: "{{ tag2 }} tag"
+    debug:
+      msg: "This is my {{ tag2 }} tag"
+    tags: "{{ tag2 }}"
+  - name: "{{ tag3 }} tag"
+    debug:
+      msg: "This is my {{ tag3 }} tag"
+    tags: "{{ tag3 }}"
+  - name: "Checking cred.yml password"
+    debug:
+      msg: "The password that we kept it on {{ file }} file is: {{ password }}"
