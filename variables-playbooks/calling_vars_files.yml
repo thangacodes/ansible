@@ -1,0 +1,18 @@
+---
+- name: This is just calling variables file in vars section
+  hosts: localhost
+  vars_files:
+    - substitue.yml
+  tasks:
+  - name: Checking the CR number
+    debug:
+      msg: "The change number is: {{ CR_number }}"
+  - name: checking variables that we kept it on variables.yml file
+    debug:
+      msg: "The docker version is: {{ docker_version }}"
+  - name: Checking http_port number
+    debug:
+      msg: "The Apache web port_number is: {{ http_port }}"
+  - name: Checking ansible_version
+    debug:
+      msg: "You are working on ansible_version is: {{ version_ansible }}"
