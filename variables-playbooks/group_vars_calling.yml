@@ -2,7 +2,7 @@
 - name: This is just calling variables file in vars section
   hosts: localhost
   vars_files:
-    - substitute.yml
+    - group_vars/substitute.yml
   tasks:
   - name: Checking the CR number
     debug:
