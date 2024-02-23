@@ -1,0 +1,16 @@
+---
+- name: "Removing multiple user accounts"
+  hosts: localhost
+  become: yes
+  vars:
+    u1: testuser1
+    u2: testuser2
+  tasks:
+  - name: Deleting user accounts like "{{ u1, u2 }}"
+    user:
+      name: "{{ item }}"
+      state: absent
+    loop:
+      - testuser1
+      - testuser2
+
