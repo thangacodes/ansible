@@ -1,0 +1,14 @@
+{
+"Version": "2012-10-17",
+"Statement": [
+    {
+        "Sid": "S3-full-access",
+        "Effect": "Allow",
+        "Action": "s3:*",
+        "Resource": "*"
+    }
+]
+}
+
+
+Note:  Once you created AWS IAm permission with json policy for a Service in AWS, you can attach it to the user directly or you can attach it to the IAM group so that whoever part of the IAM group would be able to access it.
