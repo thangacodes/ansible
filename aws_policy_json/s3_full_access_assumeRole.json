@@ -12,4 +12,8 @@
 }
 
 
-##Note: This policy can be attached to an IAM user via adding inline policy attachement for the user.
+##Note: This policy can be attached to an IAM user via adding inline policy attachement for the user permission tab. In order to test out Assume Role for the user, what you can do is that, 
+
+ a) Get or Copy the aws console link from the IAM Assume Role that you created >> Open Incognito mode in Chrome browser >> enter the aws account id >> enter the assume role in the next field >> enter
+
+
