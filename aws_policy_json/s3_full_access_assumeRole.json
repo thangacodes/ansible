@@ -1,0 +1,15 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "S3-full-access-assume-role",
+            "Effect": "Allow",
+            "Action": "sts:AssumeRole",
+            "Resource": "arn-of-iam-user or arn-of-iam-group"
+
+        }
+    ]
+}
+
+
+##Note: This policy can be attached to an IAM user via adding inline policy attachement for the user.
