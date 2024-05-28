@@ -1,0 +1,13 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "*",
+            "Resource": "*"
+        }
+    ]
+}
+
+
+## Note: if you attach this policy to any of the role, then the role will assume and become as administrator, who can do all the activity. Please be careful,
