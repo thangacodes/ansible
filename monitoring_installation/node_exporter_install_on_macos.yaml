@@ -1,0 +1,87 @@
+---
+- name: Install Prometheus Node Exporter on macOS
+  hosts: localhost
+  become: yes
+  vars:
+    prometheus_version: "1.8.2"  # Update to the desired version
+  tasks:
+    - name: Firstly checking macOS version
+      debug:
+        msg: "You are running {{ ansible_distribution }} version {{ ansible_distribution_version }}"
+      when: ansible_os_family == "Darwin"
+    - name: Check if WGET package exist and installed
+      homebrew:
+        name: wget
+        state: present
+        update_cache: yes
+      register: wget_installed_out
+      become: no
+    - name: Install WGET package if not exist
+      homebrew:
+        name: wget
+        state: present
+      when: wget_installed_out is not defined.
+      become: no
+    - name: Check if Node Exported tarball exists
+      ansible.builtin.stat:
+        path: /tmp/node_exporter.tar.gz
+      register: node_exporter_tarball
+    - name: Download Prometheus Node Exporter
+      get_url:
+        url: "https://github.com/prometheus/node_exporter/releases/download/v{{ prometheus_version }}/node_exporter-{{ prometheus_version }}.darwin-amd64.tar.gz"
+        dest: /tmp/node_exporter.tar.gz
+      when: not node_exporter_tarball.stat.exists
+
+    - name: Extract Prometheus Node Exporter
+      unarchive:
+        src: /tmp/node_exporter.tar.gz
+        dest: /tmp/
+        remote_src: yes
+    - name: Check if Node Exporter binary exists in /usr/local/bin
+      ansible.builtin.stat:
+        path: /usr/local/bin/node_exporter-1.8.2.darwin-amd64/node_exporter
+      register: node_exporter_bin
+    
+    - name: Move Node Exporter binaries to /usr/local/bin
+      command: mv /tmp/node_exporter-{{ prometheus_version }}.darwin-amd64 /usr/local/bin/
+      become: yes
+      when: not node_exporter_bin.stat.exists
+
+    - name: Verify Node Exporter binary exists in /usr/local/bin
+      command: ls -l /usr/local/bin/node_exporter-1.8.2.darwin-amd64/
+      register: node_exporter_check
+      ignore_errors: yes
+
+    - debug:
+        var: node_exporter_check
+
+    - name: Create a launchd service file for Node Exporter on macOS
+      copy:
+        dest: /Library/LaunchDaemons/com.prometheus.node_exporter.plist
+        content: |
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+              <key>Label</key>
+              <string>com.prometheus.node_exporter</string>
+              <key>ProgramArguments</key>
+              <array>
+                  <string>/usr/local/bin/node_exporter</string>
+              </array>
+              <key>RunAtLoad</key>
+              <true/>
+              <key>KeepAlive</key>
+              <true/>
+          </dict>
+          </plist>
+
+    - name: Load the launchd service for Node Exporter
+      command: launchctl load /Library/LaunchDaemons/com.prometheus.node_exporter.plist
+      become: yes
+
+    - name: Start Node Exporter on macOS
+      command: /usr/local/bin/node_exporter-1.8.2.darwin-amd64/node_exporter &
+      async: 1
+      poll: 0
+      become: yes
