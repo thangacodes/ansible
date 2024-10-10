@@ -1,0 +1,19 @@
+---
+- name: "Play level and Task level variable precedence checking in ansible"
+  hosts: localhost
+  vars:
+    http_port: 80
+    apache_port: 8080
+    username: dbadmin
+  tasks:
+  - name: "Variables invoking at the task level"
+    vars:
+      username: "admin"
+    debug:
+      msg: "HTTP_PORT no is: {{ http_port }} and rootuser of a database is: {{ username }}"
+
+
+
+# This playbook contains play level and task level variables which will called during the execution of ansible playbook.
+# ansible-playbook play_task_level_variables.yaml --syntax-check
+# ansible-playbook play_task_level_variables.yaml
