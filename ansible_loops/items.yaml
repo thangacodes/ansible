@@ -1,0 +1,17 @@
+---
+- name: "Simply Ansible Playbook to check various linux commands using nested tasks"
+  hosts: localhost
+  become: no
+  tasks:
+  - name: "Run command and capture output"
+    command: "{{ item }}"
+    with_items:
+      - "df -h"
+      - "hostname"
+      - "ls -al /tmp"
+    register: command_output
+
+  - name: "Debug command output"
+    debug:
+      msg: "{{ item }}"
+    with_items: "{{ command_output.results }}"
