@@ -2,14 +2,17 @@
 - name: Create or update key/value pair in AWS SSM parameter store
   hosts: localhost
   gather_facts: no
+  vars:
+    region: "ap-south-1"
+    profile: "vault_admin"
   tasks:
     - name: Create or update key/value pair in AWS SSM parameter store
       community.aws.ssm_parameter:
         name: "Hello"
         description: "This is your first key"
         value: "World"
-        profile: "vault_admin"  ## aws_shared_profile
-        region: "ap-south-"
+        profile: "{{ profile }}"  ## aws_shared_profile
+        region: "{{ region }}"    ## aws_region
     - name: Pause for "5" seconds
       pause:
         seconds: 5
@@ -21,6 +24,6 @@
       community.aws.ssm_parameter:
         name: "Hello"
         state: absent
-        profile: "vault_admin"  ## aws_shared_profile
-        region: "ap-south-1"
+        profile: "{{ profile }}"  ## aws_shared_profile
+        region: "{{ region }}"    ## aws_region
       when: user_input.user_input == 'yes'
