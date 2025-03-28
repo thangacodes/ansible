@@ -3,7 +3,7 @@ In Ansible, roles are a way to organize playbooks and reuse code by breaking the
 
 Command to create an ansible roles:
 
-ansible-galaxy init {{ justtest }} --offline
+ansible-galaxy init justtest --offline
 
 Explanation:
 
