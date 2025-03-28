@@ -2,5 +2,5 @@
 ---
 # vars file for anvi
 psql_username: rootadmin
-psql_password: login1-2
+psql_password: password
 psql_port: 5432
