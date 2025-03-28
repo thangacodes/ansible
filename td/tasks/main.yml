@@ -1,0 +1,7 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for td
+
+- name: Pulling the variables in tasks section
+  debug:
+    msg: "Your aws access_key is: {{ access_key }}, secret_key is: {{ secret_access_key }}"

@@ -1,0 +1,6 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for anvi
+- name: "Checking the variable value in task section using debug module"
+  debug:
+    msg: "Your postgres db root username is: {{ psql_username }} and password is: {{ psql_password }} and port is: {{ psql_port }}"

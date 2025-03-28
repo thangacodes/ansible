@@ -1,0 +1,14 @@
+---
+- name: Want to check variables set in 'td' role
+  hosts: localhost
+  gather_facts: no
+  vars:
+    td: "td"  # first role included in var section
+    anvi: "anvi" # second role included in var section
+  tasks:
+    - name: Include the first role name called {{ td }} role dynamically
+      include_role:
+        name: "{{ td }}"
+    - name: Include the second role name called {{ anvi }} role dynamically
+      include_role:
+        name: "{{ anvi }}"

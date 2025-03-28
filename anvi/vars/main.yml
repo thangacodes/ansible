@@ -1,0 +1,6 @@
+#SPDX-License-Identifier: MIT-0
+---
+# vars file for anvi
+psql_username: rootadmin
+psql_password: login1-2
+psql_port: 5432
