@@ -34,13 +34,11 @@ Tagging is used to call the task action that we wanted to perform. Example playb
       name: httpd
       state: present
     tags: i-httpd
-
   - name: Start httpd
     service:
       name: httpd
       state: started
     tags: s-httpd
-
   - name: Remove httpd
     yum:
       name: httpd
