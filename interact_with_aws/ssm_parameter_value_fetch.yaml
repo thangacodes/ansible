@@ -1,0 +1,26 @@
+---
+- name: Create or update key/value pair in AWS SSM parameter store
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Create or update key/value pair in AWS SSM parameter store
+      community.aws.ssm_parameter:
+        name: "Hello"
+        description: "This is your first key"
+        value: "World"
+        profile: "vault_admin"  ## aws_shared_profile
+        region: "ap-south-"
+    - name: Pause for "5" seconds
+      pause:
+        seconds: 5
+    - name: Prompt user for key deletion
+      pause:
+        prompt: "Do you want to delete the key 'Hello' from AWS SSM? (yes/no)"
+      register: user_input
+    - name: Delete the key if user confirmed
+      community.aws.ssm_parameter:
+        name: "Hello"
+        state: absent
+        profile: "vault_admin"  ## aws_shared_profile
+        region: "ap-south-1"
+      when: user_input.user_input == 'yes'
