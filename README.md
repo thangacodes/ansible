@@ -13,11 +13,12 @@ To override a playbook variable while running the ansible-playbook?
 ansible-playbook playbook_name.yaml -e "variable_name=value"
 OR
 ansible-playbook playbook_name.yaml -e "hostname=try-xyz.com"
+ansible-galaxy init {{ role_name }} --offline    //create a role in ansible
 
 
 # Infra provisiong and Software Configuration Management Scripts:
 * Ansible    - Ansible playbooks
 * Kubernetes - Manifest files
 * Terraform  - Scripts
-
-
+* CICD - Jenkins, GitHub Actions
+* Scripting - Bash/Python/PowerShell
