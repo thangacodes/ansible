@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "Script to invoke json file"
 # Path to the JSON file
-json_file="esh.json"
+json_file="input.json"
 echo "Fetching the values.."
 echo ""
 
