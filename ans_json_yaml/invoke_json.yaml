@@ -1,0 +1,25 @@
+# ---
+# - name: "Playbook to invoke JSON file to print the output"
+#   hosts: localhost
+#   vars_files:
+#     - esh.json 
+#   tasks:
+#     - name: "Script will begin now"
+#       command: cat "{{ lookup('file', 'esh.json') }}" 
+#       register: command_out
+#     - name: "Print the output of the file"
+#       debug:
+#         msg: "{{ command_out }}"  
+---
+- name: "Playbook to invoke JSON file and print the output in a pretty format"
+  hosts: localhost
+  vars_files:
+    - esh.json
+  tasks:
+    - name: "Pretty print the content of esh.json"
+      command: jq . "{{ playbook_dir }}/esh.json"
+      register: command_out
+      failed_when: false  
+    - name: "Show the pretty printed JSON output"
+      debug:
+        msg: "{{ command_out.stdout }}"
