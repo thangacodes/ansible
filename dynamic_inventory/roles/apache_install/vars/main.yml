@@ -1,3 +1,3 @@
-#SPDX-License-Identifier: MIT-0
 ---
-# vars file for apache_config
+index_html_src: "index.html"
+index_html_dest: "/var/www/html/index.html"
