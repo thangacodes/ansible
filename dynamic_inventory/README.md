@@ -23,6 +23,7 @@ ansible -i ec2.yml all -m ping
 ansible-playbook -i ec2.yml ping.yml
 
 
-[Ansible EC2 Guide](https://docs.ansible.com/ansible/latest/collections/amazon/aws/docsite/aws_ec2_guide.html)
+Dynamic Inventory Plugin:
 
+[Ansible EC2 Guide](https://docs.ansible.com/ansible/latest/collections/amazon/aws/docsite/aws_ec2_guide.html)
 
