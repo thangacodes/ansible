@@ -1,0 +1,15 @@
+plugin: amazon.aws.aws_ec2
+profile: vault_admin
+aws_profile: "{{ lookup('env', 'AWS_PROFILE') | default('vault_admin', true) }}"
+regions:
+  - ap-south-1
+keyed_groups:
+  - key: tags.Name
+  - key: tags.Env
+  - key: tags.project
+
+
+
+# Note: Set AWS profile as an ENV variable
+# export AWS_PROFILE='vault_admin'
+  
