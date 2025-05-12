@@ -12,4 +12,10 @@ keyed_groups:
 
 # Note: Set AWS profile as an ENV variable
 # export AWS_PROFILE='vault_admin'
+
+# To test the env variables
+# printenv (OR) env       //it will list avaiable in env variables in your local or remote
+
+# To remove the env variables
+# unset AWS_PROFILE      //It will remove the env variables.
   
