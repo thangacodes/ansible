@@ -1,0 +1,25 @@
+[
+    {
+        "name": "Dynamically fetch and ping all EC2 instances",
+        "hosts": "localhost",
+        "gather_facts": "no",
+        "tasks": [
+            {
+                "name": "Ping the server",
+                "ping": null,
+                "register": "ping_out"
+            },
+            {
+                "debug": "msg=\"{{ ping_out }}\""
+            },
+            {
+                "name": "Findout MacBook IP addres",
+                "command": ipconfig getifaddr en0,
+                "register": "ip_out"
+            },
+            {
+                "debug": "msg=\"Your MacOS IP Address: {{ ip_out.stdout }}\""
+            }
+        ]
+    }
+]
