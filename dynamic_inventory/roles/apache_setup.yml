@@ -1,0 +1,6 @@
+---
+- name: SETUP APACHE WEB SERVER ON WEB SERVERS
+  hosts: webservers
+  become: yes
+  roles:
+    - apache_install
