@@ -1,0 +1,42 @@
+[
+    {
+        "name": "Dynamically fetch and configure Apache Web Server",
+        "hosts": "webservers",
+        "gather_facts": "no",
+        "become": "yes",
+        "tasks": [
+            {
+                "name": "Ping the remote servers",
+                "ping": null,
+                "register": "ping_out"
+            },
+            {
+                "debug": "msg=\"{{ ping_out }}\""
+            },
+            {
+                "name": "Find remote machines IP Address",
+                "command": hostname -i,
+                "register": "ip_out"
+            },
+            {
+                "debug": "msg=\"{{ ip_out }}\""
+            },
+            {
+                "name": "Install apache webserver on remote machines",
+                "command": yum install -y http,
+                "register": "install_out",
+            },
+            {
+                "debug": "msg=\"{{ install_out }}\""
+            },
+            {
+                "name": "Start apache webserver on remote machines",
+                "command": systemctl start httpd,
+                "register": "service_out",
+            },
+            {
+                "debug": "msg=\"{{ service_out }}\""
+            }
+        ]
+    }
+]
