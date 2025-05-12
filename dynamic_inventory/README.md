@@ -22,8 +22,7 @@ ansible -i ec2.yml all -m ping
 
 ansible-playbook -i ec2.yml ping.yml
 
-Further usage please refer: 
 
-https://docs.ansible.com/ansible/latest/collections/amazon/aws/docsite/aws_ec2_guide.html 
+[Ansible EC2 Guide](https://docs.ansible.com/ansible/latest/collections/amazon/aws/docsite/aws_ec2_guide.html)
 
 
