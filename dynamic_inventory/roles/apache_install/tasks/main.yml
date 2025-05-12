@@ -16,8 +16,8 @@
     msg: "{{ install_out }}"
 - name: Copy custom index.html file to web server directory
   copy:
-    src: index.html
-    dest: /var/www/html/index.html
+    src: "{{ index_html_src }}"
+    dest: "{{ index_html_dest }}"
     owner: root
     group: root
     mode: '0644'
