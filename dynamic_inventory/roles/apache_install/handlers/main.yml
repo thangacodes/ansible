@@ -1,0 +1,5 @@
+---
+- name: restart apache
+  systemd:
+    name: "{{ http_service }}"
+    state: restarted
