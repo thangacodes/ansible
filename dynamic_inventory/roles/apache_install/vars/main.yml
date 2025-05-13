@@ -1,0 +1,5 @@
+index_html_src: "files/index.html"
+index_html_dest: "/var/www/html/index.html"
+index_html_owner: "root"
+index_html_group: "root"
+index_html_mode: "0644"

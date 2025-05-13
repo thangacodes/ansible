@@ -1,0 +1,37 @@
+---
+- name: Ping the remote servers
+  ping:
+  register: ping_out
+- debug:
+    msg: "{{ ping_out }}"
+  when: debug_enabled | default(false)
+- name: Find remote machines IP Address
+  command: hostname -i
+  register: ip_out
+- debug:
+    msg: "{{ ip_out }}"
+- name: Install Apache Webserver
+  package:
+    name: "{{ http_package }}"
+    state: present
+  register: install_out
+- debug:
+    msg: "{{ install_out }}"
+- name: Copy custom index.html file to web server directory
+  copy:
+    src: "{{ index_html_src }}"
+    dest: "{{ index_html_dest }}"
+    owner: "{{ index_html_owner }}"
+    group: "{{ index_html_group }}"
+    mode: "{{ index_html_mode }}"
+  register: copy_out
+- debug:
+    msg: "{{ copy_out }}"
+- name: Ensure Apache is started and enabled
+  service:
+    name: "{{ http_service }}"
+    state: started
+    enabled: true
+- debug:
+    msg: "{{ service_out }}"
+
