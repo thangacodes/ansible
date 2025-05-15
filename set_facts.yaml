@@ -1,0 +1,23 @@
+---
+- name: Use set_fact based on condition
+  hosts: localhost
+  gather_facts: true  # Ensure Ansible collects host facts
+  tasks:
+    - name: Print all gathered facts (for debugging)
+      debug:
+        var: ansible_facts
+    - name: Fail early if default IPv4 address is not available
+      fail:
+        msg: "ansible_default_ipv4 is not defined."
+      when: ansible_default_ipv4 is not defined
+    - name: Show the default IP address
+      debug:
+        msg: "Default IP is: {{ ansible_default_ipv4.address }}"
+    - name:A custom message fact if IP starts with 192
+      set_fact:
+        custom_message: "This host is on a private network with IP: {{ ansible_default_ipv4.address }}"
+      when: ansible_default_ipv4.address is defined and ansible_default_ipv4.address.startswith('192.')
+    - name: Show the custom message if set
+      debug:
+        msg: "{{ custom_message }}"
+      when: custom_message is defined
