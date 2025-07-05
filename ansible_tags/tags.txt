@@ -46,5 +46,6 @@ Tags are useful to execute/skip required tasks from number of tasks.
 # ansible-playbook working_with_tags.yml -t first ( Even if never specified also, when you call first tag it will get executed)
 # ansible-playbook working_with_tags.yml -t second (it always execute first task and then second task. since always mentioned in the first tag )
 # ansible-playbook working_with_tags --list-tags
+# ansible-playbook common_checkouts_on_mac.yaml --tags ipfind,disk,mem,pro (it perform four task)
 # if you mentioned all the tasks tag as never, that won't be listed out using --list-tags command line.
 # If you want to see all the tags that are specified in each tasks tag, then remove 'never' from the tasks tag section.
