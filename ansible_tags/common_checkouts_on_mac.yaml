@@ -1,0 +1,39 @@
+---
+- name: "common checkouts on macbook.."
+  hosts: localhost
+  tasks:
+    - name: "check ip address"
+      command: ipconfig getifaddr en0
+      register: ipout
+      tags: ipfind
+
+    - debug:
+        msg: "Your mac OS IP {{ ipout.stdout }}"
+      tags: ipfind
+
+    - name: "disk free command"
+      shell: df -h
+      register: dkout
+      tags: disk
+
+    - debug:
+        msg: "{{ dkout }}"
+      tags: disk
+    
+    - name: "vm_stat for Memory Details"
+      shell: vm_stat | perl -ne '/page size of (\d+)/ and $size=$1; /(\w+):\s+(\d+)\./ and printf("%-16s %10.2f MB\n", $1, $2 * $size / 1048576);'
+      register: mem_stat
+      tags: mem
+    
+    - debug:
+        msg: "{{ mem_stat }}"
+      tags: mem
+
+    - name: "Lists top 10 processes by CPU and memory usage"
+      shell: ps -A -o %cpu,%mem,comm | sort -nr | head
+      register: psout
+      tags: pro
+
+    - debug:
+        msg: "{{ psout }}"
+      tags: pro
