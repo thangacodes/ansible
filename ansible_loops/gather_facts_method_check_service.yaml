@@ -1,0 +1,13 @@
+---
+- name: Service status check on localhost
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: Gather service facts
+      service_facts:
+    - name: Display Prometheus status
+      debug:
+        msg: "Prometheus: {{ ansible_facts.services['prometheus.service'].state }}"
+    - name: Display Grafana status
+      debug:
+        msg: "Grafana: {{ ansible_facts.services['grafana-server.service'].state }}"
