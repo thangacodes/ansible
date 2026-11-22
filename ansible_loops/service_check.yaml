@@ -1,0 +1,22 @@
+---
+- name: Service status check on localhost
+  hosts: localhost
+  become: yes
+  vars:
+    services:
+      - prometheus
+      - grafana-server
+      - nginx
+      - apache2
+  tasks:
+    - name: Check service status
+      command: systemctl is-active {{ item }}
+      register: service_status
+      loop: "{{ services }}"
+      changed_when: false
+      failed_when: false
+
+    - name: Display service status
+      debug:
+        msg: "{{ item.item }} : {{ item.stdout }}"
+      loop: "{{ service_status.results }}"
